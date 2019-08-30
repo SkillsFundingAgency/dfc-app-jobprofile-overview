@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Repository.CosmosDb
 {
-
     public class CosmosRepository<T> : ICosmosRepository<T>
         where T : IDataModel
     {
