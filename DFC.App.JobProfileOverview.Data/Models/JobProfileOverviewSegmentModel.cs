@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DFC.App.JobProfileOverview.Data.Models
 {
-    public class JobProfileOverviewSegmentModel:IDataModel
+    public class JobProfileOverviewSegmentModel : IDataModel
     {
         [JsonProperty(PropertyName = "id")]
         public Guid DocumentId { get; set; }
