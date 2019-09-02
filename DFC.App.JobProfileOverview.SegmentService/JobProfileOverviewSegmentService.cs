@@ -35,7 +35,6 @@ namespace DFC.App.JobProfileOverview.SegmentService
             }
 
             return await repository.GetAsync(d => d.CanonicalName == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
-
         }
     }
 }
