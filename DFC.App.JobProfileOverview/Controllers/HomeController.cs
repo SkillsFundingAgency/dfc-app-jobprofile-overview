@@ -1,4 +1,4 @@
-﻿using DFC.App.JobProfileOverview.Models;
+﻿using DFC.App.JobProfileOverview.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
