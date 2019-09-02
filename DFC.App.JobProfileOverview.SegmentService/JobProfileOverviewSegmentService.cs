@@ -11,7 +11,9 @@ namespace DFC.App.JobProfileOverview.SegmentService
         private readonly ICosmosRepository<JobProfileOverviewSegmentModel> repository;
         private readonly IDraftJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
 
-        public JobProfileOverviewSegmentService(ICosmosRepository<JobProfileOverviewSegmentModel> repository, IDraftJobProfileOverviewSegmentService jobProfileOverviewSegmentService)
+        public JobProfileOverviewSegmentService(
+            ICosmosRepository<JobProfileOverviewSegmentModel> repository, 
+            IDraftJobProfileOverviewSegmentService jobProfileOverviewSegmentService)
         {
             this.repository = repository;
             this.jobProfileOverviewSegmentService = jobProfileOverviewSegmentService;
