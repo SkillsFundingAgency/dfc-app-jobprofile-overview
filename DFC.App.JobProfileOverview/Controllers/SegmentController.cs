@@ -22,7 +22,8 @@ namespace DFC.App.JobProfileOverview.Controllers
         }
 
         [HttpGet]
-        [Route("segment")]
+        [Route("/")]
+        [Route("{controller}")]
         public async Task<IActionResult> Index()
         {
             logger.LogInformation($"{nameof(Index)} has been called");
@@ -48,7 +49,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         }
 
         [HttpGet]
-        [Route("segment/{article}")]
+        [Route("{controller}/{article}")]
         public async Task<IActionResult> Document(string article)
         {
             logger.LogInformation($"{nameof(Document)} has been called with: {article}");
