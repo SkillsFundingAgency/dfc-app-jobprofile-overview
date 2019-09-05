@@ -54,18 +54,40 @@ namespace DFC.App.JobProfileOverview.Controllers
         {
             logger.LogInformation($"{nameof(Document)} has been called with: {article}");
 
-            var careerPathSegmentModel = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
 
-            if (careerPathSegmentModel != null)
+            if (model != null)
             {
-                var viewModel = mapper.Map<DocumentViewModel>(careerPathSegmentModel);
+                var viewModel = mapper.Map<DocumentViewModel>(model);
 
                 logger.LogInformation($"{nameof(Document)} has succeeded for: {article}");
+
+                return View(viewModel);
+            }
+
+            logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
+
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("{controller}/{article}/contents")]
+        public async Task<IActionResult> Body(string article)
+        {
+            logger.LogInformation($"{nameof(Body)} has been called with: {article}");
+
+            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+
+            if (model != null)
+            {
+                var viewModel = mapper.Map<BodyViewModel>(model);
+
+                logger.LogInformation($"{nameof(Body)} has succeeded for: {article}");
 
                 return this.NegotiateContentResult(viewModel);
             }
 
-            logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
+            logger.LogWarning($"{nameof(Body)} has returned no content for: {article}");
 
             return NoContent();
         }
