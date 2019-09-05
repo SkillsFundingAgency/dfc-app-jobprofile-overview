@@ -25,30 +25,30 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         {
             new object[] { $"/{Segment}" },
             new object[] { $"/{Segment}/{DefaultArticleName}" },
+            new object[] { $"/{Segment}/{DefaultArticleName}/contents" },
         };
 
         public static IEnumerable<object[]> MissingSegmentContentRouteData => new List<object[]>
         {
-            new object[] { $"/Segment/invalid-segment-name" },
+            new object[] { $"/{Segment}/invalid-segment-name" },
         };
 
         [Theory]
-        [InlineData("/" + Segment + "/" + DefaultArticleName, MediaTypeNames.Text.Html)]
-        [InlineData("/" + Segment + "/" + DefaultArticleName, MediaTypeNames.Application.Json)]
-        public async Task GetSegmentContentEndpointsReturnSuccessAndCorrectContentType(string url, string acceptHeaderValue)
+        [MemberData(nameof(SegmentContentRouteData))]
+        public async Task GetSegmentHtmlContentEndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
             var uri = new Uri(url, UriKind.Relative);
             var client = factory.CreateClient();
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Add(HeaderNames.Accept, acceptHeaderValue);
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue(MediaTypeNames.Text.Html));
 
             // Act
             var response = await client.GetAsync(uri).ConfigureAwait(false);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            AssertContentType(acceptHeaderValue, response.Content.Headers.ContentType.ToString());
+            AssertContentType(MediaTypeNames.Text.Html, response.Content.Headers.ContentType.ToString());
         }
 
         [Theory]
