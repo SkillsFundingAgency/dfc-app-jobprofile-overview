@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Net.Http.Headers;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mime;
@@ -10,6 +11,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 {
     public class SegmentControllerRouteTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
+        private const string Segment = "segment";
         private const string DefaultArticleName = "segment-article";
 
         private readonly CustomWebApplicationFactory<Startup> factory;
@@ -21,8 +23,8 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 
         public static IEnumerable<object[]> SegmentContentRouteData => new List<object[]>
         {
-            new object[] { "/Segment" },
-            new object[] { $"/Segment/{DefaultArticleName}" },
+            new object[] { $"/{Segment}" },
+            new object[] { $"/{Segment}/{DefaultArticleName}" },
         };
 
         public static IEnumerable<object[]> MissingSegmentContentRouteData => new List<object[]>
@@ -31,20 +33,22 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         };
 
         [Theory]
-        [MemberData(nameof(SegmentContentRouteData))]
-        public async Task GetSegmentHtmlContentEndpointsReturnSuccessAndCorrectContentType(string url)
+        [InlineData("/" + Segment + "/" + DefaultArticleName, MediaTypeNames.Text.Html)]
+        [InlineData("/" + Segment + "/" + DefaultArticleName, MediaTypeNames.Application.Json)]
+        public async Task GetSegmentContentEndpointsReturnSuccessAndCorrectContentType(string url, string acceptHeaderValue)
         {
             // Arrange
             var uri = new Uri(url, UriKind.Relative);
             var client = factory.CreateClient();
             client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Add(HeaderNames.Accept, acceptHeaderValue);
 
             // Act
             var response = await client.GetAsync(uri).ConfigureAwait(false);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Equal($"{MediaTypeNames.Text.Html}; charset={Encoding.UTF8.WebName}", response.Content.Headers.ContentType.ToString());
+            AssertContentType(acceptHeaderValue, response.Content.Headers.ContentType.ToString());
         }
 
         [Theory]
@@ -61,6 +65,11 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 
             // Assert
             Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+        }
+
+        private void AssertContentType(string expectedContentType, string actualContentType)
+        {
+            Assert.Equal($"{expectedContentType}; charset={Encoding.UTF8.WebName}", actualContentType);
         }
     }
 }

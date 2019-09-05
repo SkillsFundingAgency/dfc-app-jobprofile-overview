@@ -62,7 +62,7 @@ namespace DFC.App.JobProfileOverview.Controllers
 
                 logger.LogInformation($"{nameof(Document)} has succeeded for: {article}");
 
-                return View(viewModel);
+                return this.NegotiateContentResult(viewModel);
             }
 
             logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
