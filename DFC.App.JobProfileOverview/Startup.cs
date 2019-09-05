@@ -21,7 +21,7 @@ namespace DFC.App.JobProfileOverview
     {
         public const string CosmosDbConfigAppSettings = "Configuration:CosmosDbConnections:JobProfileSegment";
         public const string SitefinityApiAppSettings = "SitefinityApi";
-        private IConfiguration configuration;
+        private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
         {
