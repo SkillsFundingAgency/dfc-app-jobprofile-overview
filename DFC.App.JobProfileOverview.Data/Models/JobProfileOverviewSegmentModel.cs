@@ -7,6 +7,11 @@ namespace DFC.App.JobProfileOverview.Data.Models
 {
     public class JobProfileOverviewSegmentModel : IDataModel
     {
+        public JobProfileOverviewSegmentModel()
+        {
+            Data = new JobProfileOverviewSegmentDataModel();
+        }
+
         [JsonProperty(PropertyName = "id")]
         public Guid DocumentId { get; set; }
 
@@ -20,5 +25,8 @@ namespace DFC.App.JobProfileOverview.Data.Models
         [Display(Name = "Last Reviewed")]
         [JsonProperty(PropertyName = "lastReviewed")]
         public DateTime LastReviewed { get; set; }
+
+        [JsonProperty(PropertyName = "data")]
+        public JobProfileOverviewSegmentDataModel Data { get; set; }
     }
 }
