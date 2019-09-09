@@ -50,6 +50,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{252ECEC3-D9D0-422E-B572-594EE9400FF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileOverview.Views.UnitTests", "DFC.App.JobProfileOverview.Views.UnitTests\DFC.App.JobProfileOverview.Views.UnitTests.csproj", "{6F63CE88-EF73-4E92-A68B-6AE0834293A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +100,10 @@ Global
 		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F63CE88-EF73-4E92-A68B-6AE0834293A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F63CE88-EF73-4E92-A68B-6AE0834293A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F63CE88-EF73-4E92-A68B-6AE0834293A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F63CE88-EF73-4E92-A68B-6AE0834293A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +123,8 @@ Global
 		{4BBFB30C-5429-4B3E-9235-9070E2DA58B0} = {4B63F64D-1095-4326-A453-E42E67F5102E}
 		{942327E3-62FA-406A-A4C6-705B086CE0CF} = {4B63F64D-1095-4326-A453-E42E67F5102E}
 		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB} = {50817F18-5560-461D-AF60-D8349D998CF2}
+		{252ECEC3-D9D0-422E-B572-594EE9400FF9} = {055C7226-D38C-42B1-9E6E-199713CCB4DE}
+		{6F63CE88-EF73-4E92-A68B-6AE0834293A6} = {252ECEC3-D9D0-422E-B572-594EE9400FF9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E0FA185-1719-491B-808A-FDEFDC867005}
