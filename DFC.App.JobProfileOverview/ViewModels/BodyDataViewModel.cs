@@ -20,16 +20,18 @@ namespace DFC.App.JobProfileOverview.ViewModels
 
         public string Overview { get; set; }
 
-        public string SalaryExperienced { get; set; }
+        public int SalaryStarter { get; set; }
+
+        public int SalaryExperienced { get; set; }
 
         public decimal MinimumHours { get; set; }
 
         public decimal MaximumHours { get; set; }
 
-        public List<string> WorkingHoursDetails { get; set; }
+        public string WorkingHoursDetails { get; set; }
 
-        public List<string> WorkingPattern { get; set; }
+        public string WorkingPattern { get; set; }
 
-        public List<string> WorkingPatternDetails { get; set; }
+        public string WorkingPatternDetails { get; set; }
     }
 }

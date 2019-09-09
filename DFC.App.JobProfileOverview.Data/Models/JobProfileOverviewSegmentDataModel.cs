@@ -26,8 +26,11 @@ namespace DFC.App.JobProfileOverview.Data.Models
         [JsonProperty(PropertyName = "overview")]
         public string Overview { get; set; }
 
+        [JsonProperty(PropertyName = "salaryStarter")]
+        public int SalaryStarter { get; set; }
+
         [JsonProperty(PropertyName = "salaryExperienced")]
-        public string SalaryExperienced { get; set; }
+        public int SalaryExperienced { get; set; }
 
         [JsonProperty(PropertyName = "minimumHours")]
         public decimal MinimumHours { get; set; }
@@ -36,12 +39,12 @@ namespace DFC.App.JobProfileOverview.Data.Models
         public decimal MaximumHours { get; set; }
 
         [JsonProperty(PropertyName = "workingHoursDetails")]
-        public List<string> WorkingHoursDetails { get; set; }
+        public string WorkingHoursDetails { get; set; }
 
         [JsonProperty(PropertyName = "workingPattern")]
-        public List<string> WorkingPattern { get; set; }
+        public string WorkingPattern { get; set; }
 
         [JsonProperty(PropertyName = "workingPatternDetails")]
-        public List<string> WorkingPatternDetails { get; set; }
+        public string WorkingPatternDetails { get; set; }
     }
 }
