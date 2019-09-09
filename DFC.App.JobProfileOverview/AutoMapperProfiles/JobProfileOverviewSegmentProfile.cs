@@ -17,6 +17,8 @@ namespace DFC.App.JobProfileOverview.AutoMapperProfiles
 
             CreateMap<JobProfileOverviewSegmentModel, BodyViewModel>()
              .ForMember(d => d.Content, s => s.MapFrom(x => new HtmlString(x.Content)));
+
+            CreateMap<JobProfileOverviewSegmentDataModel, BodyDataViewModel>();
         }
     }
 }

@@ -16,5 +16,7 @@ namespace DFC.App.JobProfileOverview.ViewModels
 
         [Display(Name = "Last Reviewed")]
         public DateTime LastReviewed { get; set; }
+
+        public BodyDataViewModel Data { get; set; }
     }
 }

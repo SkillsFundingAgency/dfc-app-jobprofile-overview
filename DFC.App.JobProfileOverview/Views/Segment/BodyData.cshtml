@@ -1,0 +1,98 @@
+﻿@model BodyDataViewModel
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.SocCode)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SocCode)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.SocDescription)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SocDescription)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Title)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.Raw(Model.Title)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AlternativeTitle)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AlternativeTitle)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Overview)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Overview)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.SalaryExperienced)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SalaryExperienced)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.MinimumHours)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.MinimumHours)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.MaximumHours)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.MaximumHours)
+    </dd>
+
+    HiddenAlternativeTitle:
+    <ul>
+        @foreach (var item in Model.HiddenAlternativeTitle)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    JobProfileSpecialism:
+    <ul>
+        @foreach (var item in Model.JobProfileSpecialism)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    WorkingPattern:
+    <ul>
+        @foreach (var item in Model.WorkingPattern)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    WorkingHoursDetails:
+    <ul>
+        @foreach (var item in Model.WorkingHoursDetails)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    WorkingPatternDetails:
+    <ul>
+        @foreach (var item in Model.WorkingPatternDetails)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</dl>
