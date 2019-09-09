@@ -5,17 +5,19 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
 {
     public class TestBase
     {
-        private readonly IConfigurationRoot Configuration;
-        protected string ViewRootPath;
+        private readonly string viewRootPath;
+        private readonly IConfigurationRoot configuration;
 
         public TestBase()
         {
             var config = new ConfigurationBuilder();
             config.AddJsonFile("appsettings.json");
-            Configuration = config.Build();
+            configuration = config.Build();
 
-            ViewRootPath = Configuration["ViewRootPath"];
+            viewRootPath = configuration["ViewRootPath"];
         }
+
+        public string ViewRootPath => viewRootPath;
 
         protected string HtmlEncode(string value)
         {

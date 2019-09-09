@@ -1,5 +1,6 @@
 using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Views.UnitTests.Services;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -11,16 +12,18 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
         public void ViewContainsRenderedContent()
         {
             //Arrange
-            var model = new JobProfileOverviewSegmentDataModel();
-            model.Overview = "overview1";
-            model.MinimumHours = 20;
-            model.MaximumHours = 37.5M;
-            model.SalaryStarter = 40;
-            model.SalaryExperienced = 55;
-            model.Title = "title1";
-            model.WorkingHoursDetails = "WorkingHoursDetails1";
-            model.WorkingPattern = "WorkingPattern1";
-            model.WorkingPatternDetails = "WorkingPatternDetails1";
+            var model = new JobProfileOverviewSegmentDataModel()
+            {
+                Overview = "overview1",
+                MinimumHours = 20,
+                MaximumHours = 37.5M,
+                SalaryStarter = 40,
+                SalaryExperienced = 55,
+                Title = "title1",
+                WorkingHoursDetails = "WorkingHoursDetails1",
+                WorkingPattern = "WorkingPattern1",
+                WorkingPatternDetails = "WorkingPatternDetails1",
+            };
 
             var viewBag = new Dictionary<string, object>();
             var viewRenderer = new RazorEngineRenderer(ViewRootPath);
@@ -29,18 +32,20 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
 
             //Assert
-            Assert.Contains(model.Overview, viewRenderResponse);
-            Assert.Contains(model.MinimumHours.ToString(), viewRenderResponse);
-            Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse);
+            Assert.Contains(model.Overview, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(model.MinimumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
 
         [Fact]
         public void ViewContainsFormattedCurrency()
         {
             //Arrange
-            var model = new JobProfileOverviewSegmentDataModel();
-            model.SalaryStarter = 40;
-            model.SalaryExperienced = 55;
+            var model = new JobProfileOverviewSegmentDataModel()
+            {
+                SalaryStarter = 40,
+                SalaryExperienced = 55,
+            };
 
             var viewBag = new Dictionary<string, object>();
             var viewRenderer = new RazorEngineRenderer(ViewRootPath);
@@ -49,8 +54,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
 
             //Assert
-            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryStarter), viewRenderResponse);
-            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryExperienced), viewRenderResponse);
+            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
-  }
+    }
 }

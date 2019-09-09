@@ -10,10 +10,5 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Services
         }
 
         public RazorHtmlHelper Html { get; set; }
-
-        public void IgnoreSection(string sectionName)
-        {
-
-        }
     }
 }

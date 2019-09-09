@@ -9,14 +9,10 @@ namespace DFC.App.JobProfileOverview.SegmentService
     public class JobProfileOverviewSegmentService : IJobProfileOverviewSegmentService
     {
         private readonly ICosmosRepository<JobProfileOverviewSegmentModel> repository;
-        private readonly IDraftJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
 
-        public JobProfileOverviewSegmentService(
-            ICosmosRepository<JobProfileOverviewSegmentModel> repository, 
-            IDraftJobProfileOverviewSegmentService jobProfileOverviewSegmentService)
+        public JobProfileOverviewSegmentService(ICosmosRepository<JobProfileOverviewSegmentModel> repository)
         {
             this.repository = repository;
-            this.jobProfileOverviewSegmentService = jobProfileOverviewSegmentService;
         }
 
         public async Task<IEnumerable<JobProfileOverviewSegmentModel>> GetAllAsync()

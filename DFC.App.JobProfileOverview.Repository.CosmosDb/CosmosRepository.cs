@@ -53,7 +53,7 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
 
             if (query == null)
             {
-                return default(T);
+                return default;
             }
 
             var models = await query.ExecuteNextAsync<T>().ConfigureAwait(false);
@@ -63,7 +63,7 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
                 return models.FirstOrDefault();
             }
 
-            return default(T);
+            return default;
         }
 
         private async Task CreateDatabaseIfNotExistsAsync()
@@ -110,11 +110,6 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
                     throw;
                 }
             }
-        }
-
-        private Uri CreateDocumentUri(Guid documentId)
-        {
-            return UriFactory.CreateDocumentUri(cosmosDbConnection.DatabaseId, cosmosDbConnection.CollectionId, documentId.ToString());
         }
     }
 }

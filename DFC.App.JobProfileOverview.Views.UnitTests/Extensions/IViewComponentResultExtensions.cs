@@ -6,7 +6,7 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Extensions
     public static class IViewComponentResultExtensions
     {
         public static T ViewDataModelAs<T>(this IViewComponentResult viewComponentResult)
-        {        
+        {
             var componentResult = viewComponentResult as ViewViewComponentResult;
 
             var viewComponentModel = (T)componentResult.ViewData.Model;
