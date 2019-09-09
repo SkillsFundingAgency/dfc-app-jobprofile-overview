@@ -11,14 +11,12 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
     public class SegmentServiceGetByIdTests
     {
         private readonly ICosmosRepository<JobProfileOverviewSegmentModel> repository;
-        private readonly IDraftJobProfileOverviewSegmentService draftJobProfileOverviewSegmentService;
         private readonly IJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
 
         public SegmentServiceGetByIdTests()
         {
             repository = A.Fake<ICosmosRepository<JobProfileOverviewSegmentModel>>();
-            draftJobProfileOverviewSegmentService = A.Fake<IDraftJobProfileOverviewSegmentService>();
-            jobProfileOverviewSegmentService = new JobProfileOverviewSegmentService(repository, draftJobProfileOverviewSegmentService);
+            jobProfileOverviewSegmentService = new JobProfileOverviewSegmentService(repository);
         }
 
         [Fact]
