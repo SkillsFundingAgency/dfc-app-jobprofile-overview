@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <None Update="appsettings-template.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
