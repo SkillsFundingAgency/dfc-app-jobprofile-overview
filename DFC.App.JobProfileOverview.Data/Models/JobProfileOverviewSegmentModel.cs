@@ -18,10 +18,9 @@ namespace DFC.App.JobProfileOverview.Data.Models
         [Required]
         public string CanonicalName { get; set; }
 
-        public string Content { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
 
-        [Display(Name = "Last Reviewed")]
-        public DateTime LastReviewed { get; set; }
+        public int PartitionKey => Created.Second;
 
         public JobProfileOverviewSegmentDataModel Data { get; set; }
     }
