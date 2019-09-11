@@ -11,10 +11,7 @@ namespace DFC.App.JobProfileOverview.ViewModels
         [Display(Name = "Canonical Name")]
         public string CanonicalName { get; set; }
 
-        public string Content { get; set; }
-
-        [Display(Name = "Last Reviewed")]
-        public DateTime LastReviewed { get; set; }
+        public DateTime Created { get; set; }
 
         public BodyDataViewModel Data { get; set; }
     }
