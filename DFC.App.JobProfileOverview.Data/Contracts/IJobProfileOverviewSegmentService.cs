@@ -12,5 +12,11 @@ namespace DFC.App.JobProfileOverview.Data.Contracts
         Task<JobProfileOverviewSegmentModel> GetByIdAsync(Guid documentId);
 
         Task<JobProfileOverviewSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
+
+        Task<JobProfileOverviewSegmentModel> CreateAsync(JobProfileOverviewSegmentModel careerPathSegmentModel);
+
+        Task<JobProfileOverviewSegmentModel> ReplaceAsync(JobProfileOverviewSegmentModel careerPathSegmentModel);
+
+        Task<bool> DeleteAsync(Guid documentId);
     }
 }

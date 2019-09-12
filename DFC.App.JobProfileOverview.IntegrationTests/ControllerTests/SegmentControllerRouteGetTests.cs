@@ -1,7 +1,7 @@
-﻿using Microsoft.Net.Http.Headers;
+﻿using DFC.App.JobProfileOverview.IntegrationTests.Data;
 using System;
-using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,39 +9,32 @@ using Xunit;
 
 namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 {
-    public class SegmentControllerRouteTests : IClassFixture<CustomWebApplicationFactory<Startup>>
+    public class SegmentControllerRouteGetTests :
+        IClassFixture<CustomWebApplicationFactory<Startup>>,
+        IClassFixture<DataSeeding>,
+        IDisposable
     {
-        private const string Segment = "segment";
-        private const string DefaultArticleName = "segment-article";
-
         private readonly CustomWebApplicationFactory<Startup> factory;
+        private readonly DataSeeding dataSeeding;
 
-        public SegmentControllerRouteTests(CustomWebApplicationFactory<Startup> factory)
+        public SegmentControllerRouteGetTests(CustomWebApplicationFactory<Startup> factory, DataSeeding dataSeeding)
         {
             this.factory = factory;
+            this.dataSeeding = dataSeeding;
+            dataSeeding.AddData(factory).Wait();
         }
 
-        public static IEnumerable<object[]> SegmentContentRouteData => new List<object[]>
-        {
-            new object[] { $"/{Segment}" },
-            new object[] { $"/{Segment}/{DefaultArticleName}" },
-            new object[] { $"/{Segment}/{DefaultArticleName}/contents" },
-        };
-
-        public static IEnumerable<object[]> MissingSegmentContentRouteData => new List<object[]>
-        {
-            new object[] { $"/{Segment}/invalid-segment-name" },
-        };
-
         [Theory]
-        [MemberData(nameof(SegmentContentRouteData))]
+        [InlineData("segment")]
+        [InlineData("segment/article1")]
+        [InlineData("segment/article1/contents")]
         public async Task GetSegmentHtmlContentEndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
             var uri = new Uri(url, UriKind.Relative);
             var client = factory.CreateClient();
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue(MediaTypeNames.Text.Html));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Text.Html));
 
             // Act
             var response = await client.GetAsync(uri).ConfigureAwait(false);
@@ -52,7 +45,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         }
 
         [Theory]
-        [MemberData(nameof(MissingSegmentContentRouteData))]
+        [InlineData("segment/abc")]
         public async Task GetSegmentHtmlContentEndpointsReturnNoContent(string url)
         {
             // Arrange
@@ -70,6 +63,11 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         private void AssertContentType(string expectedContentType, string actualContentType)
         {
             Assert.Equal($"{expectedContentType}; charset={Encoding.UTF8.WebName}", actualContentType);
+        }
+
+        public void Dispose()
+        {
+            dataSeeding.RemoveData(factory).Wait();
         }
     }
 }
