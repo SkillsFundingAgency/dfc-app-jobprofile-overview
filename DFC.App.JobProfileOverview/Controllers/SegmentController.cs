@@ -123,6 +123,7 @@ namespace DFC.App.JobProfileOverview.Controllers
             }
             else
             {
+                createOrUpdateJobProfileOverviewModel.Created = existingCareerPathSegmentModel.Created;
                 var updatedResponse = await jobProfileOverviewSegmentService.ReplaceAsync(createOrUpdateJobProfileOverviewModel).ConfigureAwait(false);
 
                 logger.LogInformation($"{nameof(CreateOrUpdate)} has updated content for: {createOrUpdateJobProfileOverviewModel.CanonicalName}");

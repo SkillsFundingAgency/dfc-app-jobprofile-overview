@@ -54,7 +54,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             await client.DeleteAsync(string.Concat(url, "/", documentId)).ConfigureAwait(false);
         }
 
-        [Fact(Skip ="Updating the partition key seems to be a no go.")]
+        [Fact]
         public async Task WhenUpdateExistingArticleReturnsOK()
         {
             // Arrange
