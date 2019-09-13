@@ -14,12 +14,16 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         IClassFixture<DataSeeding>
     {
         private readonly CustomWebApplicationFactory<Startup> factory;
-        private readonly DataSeeding dataSeeding;
 
         public SegmentControllerRouteGetTests(CustomWebApplicationFactory<Startup> factory, DataSeeding dataSeeding)
         {
             this.factory = factory;
-            this.dataSeeding = dataSeeding;
+
+            if (dataSeeding == null)
+            {
+                throw new ArgumentNullException(nameof(dataSeeding));
+            }
+
             dataSeeding.AddData(factory).Wait();
         }
 

@@ -152,6 +152,5 @@ namespace DFC.App.JobProfileOverview.Controllers
 
             return Ok();
         }
-
     }
 }

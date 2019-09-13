@@ -7,9 +7,7 @@ using Xunit;
 
 namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 {
-    public class SegmentControllerRouteDeleteTests : 
-        IClassFixture<CustomWebApplicationFactory<Startup>>,
-        IClassFixture<DataSeeding>
+    public class SegmentControllerRouteDeleteTests : IClassFixture<CustomWebApplicationFactory<Startup>>, IClassFixture<DataSeeding>
     {
         private readonly CustomWebApplicationFactory<Startup> factory;
         private readonly DataSeeding dataSeeding;
@@ -18,6 +16,12 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         {
             this.factory = factory;
             this.dataSeeding = dataSeeding;
+
+            if (dataSeeding == null)
+            {
+                throw new ArgumentNullException(nameof(dataSeeding));
+            }
+
             dataSeeding.AddData(factory).Wait();
         }
 

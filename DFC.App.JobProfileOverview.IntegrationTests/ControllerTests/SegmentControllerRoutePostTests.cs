@@ -23,6 +23,12 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         {
             this.factory = factory;
             this.dataSeeding = dataSeeding;
+
+            if (dataSeeding == null)
+            {
+                throw new ArgumentNullException(nameof(dataSeeding));
+            }
+
             dataSeeding.AddData(factory).Wait();
         }
 

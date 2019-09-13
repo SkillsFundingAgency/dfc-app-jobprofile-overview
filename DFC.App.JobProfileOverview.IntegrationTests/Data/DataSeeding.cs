@@ -74,7 +74,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
             {
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=Created,
+                    Created = Created,
                     DocumentId = Article1Id,
                     CanonicalName = Article1Name,
                     Data = new JobProfileOverviewSegmentDataModel
@@ -83,7 +83,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                 },
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=Created,
+                    Created = Created,
                     DocumentId = Article2Id,
                     CanonicalName = Article2Name,
                     Data = new JobProfileOverviewSegmentDataModel
@@ -92,9 +92,9 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                 },
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=Created,
+                    Created = Created,
                     DocumentId = Article3Id,
-                    CanonicalName =Article3Name,
+                    CanonicalName = Article3Name,
                     Data = new JobProfileOverviewSegmentDataModel
                     {
                     },

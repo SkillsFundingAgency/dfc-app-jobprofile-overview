@@ -19,13 +19,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             expectedResult.DocumentId = documentId;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
 
             // Act
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustHaveHappenedOnceExactly();
 
             var okResult = Assert.IsType<OkResult>(result);
 
@@ -43,14 +43,14 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             JobProfileOverviewSegmentModel expectedResult = null;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
 
             // Act
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.GetByIdAsync(documentId)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeJobProfileSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustNotHaveHappened();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustNotHaveHappened();
 
             var statusResult = Assert.IsType<NotFoundResult>(result);
 
