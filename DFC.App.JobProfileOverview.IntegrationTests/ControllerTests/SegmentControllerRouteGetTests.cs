@@ -11,8 +11,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 {
     public class SegmentControllerRouteGetTests :
         IClassFixture<CustomWebApplicationFactory<Startup>>,
-        IClassFixture<DataSeeding>,
-        IDisposable
+        IClassFixture<DataSeeding>
     {
         private readonly CustomWebApplicationFactory<Startup> factory;
         private readonly DataSeeding dataSeeding;
@@ -63,11 +62,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         private void AssertContentType(string expectedContentType, string actualContentType)
         {
             Assert.Equal($"{expectedContentType}; charset={Encoding.UTF8.WebName}", actualContentType);
-        }
-
-        public void Dispose()
-        {
-            dataSeeding.RemoveData(factory).Wait();
         }
     }
 }

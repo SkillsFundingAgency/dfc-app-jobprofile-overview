@@ -9,8 +9,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 {
     public class SegmentControllerRouteDeleteTests : 
         IClassFixture<CustomWebApplicationFactory<Startup>>,
-        IClassFixture<DataSeeding>,
-        IDisposable
+        IClassFixture<DataSeeding>
     {
         private readonly CustomWebApplicationFactory<Startup> factory;
         private readonly DataSeeding dataSeeding;
@@ -52,11 +51,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        public void Dispose()
-        {
-            dataSeeding.RemoveData(factory).Wait();
         }
     }
 }

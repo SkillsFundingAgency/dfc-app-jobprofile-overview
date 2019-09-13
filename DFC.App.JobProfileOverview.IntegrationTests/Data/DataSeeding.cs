@@ -13,9 +13,9 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
 
         public DataSeeding()
         {
-            Article1Id = Guid.Parse("63DEA97E-B61C-4C14-15DC-1BD08EA20DC8");
-            Article2Id = Guid.Parse("C16B389D-91AD-4F3D-2485-9F7EE953AFE4");
-            Article3Id = Guid.Parse("C0103C26-E7C9-4008-3F66-1B2DB192177E");
+            Article1Id = Guid.NewGuid();
+            Article2Id = Guid.NewGuid();
+            Article3Id = Guid.NewGuid();
 
             Article1Name = "article1";
             Article2Name = "article2";
