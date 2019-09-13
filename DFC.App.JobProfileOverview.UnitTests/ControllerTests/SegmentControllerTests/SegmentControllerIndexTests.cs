@@ -12,21 +12,21 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerIndexHtmlReturnsSuccess(string mediaTypeName)
+        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
             const int resultsCount = 2;
             var expectedResults = A.CollectionOfFake<JobProfileOverviewSegmentModel>(resultsCount);
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetAllAsync()).Returns(expectedResults);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetAllAsync()).Returns(expectedResults);
             A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappened(resultsCount, Times.Exactly);
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -39,22 +39,21 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void PagesControllerIndexHtmlReturnsSuccessWhenNoData(string mediaTypeName)
+        public async void ReturnsSuccessWhenNoData(string mediaTypeName)
         {
             // Arrange
-            const int resultsCount = 0;
             IEnumerable<JobProfileOverviewSegmentModel> expectedResults = null;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetAllAsync()).Returns(expectedResults);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetAllAsync()).Returns(expectedResults);
             A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappened(resultsCount, Times.Exactly);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustNotHaveHappened();
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IndexViewModel>(viewResult.ViewData.Model);

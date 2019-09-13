@@ -1,6 +1,5 @@
 ﻿using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net;
 using System.Net.Mime;
 using Xunit;

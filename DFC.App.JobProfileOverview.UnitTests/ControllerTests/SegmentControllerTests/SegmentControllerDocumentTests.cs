@@ -11,21 +11,21 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerDocumentHtmlReturnsSuccess(string mediaTypeName)
+        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
             const string article = "an-article-name";
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<DocumentViewModel>());
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -36,20 +36,20 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerDocumentHtmlReturnsNoContentWhenNoData(string mediaTypeName)
+        public async void ReturnsNoContentWhenNoData(string mediaTypeName)
         {
             // Arrange
             const string article = "an-article-name";
             JobProfileOverviewSegmentModel expectedResult = null;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
 
             var statusResult = Assert.IsType<NoContentResult>(result);
 

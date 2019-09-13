@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Repository.CosmosDb
@@ -17,12 +18,12 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
     {
         private readonly CosmosDbConnection cosmosDbConnection;
         private readonly IDocumentClient documentClient;
-        
+
         public CosmosRepository(CosmosDbConnection cosmosDbConnection, IDocumentClient documentClient, IHostingEnvironment hostingEnvironment)
         {
             this.cosmosDbConnection = cosmosDbConnection;
             this.documentClient = documentClient;
-        
+
             if (hostingEnvironment.IsDevelopment())
             {
                 CreateDatabaseIfNotExistsAsync().Wait();
@@ -70,6 +71,29 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
             return default;
         }
 
+        public async Task<HttpStatusCode> CreateAsync(T model)
+        {
+            var result = await documentClient.CreateDocumentAsync(DocumentCollectionUri, model).ConfigureAwait(false);
+
+            return result.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> UpdateAsync(Guid documentId, T model)
+        {
+            var documentUri = CreateDocumentUri(documentId);
+
+            var result = await documentClient.ReplaceDocumentAsync(documentUri, model).ConfigureAwait(false);
+
+            return result.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> DeleteAsync(Guid documentId, int partitionKeyValue)
+        {
+            var documentUri = CreateDocumentUri(documentId);
+            var result = await documentClient.DeleteDocumentAsync(documentUri, new RequestOptions() { PartitionKey = new PartitionKey(partitionKeyValue) }).ConfigureAwait(false);
+            return result.StatusCode;
+        }
+
         private async Task CreateDatabaseIfNotExistsAsync()
         {
             try
@@ -114,6 +138,11 @@ namespace DFC.App.JobProfileOverview.Repository.CosmosDb
                     throw;
                 }
             }
+        }
+
+        private Uri CreateDocumentUri(Guid documentId)
+        {
+            return UriFactory.CreateDocumentUri(cosmosDbConnection.DatabaseId, cosmosDbConnection.CollectionId, documentId.ToString());
         }
     }
 }
