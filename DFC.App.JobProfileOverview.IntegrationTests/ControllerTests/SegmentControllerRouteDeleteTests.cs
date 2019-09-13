@@ -39,7 +39,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         }
 
         [Fact]
-        public async Task CanDeleteSegment()
+        public async Task ExistingSegmentReturnsOk()
         {
             // Arrange
             var uri = new Uri($"/segment/{dataSeeding.Article1Id}", UriKind.Relative);

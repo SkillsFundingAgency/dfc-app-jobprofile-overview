@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void SegmentControllerIndexHtmlReturnsSuccess(string mediaTypeName)
+        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
             const int resultsCount = 2;
@@ -39,7 +39,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void PagesControllerIndexHtmlReturnsSuccessWhenNoData(string mediaTypeName)
+        public async void ReturnsSuccessWhenNoData(string mediaTypeName)
         {
             // Arrange
             const int resultsCount = 0;
@@ -54,7 +54,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             // Assert
             A.CallTo(() => FakeJobProfileSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappened(resultsCount, Times.Exactly);
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustNotHaveHappened();
 
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IndexViewModel>(viewResult.ViewData.Model);
