@@ -21,7 +21,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
             Article2Name = "article2";
             Article3Name = "article3";
 
-            Created = new DateTime(2019, 9, 13, 4, 5, 6);
+            Created = DateTime.UtcNow;
         }
 
         public Guid Article1Id { get; private set; }
