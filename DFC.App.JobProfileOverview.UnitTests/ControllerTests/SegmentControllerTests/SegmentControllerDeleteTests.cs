@@ -25,7 +25,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<int>.Ignored)).MustHaveHappenedOnceExactly();
 
             var okResult = Assert.IsType<OkResult>(result);
 
@@ -50,7 +50,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<object>.Ignored)).MustNotHaveHappened();
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<int>.Ignored)).MustNotHaveHappened();
 
             var statusResult = Assert.IsType<NotFoundResult>(result);
 

@@ -17,9 +17,9 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
             Article2Id = Guid.NewGuid();
             Article3Id = Guid.NewGuid();
 
-            Article1Name = "article1";
-            Article2Name = "article2";
-            Article3Name = "article3";
+            Article1Name = Article1Id.ToString();
+            Article2Name = Article2Id.ToString();
+            Article3Name = Article3Id.ToString();
 
             Created = DateTime.UtcNow;
         }

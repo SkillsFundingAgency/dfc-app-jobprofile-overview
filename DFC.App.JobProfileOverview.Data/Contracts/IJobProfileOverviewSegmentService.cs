@@ -17,6 +17,6 @@ namespace DFC.App.JobProfileOverview.Data.Contracts
 
         Task<JobProfileOverviewSegmentModel> ReplaceAsync(JobProfileOverviewSegmentModel careerPathSegmentModel);
 
-        Task<bool> DeleteAsync(Guid documentId, object partitionKeyValue);
+        Task<bool> DeleteAsync(Guid documentId, int partitionKeyValue);
     }
 }
