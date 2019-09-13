@@ -123,7 +123,6 @@ namespace DFC.App.JobProfileOverview.Controllers
             }
             else
             {
-                createOrUpdateJobProfileOverviewModel.Created = existingCareerPathSegmentModel.Created;
                 var updatedResponse = await jobProfileOverviewSegmentService.ReplaceAsync(createOrUpdateJobProfileOverviewModel).ConfigureAwait(false);
 
                 logger.LogInformation($"{nameof(CreateOrUpdate)} has updated content for: {createOrUpdateJobProfileOverviewModel.CanonicalName}");
@@ -147,7 +146,7 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return NotFound();
             }
 
-            await jobProfileOverviewSegmentService.DeleteAsync(documentId).ConfigureAwait(false);
+            await jobProfileOverviewSegmentService.DeleteAsync(documentId, jobProfileOverviewSegmentModel.PartitionKey).ConfigureAwait(false);
 
             logger.LogInformation($"{nameof(Delete)} has deleted content for: {jobProfileOverviewSegmentModel.CanonicalName}");
 

@@ -20,6 +20,8 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
             Article1Name = "article1";
             Article2Name = "article2";
             Article3Name = "article3";
+
+            Created = new DateTime(2019, 9, 13, 4, 5, 6);
         }
 
         public Guid Article1Id { get; private set; }
@@ -33,6 +35,8 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
         public string Article2Name { get; private set; }
 
         public string Article3Name { get; private set; }
+
+        public DateTime Created { get; private set; }
 
         public async Task AddData(CustomWebApplicationFactory<Startup> factory)
         {
@@ -66,13 +70,11 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
 
         private List<JobProfileOverviewSegmentModel> CreateModels()
         {
-            var article = "article";
-            var created = DateTime.Now;
             var models = new List<JobProfileOverviewSegmentModel>()
             {
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=created,
+                    Created=Created,
                     DocumentId = Article1Id,
                     CanonicalName = Article1Name,
                     Data = new JobProfileOverviewSegmentDataModel
@@ -81,7 +83,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                 },
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=created,
+                    Created=Created,
                     DocumentId = Article2Id,
                     CanonicalName = Article2Name,
                     Data = new JobProfileOverviewSegmentDataModel
@@ -90,7 +92,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                 },
                 new JobProfileOverviewSegmentModel()
                 {
-                    Created=created,
+                    Created=Created,
                     DocumentId = Article3Id,
                     CanonicalName =Article3Name,
                     Data = new JobProfileOverviewSegmentDataModel

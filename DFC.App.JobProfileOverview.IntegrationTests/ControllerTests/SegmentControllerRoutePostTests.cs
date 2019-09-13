@@ -62,6 +62,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             var careerPathSegmentModel = new JobProfileOverviewSegmentModel()
             {
                 DocumentId = dataSeeding.Article2Id,
+                Created = dataSeeding.Created,
                 CanonicalName = "article2_modified",
                 Data = new JobProfileOverviewSegmentDataModel(),
             };

@@ -74,15 +74,9 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 : null;
         }
 
-        public async Task<bool> DeleteAsync(Guid documentId)
+        public async Task<bool> DeleteAsync(Guid documentId, object partitionKeyValue)
         {
-            var result = HttpStatusCode.NoContent;
-            var document = await GetByIdAsync(documentId).ConfigureAwait(false);
-            if (document != null)
-            {
-                result = await repository.DeleteAsync(documentId, document.PartitionKey).ConfigureAwait(false);
-            }
-
+            var result = await repository.DeleteAsync(documentId, partitionKeyValue).ConfigureAwait(false);
             return result == HttpStatusCode.NoContent;
         }
     }
