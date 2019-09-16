@@ -61,22 +61,4 @@ jobs:
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
       DotNetCoreVersion: 2.2
-      TestSuffix: UnitTests      
-  # Test DFC.App.JobProfile.Data (an artifact will be built but isn't consumed in the release) 
-  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
-    parameters:
-      SolutionBaseName: $(SolutionBaseName).Data
-      BuildPlatform: $(BuildPlatform)
-      BuildConfiguration: $(BuildConfiguration)   
-  # Test DFC.App.JobProfile.Repository.CosmosDb (an artifact will be built but isn't consumed in the release) 
-  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
-    parameters:
-      SolutionBaseName: $(SolutionBaseName).Repository.CosmosDb
-      BuildPlatform: $(BuildPlatform)
-      BuildConfiguration: $(BuildConfiguration) 
-  # Test DFC.App.JobProfile.Repository.SitefinityApi (an artifact will be built but isn't consumed in the release) 
-  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
-    parameters:
-      SolutionBaseName: $(SolutionBaseName).Repository.SitefinityApi
-      BuildPlatform: $(BuildPlatform)
-      BuildConfiguration: $(BuildConfiguration)       
+      TestSuffix: UnitTests            
