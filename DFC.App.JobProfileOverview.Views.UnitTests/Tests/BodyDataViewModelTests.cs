@@ -54,8 +54,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
 
             //Assert
-            Assert.Contains(string.Concat(HtmlEncode("Â£"), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains(string.Concat(HtmlEncode("Â£"), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
