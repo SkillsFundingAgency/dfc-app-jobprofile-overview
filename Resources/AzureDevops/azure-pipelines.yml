@@ -43,7 +43,7 @@ jobs:
     displayName: 'Test - dotnet test application'
     inputs:
       command: test
-      projects: '${{ parameters.SolutionBaseName }}.${{ parameters.TestSuffix }}\${{ parameters.SolutionBaseName }}.Views.UnitTests.csproj'
+      projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
       arguments: '--configuration ${{ parameters.BuildConfiguration }} --collect "Code coverage"'    
   # Test DFC.App.JobProfile.DraftSegmentService (an artifact will be built but isn't consumed in the release) 
   - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build.yml@dfc-devops
