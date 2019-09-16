@@ -41,7 +41,13 @@ jobs:
       TestSuffix: Views.UnitTests
   # Test DFC.App.JobProfile Views
   - task: DotNetCoreCLI@2
-    displayName: 'Test - dotnet test application'
+    displayName: 'Build - dotnet build $(SolutionBaseName).Views.UnitTests.csproj'
+    inputs:
+      command: 'build'
+      projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
+      arguments: '-o "$(build.artifactstagingdirectory)\Build\"' 
+  - task: DotNetCoreCLI@2
+    displayName: 'Test - dotnet test $(SolutionBaseName).Views.UnitTests.csproj'
     inputs:
       command: test
       projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
