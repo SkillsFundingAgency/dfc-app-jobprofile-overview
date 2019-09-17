@@ -37,8 +37,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
 
-        [Fact(Skip ="Not working in the pipeline. Needs further investigation.")]
-        public void ViewContainsFormattedCurrency()
+        [Fact]
+        public void ViewContainsCurrencySymbol()
         {
             //Arrange
             var model = new JobProfileOverviewSegmentDataModel()
@@ -54,8 +54,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
 
             //Assert
-            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains(string.Concat(HtmlEncode("£"), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
