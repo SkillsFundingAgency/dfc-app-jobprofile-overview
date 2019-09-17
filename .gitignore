@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /DFC.App.JobProfileOverview.IntegrationTests/appsettings.json
 /DFC.App.JobProfileOverview/appsettings.json
+
+/DFC.App.JobProfileOverview.Views.UnitTests/appsettings.json

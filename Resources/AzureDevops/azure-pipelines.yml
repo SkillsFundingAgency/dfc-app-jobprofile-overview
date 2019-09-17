@@ -16,9 +16,9 @@ resources:
 jobs:
 
 #Build and test resources
-#- template: AzureDevOpsTemplates/Build/dfc-arm-build.yml@dfc-devops
-#  parameters:
-#    ArmTemplateRoot: $(ArmTemplateRoot)
+- template: AzureDevOpsTemplates/Build/dfc-arm-build.yml@dfc-devops
+  parameters:
+    ArmTemplateRoot: $(ArmTemplateRoot)
 
 #Build and test application
 - job: BuildDotNetCore
@@ -46,6 +46,8 @@ jobs:
       command: 'build'
       projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
       arguments: '-o "$(build.artifactstagingdirectory)\Build\"' 
+  - powershell: Copy-Item -Path '$(SolutionBaseName).Views.UnitTests\appsettings-template.json' -Destination '$(SolutionBaseName).Views.UnitTests\appsettings.json'
+    displayName: Copy and renamed appsettings-template.json
   - task: DotNetCoreCLI@2
     displayName: 'Test - dotnet test $(SolutionBaseName).Views.UnitTests.csproj'
     inputs:
