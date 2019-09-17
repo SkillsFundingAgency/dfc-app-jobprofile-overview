@@ -40,14 +40,13 @@ jobs:
       PublishWebApp: true
       TestSuffix: UnitTests
   # Test DFC.App.JobProfile Views
+  - powershell: Copy-Item -Path '$(SolutionBaseName).Views.UnitTests\appsettings-template.json' -Destination '$(SolutionBaseName).Views.UnitTests\appsettings.json'
+    displayName: Copy and rename appsettings-template.json
   - task: DotNetCoreCLI@2
     displayName: 'Build - dotnet build $(SolutionBaseName).Views.UnitTests.csproj'
     inputs:
       command: 'build'
       projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
-      arguments: '-o "$(build.artifactstagingdirectory)\Build\"' 
-  - powershell: Copy-Item -Path '$(SolutionBaseName).Views.UnitTests\appsettings-template.json' -Destination '$(SolutionBaseName).Views.UnitTests\appsettings.json'
-    displayName: Copy and renamed appsettings-template.json
   - task: DotNetCoreCLI@2
     displayName: 'Test - dotnet test $(SolutionBaseName).Views.UnitTests.csproj'
     inputs:
