@@ -14,7 +14,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         public async void CreateOrUpdateReturnsSuccessForCreate(string mediaTypeName)
         {
             // Arrange
-            var careerPathSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
+            var overviewSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
             JobProfileOverviewSegmentModel existingJobProfileOverviewSegmentModel = null;
             var createdJobProfileOverviewSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
@@ -23,7 +23,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeJobProfileOverviewSegmentService.CreateAsync(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(createdJobProfileOverviewSegmentModel);
 
             // Act
-            var result = await controller.CreateOrUpdate(careerPathSegmentModel).ConfigureAwait(false);
+            var result = await controller.CreateOrUpdate(overviewSegmentModel).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
@@ -43,11 +43,11 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Arrange
             var jobProfileOverviewSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
             var existingJobProfileOverviewSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
-            JobProfileOverviewSegmentModel updatedCareerPathSegmentModel = null;
+            JobProfileOverviewSegmentModel updatedOverviewSegmentModel = null;
             var controller = BuildSegmentController(mediaTypeName);
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(existingJobProfileOverviewSegmentModel);
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.ReplaceAsync(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(updatedCareerPathSegmentModel);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.ReplaceAsync(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(updatedOverviewSegmentModel);
 
             // Act
             var result = await controller.CreateOrUpdate(jobProfileOverviewSegmentModel).ConfigureAwait(false);

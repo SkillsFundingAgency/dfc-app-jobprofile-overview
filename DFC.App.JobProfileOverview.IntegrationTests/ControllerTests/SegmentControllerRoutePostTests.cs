@@ -64,7 +64,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         {
             // Arrange
             const string url = "/segment";
-            var careerPathSegmentModel = new JobProfileOverviewSegmentModel()
+            var overviewSegmentModel = new JobProfileOverviewSegmentModel()
             {
                 DocumentId = dataSeeding.Article2Id,
                 Created = dataSeeding.Created,
@@ -76,7 +76,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             client.DefaultRequestHeaders.Accept.Clear();
 
             // Act
-            var response = await client.PostAsync(url, careerPathSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+            var response = await client.PostAsync(url, overviewSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
 
             // Assert
             response.EnsureSuccessStatusCode();

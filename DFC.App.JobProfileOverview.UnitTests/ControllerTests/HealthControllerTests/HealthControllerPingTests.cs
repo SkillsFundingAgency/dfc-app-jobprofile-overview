@@ -9,7 +9,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.HealthControllerT
     public class HealthControllerPingTests : BaseHealthController
     {
         [Fact]
-        public void HealthControllerPingReturnsSuccess()
+        public void PingReturnsSuccess()
         {
             // Arrange
             var controller = BuildHealthController(MediaTypeNames.Application.Json);

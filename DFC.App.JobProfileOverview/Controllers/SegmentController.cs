@@ -111,9 +111,9 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return BadRequest(ModelState);
             }
 
-            var existingCareerPathSegmentModel = await jobProfileOverviewSegmentService.GetByIdAsync(createOrUpdateJobProfileOverviewModel.DocumentId).ConfigureAwait(false);
+            var overviewSegmentModel = await jobProfileOverviewSegmentService.GetByIdAsync(createOrUpdateJobProfileOverviewModel.DocumentId).ConfigureAwait(false);
 
-            if (existingCareerPathSegmentModel == null)
+            if (overviewSegmentModel == null)
             {
                 var createdResponse = await jobProfileOverviewSegmentService.CreateAsync(createOrUpdateJobProfileOverviewModel).ConfigureAwait(false);
 
