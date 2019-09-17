@@ -7,15 +7,17 @@ namespace DFC.App.JobProfileOverview.Data.Contracts
 {
     public interface IJobProfileOverviewSegmentService
     {
+        Task<bool> PingAsync();
+
         Task<IEnumerable<JobProfileOverviewSegmentModel>> GetAllAsync();
 
         Task<JobProfileOverviewSegmentModel> GetByIdAsync(Guid documentId);
 
         Task<JobProfileOverviewSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
 
-        Task<JobProfileOverviewSegmentModel> CreateAsync(JobProfileOverviewSegmentModel careerPathSegmentModel);
+        Task<JobProfileOverviewSegmentModel> CreateAsync(JobProfileOverviewSegmentModel overviewSegmentModel);
 
-        Task<JobProfileOverviewSegmentModel> ReplaceAsync(JobProfileOverviewSegmentModel careerPathSegmentModel);
+        Task<JobProfileOverviewSegmentModel> ReplaceAsync(JobProfileOverviewSegmentModel overviewSegmentModel);
 
         Task<bool> DeleteAsync(Guid documentId, int partitionKeyValue);
     }

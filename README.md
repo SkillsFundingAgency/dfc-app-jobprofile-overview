@@ -1,6 +1,6 @@
 # Digital First Careers - Job Profiles Overview
 
-This project provides a Job Profiles Overview for use in the Job Profiles app, which is a part of the Composite UI (Shell application) to dynamically output markup from Career Path and Progression data sources.
+This project provides a Job Profiles Overview for use in the Job Profiles app, which is a part of the Composite UI (Shell application) to dynamically output markup from job profile overview sources.
 
 Details of the Job Profiles application may be found here https://github.com/SkillsFundingAgency/dfc-app-jobprofiles
 
