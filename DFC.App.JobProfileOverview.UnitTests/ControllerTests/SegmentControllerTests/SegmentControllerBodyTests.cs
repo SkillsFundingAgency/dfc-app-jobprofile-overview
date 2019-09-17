@@ -58,7 +58,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<BodyViewModel>(jsonResult.Value);
+            var model = Assert.IsAssignableFrom<JobProfileOverviewSegmentDataModel>(jsonResult.Value);
 
             controller.Dispose();
         }
