@@ -46,6 +46,8 @@ jobs:
       command: 'build'
       projects: '$(SolutionBaseName).Views.UnitTests\$(SolutionBaseName).Views.UnitTests.csproj'
       arguments: '-o "$(build.artifactstagingdirectory)\Build\"' 
+  - powershell: Copy-Item -Path $(SolutionBaseName).Views.UnitTests\appsettings-template.json -Destination Copy-Item -Path $(SolutionBaseName).Views.UnitTests\appsettings.json
+    displayName: Copy and renamed appsettings-template.json
   - task: DotNetCoreCLI@2
     displayName: 'Test - dotnet test $(SolutionBaseName).Views.UnitTests.csproj'
     inputs:
