@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Globalization;
 using System.Net;
 
 namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
@@ -18,6 +19,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
         }
 
         public string ViewRootPath => viewRootPath;
+
+        protected string CurrencySymbol => CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol;
 
         protected string HtmlEncode(string value)
         {
