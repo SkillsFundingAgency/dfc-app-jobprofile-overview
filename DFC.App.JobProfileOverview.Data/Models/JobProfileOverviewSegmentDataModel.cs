@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DFC.App.JobProfileOverview.Data.Models
 {
     public class JobProfileOverviewSegmentDataModel
     {
+        public DateTime LastReviewed { get; set; }
+
         public string SocCode { get; set; }
 
         public string SocDescription { get; set; }
@@ -12,9 +15,9 @@ namespace DFC.App.JobProfileOverview.Data.Models
 
         public string AlternativeTitle { get; set; }
 
-        public List<string> HiddenAlternativeTitle { get; set; }
+        public List<GenericListContent> HiddenAlternativeTitle { get; set; }
 
-        public List<string> JobProfileSpecialism { get; set; }
+        public List<GenericListContent> JobProfileSpecialism { get; set; }
 
         public string Overview { get; set; }
 

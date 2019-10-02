@@ -1,5 +1,4 @@
-﻿using DFC.App.JobProfileOverview.Data.Models;
-using FakeItEasy;
+﻿using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -14,22 +13,19 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         public async void ReturnsSuccessWhenDocumentIdExists(string mediaTypeName)
         {
             // Arrange
+            const bool documentExists = true;
             var documentId = Guid.NewGuid();
-            var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
-            expectedResult.DocumentId = documentId;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(A<Guid>.Ignored)).Returns(documentExists);
 
             // Act
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<int>.Ignored)).MustHaveHappenedOnceExactly();
-
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId)).MustHaveHappenedOnceExactly();
             var okResult = Assert.IsType<OkResult>(result);
-
-            A.Equals((int)HttpStatusCode.OK, okResult.StatusCode);
+            Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
 
             controller.Dispose();
         }
@@ -39,22 +35,18 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         public async void ReturnsNotFoundWhenDocumentIdDoesNotExist(string mediaTypeName)
         {
             // Arrange
-            var documentId = Guid.NewGuid();
-            JobProfileOverviewSegmentModel expectedResult = null;
+            const bool documentExists = false;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(A<Guid>.Ignored)).Returns(documentExists);
 
             // Act
-            var result = await controller.Delete(documentId).ConfigureAwait(false);
+            var result = await controller.Delete(Guid.NewGuid()).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(documentId)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(documentId, A<int>.Ignored)).MustNotHaveHappened();
-
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.DeleteAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
             var statusResult = Assert.IsType<NotFoundResult>(result);
-
-            A.Equals((int)HttpStatusCode.NotFound, statusResult.StatusCode);
+            Assert.Equal((int)HttpStatusCode.NotFound, statusResult.StatusCode);
 
             controller.Dispose();
         }

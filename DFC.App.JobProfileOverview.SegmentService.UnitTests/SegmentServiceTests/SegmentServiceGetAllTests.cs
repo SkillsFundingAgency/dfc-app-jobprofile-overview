@@ -1,5 +1,5 @@
-﻿using DFC.App.JobProfileOverview.Data.Contracts;
-using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using FakeItEasy;
 using System.Collections.Generic;
 using System.Threading.Tasks;

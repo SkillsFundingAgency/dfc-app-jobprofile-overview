@@ -14,6 +14,8 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         IClassFixture<CustomWebApplicationFactory<Startup>>,
         IClassFixture<DataSeeding>
     {
+        private const string Url = "/segment";
+
         private readonly CustomWebApplicationFactory<Startup> factory;
         private readonly DataSeeding dataSeeding;
 
@@ -29,19 +31,19 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
                 throw new ArgumentNullException(nameof(dataSeeding));
             }
 
-            dataSeeding.AddData(factory).Wait();
+            dataSeeding.AddData(factory).GetAwaiter().GetResult();
         }
 
         [Fact]
         public async Task WhenAddingNewArticleReturnCreated()
         {
             // Arrange
-            var url = "/segment";
             var documentId = Guid.NewGuid();
             var overviewSegmentModel = new JobProfileOverviewSegmentModel()
             {
                 DocumentId = documentId,
                 CanonicalName = documentId.ToString().ToLowerInvariant(),
+                SocLevelTwo = "12PostSoc",
                 Data = new JobProfileOverviewSegmentDataModel(),
             };
             var client = factory.CreateClient();
@@ -49,26 +51,22 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             client.DefaultRequestHeaders.Accept.Clear();
 
             // Act
-            var response = await client.PostAsync(url, overviewSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+            var response = await client.PostAsync(Url, overviewSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            response.StatusCode.Should().Be(HttpStatusCode.Created);
-
-            // Cleanup
-            await client.DeleteAsync(string.Concat(url, "/", documentId)).ConfigureAwait(false);
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Fact]
         public async Task WhenUpdateExistingArticleReturnsOK()
         {
             // Arrange
-            const string url = "/segment";
             var overviewSegmentModel = new JobProfileOverviewSegmentModel()
             {
                 DocumentId = dataSeeding.Article2Id,
-                Created = dataSeeding.Created,
                 CanonicalName = "article2_modified",
+                SocLevelTwo = dataSeeding.Article2SocCode,
                 Data = new JobProfileOverviewSegmentDataModel(),
             };
             var client = factory.CreateClient();
@@ -76,7 +74,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             client.DefaultRequestHeaders.Accept.Clear();
 
             // Act
-            var response = await client.PostAsync(url, overviewSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+            var response = await client.PostAsync(Url, overviewSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
 
             // Assert
             response.EnsureSuccessStatusCode();

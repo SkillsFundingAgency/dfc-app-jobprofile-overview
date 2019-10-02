@@ -1,5 +1,5 @@
-﻿using DFC.App.JobProfileOverview.Data.Contracts;
-using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -41,47 +41,30 @@ namespace DFC.App.JobProfileOverview.SegmentService
             return await repository.GetAsync(d => d.CanonicalName.ToLower() == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
         }
 
-        public async Task<JobProfileOverviewSegmentModel> CreateAsync(JobProfileOverviewSegmentModel overviewSegmentModel)
+        public async Task<UpsertOverviewModelResponse> UpsertAsync(JobProfileOverviewSegmentModel jobProfileOverviewSegmentModel)
         {
-            if (overviewSegmentModel == null)
+            if (jobProfileOverviewSegmentModel == null)
             {
-                throw new ArgumentNullException(nameof(overviewSegmentModel));
+                throw new ArgumentNullException(nameof(jobProfileOverviewSegmentModel));
             }
 
-            if (overviewSegmentModel.Data == null)
+            if (jobProfileOverviewSegmentModel.Data == null)
             {
-                overviewSegmentModel.Data = new JobProfileOverviewSegmentDataModel();
+                jobProfileOverviewSegmentModel.Data = new JobProfileOverviewSegmentDataModel();
             }
 
-            var result = await repository.CreateAsync(overviewSegmentModel).ConfigureAwait(false);
+            var responseStatusCode = await repository.UpsertAsync(jobProfileOverviewSegmentModel).ConfigureAwait(false);
 
-            return result == HttpStatusCode.Created
-                ? await GetByIdAsync(overviewSegmentModel.DocumentId).ConfigureAwait(false)
-                : null;
+            return new UpsertOverviewModelResponse
+            {
+                JobProfileOverviewSegmentModel = jobProfileOverviewSegmentModel,
+                ResponseStatusCode = responseStatusCode,
+            };
         }
 
-        public async Task<JobProfileOverviewSegmentModel> ReplaceAsync(JobProfileOverviewSegmentModel overviewSegmentModel)
+        public async Task<bool> DeleteAsync(Guid documentId)
         {
-            if (overviewSegmentModel == null)
-            {
-                throw new ArgumentNullException(nameof(overviewSegmentModel));
-            }
-
-            if (overviewSegmentModel.Data == null)
-            {
-                overviewSegmentModel.Data = new JobProfileOverviewSegmentDataModel();
-            }
-
-            var result = await repository.UpdateAsync(overviewSegmentModel.DocumentId, overviewSegmentModel).ConfigureAwait(false);
-
-            return result == HttpStatusCode.OK
-                ? await GetByIdAsync(overviewSegmentModel.DocumentId).ConfigureAwait(false)
-                : null;
-        }
-
-        public async Task<bool> DeleteAsync(Guid documentId, int partitionKeyValue)
-        {
-            var result = await repository.DeleteAsync(documentId, partitionKeyValue).ConfigureAwait(false);
+            var result = await repository.DeleteAsync(documentId).ConfigureAwait(false);
             return result == HttpStatusCode.NoContent;
         }
     }
