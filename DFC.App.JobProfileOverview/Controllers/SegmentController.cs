@@ -1,17 +1,24 @@
-﻿using DFC.App.JobProfileOverview.Data.Contracts;
-using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Extensions;
+using DFC.App.JobProfileOverview.SegmentService;
 using DFC.App.JobProfileOverview.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Controllers
 {
     public class SegmentController : Controller
     {
+        private const string IndexActionName = nameof(Index);
+        private const string DocumentActionName = nameof(Document);
+        private const string BodyActionName = nameof(Body);
+        private const string SaveActionName = nameof(Save);
+        private const string DeleteActionName = nameof(Delete);
+
         private readonly ILogger<SegmentController> logger;
         private readonly IJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
         private readonly AutoMapper.IMapper mapper;
@@ -28,7 +35,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         [Route("{controller}")]
         public async Task<IActionResult> Index()
         {
-            logger.LogInformation($"{nameof(Index)} has been called");
+            logger.LogInformation($"{IndexActionName} has been called");
 
             var viewModel = new IndexViewModel();
             var segmentModels = await jobProfileOverviewSegmentService.GetAllAsync().ConfigureAwait(false);
@@ -40,11 +47,11 @@ namespace DFC.App.JobProfileOverview.Controllers
                     .Select(x => mapper.Map<IndexDocumentViewModel>(x))
                     .ToList();
 
-                logger.LogInformation($"{nameof(Index)} has succeeded");
+                logger.LogInformation($"{IndexActionName} has succeeded");
             }
             else
             {
-                logger.LogWarning($"{nameof(Index)} has returned with no results");
+                logger.LogWarning($"{IndexActionName} has returned with no results");
             }
 
             return View(viewModel);
@@ -54,7 +61,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         [Route("{controller}/{article}")]
         public async Task<IActionResult> Document(string article)
         {
-            logger.LogInformation($"{nameof(Document)} has been called with: {article}");
+            logger.LogInformation($"{DocumentActionName} has been called with: {article}");
 
             var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
 
@@ -62,12 +69,12 @@ namespace DFC.App.JobProfileOverview.Controllers
             {
                 var viewModel = mapper.Map<DocumentViewModel>(model);
 
-                logger.LogInformation($"{nameof(Document)} has succeeded for: {article}");
+                logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
                 return View(viewModel);
             }
 
-            logger.LogWarning($"{nameof(Document)} has returned no content for: {article}");
+            logger.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
             return NoContent();
         }
@@ -76,7 +83,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         [Route("{controller}/{article}/contents")]
         public async Task<IActionResult> Body(string article)
         {
-            logger.LogInformation($"{nameof(Body)} has been called with: {article}");
+            logger.LogInformation($"{BodyActionName} has been called with: {article}");
 
             var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
 
@@ -84,24 +91,24 @@ namespace DFC.App.JobProfileOverview.Controllers
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
 
-                logger.LogInformation($"{nameof(Body)} has succeeded for: {article}");
+                logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
 
                 return this.NegotiateContentResult(viewModel, model.Data);
             }
 
-            logger.LogWarning($"{nameof(Body)} has returned no content for: {article}");
+            logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
 
             return NoContent();
         }
 
         [HttpPut]
         [HttpPost]
-        [Route("{controller}")]
-        public async Task<IActionResult> CreateOrUpdate([FromBody]JobProfileOverviewSegmentModel createOrUpdateJobProfileOverviewModel)
+        [Route("segment")]
+        public async Task<IActionResult> Save([FromBody]JobProfileOverviewSegmentModel upsertJobProfileOverviewSegmentModel)
         {
-            logger.LogInformation($"{nameof(CreateOrUpdate)} has been called");
+            logger.LogInformation($"{SaveActionName} has been called");
 
-            if (createOrUpdateJobProfileOverviewModel == null)
+            if (upsertJobProfileOverviewSegmentModel == null)
             {
                 return BadRequest();
             }
@@ -111,23 +118,23 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return BadRequest(ModelState);
             }
 
-            var overviewSegmentModel = await jobProfileOverviewSegmentService.GetByIdAsync(createOrUpdateJobProfileOverviewModel.DocumentId).ConfigureAwait(false);
+            var response = await jobProfileOverviewSegmentService.UpsertAsync(upsertJobProfileOverviewSegmentModel).ConfigureAwait(false);
 
-            if (overviewSegmentModel == null)
+            if (response.ResponseStatusCode == HttpStatusCode.Created)
             {
-                var createdResponse = await jobProfileOverviewSegmentService.CreateAsync(createOrUpdateJobProfileOverviewModel).ConfigureAwait(false);
+                logger.LogInformation($"{SaveActionName} has created content for: {upsertJobProfileOverviewSegmentModel.CanonicalName}");
 
-                logger.LogInformation($"{nameof(CreateOrUpdate)} has created content for: {createOrUpdateJobProfileOverviewModel.CanonicalName}");
-
-                return new CreatedAtActionResult(nameof(Document), "Segment", new { article = createdResponse.CanonicalName }, createdResponse);
+                return new CreatedAtActionResult(
+                    SaveActionName,
+                    "Segment",
+                    new { article = response.JobProfileOverviewSegmentModel.CanonicalName },
+                    response.JobProfileOverviewSegmentModel);
             }
             else
             {
-                var updatedResponse = await jobProfileOverviewSegmentService.ReplaceAsync(createOrUpdateJobProfileOverviewModel).ConfigureAwait(false);
+                logger.LogInformation($"{SaveActionName} has updated content for: {upsertJobProfileOverviewSegmentModel.CanonicalName}");
 
-                logger.LogInformation($"{nameof(CreateOrUpdate)} has updated content for: {createOrUpdateJobProfileOverviewModel.CanonicalName}");
-
-                return new OkObjectResult(updatedResponse);
+                return new OkObjectResult(response.JobProfileOverviewSegmentModel);
             }
         }
 
@@ -135,22 +142,19 @@ namespace DFC.App.JobProfileOverview.Controllers
         [Route("{controller}/{documentId}")]
         public async Task<IActionResult> Delete(Guid documentId)
         {
-            logger.LogInformation($"{nameof(Delete)} has been called");
+            logger.LogInformation($"{DeleteActionName} has been called");
 
-            var jobProfileOverviewSegmentModel = await jobProfileOverviewSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
-
-            if (jobProfileOverviewSegmentModel == null)
+            var isDeleted = await jobProfileOverviewSegmentService.DeleteAsync(documentId).ConfigureAwait(false);
+            if (isDeleted)
             {
-                logger.LogWarning($"{nameof(Document)} has returned no content for: {documentId}");
-
+                logger.LogInformation($"{DeleteActionName} has deleted content for document Id: {documentId}");
+                return Ok();
+            }
+            else
+            {
+                logger.LogWarning($"{DeleteActionName} has returned no content for: {documentId}");
                 return NotFound();
             }
-
-            await jobProfileOverviewSegmentService.DeleteAsync(documentId, jobProfileOverviewSegmentModel.PartitionKey).ConfigureAwait(false);
-
-            logger.LogInformation($"{nameof(Delete)} has deleted content for: {jobProfileOverviewSegmentModel.CanonicalName}");
-
-            return Ok();
         }
     }
 }

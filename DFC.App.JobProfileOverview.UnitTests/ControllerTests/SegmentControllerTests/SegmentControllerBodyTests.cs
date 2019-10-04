@@ -9,12 +9,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 {
     public class SegmentControllerBodyTests : BaseSegmentController
     {
+        private const string article = "an-article-name";
+
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
         public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
@@ -31,7 +32,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+            Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }
@@ -58,7 +59,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<JobProfileOverviewSegmentDataModel>(jsonResult.Value);
+            Assert.IsAssignableFrom<BodyViewModel>(jsonResult.Value);
 
             controller.Dispose();
         }
@@ -86,7 +87,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             var statusResult = Assert.IsType<StatusCodeResult>(result);
 
-            A.Equals((int)HttpStatusCode.NotAcceptable, statusResult.StatusCode);
+            Assert.Equal((int)HttpStatusCode.NotAcceptable, statusResult.StatusCode);
 
             controller.Dispose();
         }

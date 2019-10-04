@@ -20,8 +20,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
             Article1Name = Article1Id.ToString();
             Article2Name = Article2Id.ToString();
             Article3Name = Article3Id.ToString();
-
-            Created = DateTime.UtcNow;
+            Article2SocCode = "23456";
         }
 
         public Guid Article1Id { get; private set; }
@@ -36,7 +35,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
 
         public string Article3Name { get; private set; }
 
-        public DateTime Created { get; private set; }
+        public string Article2SocCode { get; private set; }
 
         public async Task AddData(CustomWebApplicationFactory<Startup> factory)
         {
@@ -45,7 +44,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
 
             var client = factory?.CreateClient();
 
-            client.DefaultRequestHeaders.Accept.Clear();
+            client?.DefaultRequestHeaders.Accept.Clear();
 
             foreach (var model in models)
             {
@@ -72,32 +71,26 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
         {
             var models = new List<JobProfileOverviewSegmentModel>()
             {
-                new JobProfileOverviewSegmentModel()
+                new JobProfileOverviewSegmentModel
                 {
-                    Created = Created,
                     DocumentId = Article1Id,
                     CanonicalName = Article1Name,
-                    Data = new JobProfileOverviewSegmentDataModel
-                    {
-                    },
+                    SocLevelTwo = "12345",
+                    Data = new JobProfileOverviewSegmentDataModel(),
                 },
-                new JobProfileOverviewSegmentModel()
+                new JobProfileOverviewSegmentModel
                 {
-                    Created = Created,
                     DocumentId = Article2Id,
                     CanonicalName = Article2Name,
-                    Data = new JobProfileOverviewSegmentDataModel
-                    {
-                    },
+                    SocLevelTwo = Article2SocCode,
+                    Data = new JobProfileOverviewSegmentDataModel(),
                 },
-                new JobProfileOverviewSegmentModel()
+                new JobProfileOverviewSegmentModel
                 {
-                    Created = Created,
                     DocumentId = Article3Id,
                     CanonicalName = Article3Name,
-                    Data = new JobProfileOverviewSegmentDataModel
-                    {
-                    },
+                    SocLevelTwo = "34567",
+                    Data = new JobProfileOverviewSegmentDataModel(),
                 },
             };
 
