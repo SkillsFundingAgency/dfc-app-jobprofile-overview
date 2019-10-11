@@ -287,27 +287,27 @@
                                 "value": "jobprofiles-overview-delete"
                             },
                             {
-                                "name": "jobProfileClientOptions__Timeout",
+                                "name": "JobProfileOverviewSegmentClientOptions__Timeout",
                                 "value": "00:00:30"
                             },
                             {
-                                "name": "jobProfileClientOptions__BaseAddress",
+                                "name": "JobProfileOverviewSegmentClientOptions__BaseAddress",
                                 "value": "[variables('urlJobprofileOverview')]"
                             },
                             {
-                                "name": "jobProfileClientOptions__GetEndpoint",
+                                "name": "JobProfileOverviewSegmentClientOptions__GetEndpoint",
                                 "value": "segment/{0}/contents"
                             },
                             {
-                                "name": "jobProfileClientOptions__PatchEndpoint",
+                                "name": "JobProfileOverviewSegmentClientOptions__PatchEndpoint",
                                 "value": "segment/{0}/content-type/markup"
                             },
                             {
-                                "name": "jobProfileClientOptions__PostEndpoint",
+                                "name": "JobProfileOverviewSegmentClientOptions__PostEndpoint",
                                 "value": "segment"
                             },
                             {
-                                "name": "jobProfileClientOptions__DeleteEndpoint",
+                                "name": "JobProfileOverviewSegmentClientOptions__DeleteEndpoint",
                                 "value": "segment/{0}"
                             }
                         ]
