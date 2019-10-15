@@ -78,7 +78,9 @@
         "postSubscriptionName": "jobprofiles-overview-post",
         "patchSubscriptionName": "jobprofiles-overview-patch",
         "deleteTopicName": "jobprofiles-overview-delete-topic",
-        "deleteSubscriptionName": "jobprofiles-overview-delete"    },
+        "deleteSubscriptionName": "jobprofiles-overview-delete",
+        "refreshTopicName": "job-profile-refresh"
+    },
     "resources": [
         {
             "apiVersion": "2017-05-10",
@@ -192,6 +194,14 @@
                             {
                                 "name": "Configuration__CosmosDbConnections__JobProfileSegment__PartitionKey",
                                 "value": "[variables('cosmosDbCollectionPartitionKey')]"
+                            },
+                            {
+                                "name": "ServiceBusOptions__ServiceBusConnectionString",
+                                "value": "[listKeys(resourceId(parameters('appSharedResourceGroup'), 'Microsoft.ServiceBus/namespaces/authorizationRules', parameters('appSharedServiceBusName'), 'ReadWrite'), '2017-04-01').primaryConnectionString]"
+                            },
+                            {
+                                "name": "ServiceBusOptions__topicName",
+                                "value": "[variables('refreshTopicName')]"
                             }
                         ]
                     }
