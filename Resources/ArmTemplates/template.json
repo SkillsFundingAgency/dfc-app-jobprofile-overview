@@ -51,14 +51,15 @@
             "type": "string",
             "defaultValue": ""
         },
-        "serviceBusNamespace": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the shared service bus to attach to"
-            }
-        },
         "cosmosDbCollectionName": {
             "type": "string"
+        },
+        "cmsSubscriptionSqlFilter": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Filter to apply to subscription (no filter applied if left blank)"
+            }
         }
     },
     "variables": {
@@ -74,11 +75,8 @@
         "webAppInsightsName": "[concat(variables('webAppName'), '-ai')]",
         "functionAppName": "[concat(variables('ResourcePrefix'), '-fa')]",
         "functionAppInsightsName": "[concat(variables('functionAppName'), '-ai')]",
-        "mainTopicName": "jobprofiles-overview-segment-topic",
-        "postSubscriptionName": "jobprofiles-overview-post",
-        "patchSubscriptionName": "jobprofiles-overview-patch",
-        "deleteTopicName": "jobprofiles-overview-delete-topic",
-        "deleteSubscriptionName": "jobprofiles-overview-delete",
+        "cmsTopicName": "cms-messages",
+        "cmsSubscriptionName": "job-profile-overview",
         "refreshTopicName": "job-profile-refresh"
     },
     "resources": [
@@ -280,32 +278,16 @@
                                 "value": "[listKeys(resourceId(parameters('appSharedResourceGroup'), 'Microsoft.ServiceBus/namespaces/authorizationRules', parameters('appSharedServiceBusName'), 'ReadWrite'), '2017-04-01').primaryConnectionString]"
                             },
                             {
-                                "name": "Values__patch-profile-topic-name",
-                                "value": "jobprofiles-overview-profile-topic"
+                                "name": "Values__cms-messages-topic",
+                                "value": "[variables('cmsTopicName')]"
                             },
                             {
-                                "name": "Values__patch-profile-subscription-name",
-                                "value": "jobprofiles-overview-patch"
-                            },
-                            {
-                                "name": "Values__post-profile-topic-name",
-                                "value": "jobprofiles-overview-profile-topic"
-                            },
-                            {
-                                "name": "Values__post-profile-subscription-name",
-                                "value": "jobprofiles-overview-refresh"
-                            },
-                            {
-                                "name": "Values__delete-topic-name",
-                                "value": "jobprofiles-overview-delete-topic"
-                            },
-                            {
-                                "name": "Values__delete-subscription-name",
-                                "value": "jobprofiles-overview-delete"
+                                "name": "Values__cms-messages-subscription",
+                                "value": "[variables('cmsSubscriptionName')]"
                             },
                             {
                                 "name": "JobProfileOverviewSegmentClientOptions__Timeout",
-                                "value": "00:00:30"
+                                "value": "00:00:10"
                             },
                             {
                                 "name": "JobProfileOverviewSegmentClientOptions__BaseAddress",
@@ -367,126 +349,30 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "[variables('mainTopicName')]",
+            "name": "[variables('cmsSubscriptionName')]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('appSharedResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic.json')]",
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic-subscription.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "serviceBusNamespaceName": {
-                        "value": "[parameters('serviceBusNamespace')]"
+                        "value": "[parameters('appSharedServiceBusName')]"
                     },
                     "serviceBusTopicName": {
-                        "value": "[variables('mainTopicName')]"
+                        "value": "[variables('cmsTopicName')]"
+                    },
+                    "serviceBusTopicSubscriptionName": {
+                        "value": "[variables('cmsSubscriptionName')]"
+                    },
+                    "subscriptionSqlFilter": {
+                        "value": "[parameters('cmsSubscriptionSqlFilter')]"
                     }
                 }
             }
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('postSubscriptionName')]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('appSharedResourceGroup')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic-subscription.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "serviceBusNamespaceName": {
-                        "value": "[parameters('serviceBusNamespace')]"
-                    },
-                    "serviceBusTopicName": {
-                        "value": "[variables('mainTopicName')]"
-                    },
-                    "serviceBusTopicSubscriptionName": {
-                        "value": "[variables('postSubscriptionName')]"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[variables('mainTopicName')]"
-            ]
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('patchSubscriptionName')]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('appSharedResourceGroup')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic-subscription.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "serviceBusNamespaceName": {
-                        "value": "[parameters('serviceBusNamespace')]"
-                    },
-                    "serviceBusTopicName": {
-                        "value": "[variables('mainTopicName')]"
-                    },
-                    "serviceBusTopicSubscriptionName": {
-                        "value": "[variables('patchSubscriptionName')]"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[variables('mainTopicName')]"
-            ]
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('deleteTopicName')]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('appSharedResourceGroup')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "serviceBusNamespaceName": {
-                        "value": "[parameters('serviceBusNamespace')]"
-                    },
-                    "serviceBusTopicName": {
-                        "value": "[variables('deleteTopicName')]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('deleteSubscriptionName')]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[parameters('appSharedResourceGroup')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'ServiceBus/servicebus-topic-subscription.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "serviceBusNamespaceName": {
-                        "value": "[parameters('serviceBusNamespace')]"
-                    },
-                    "serviceBusTopicName": {
-                        "value": "[variables('deleteTopicName')]"
-                    },
-                    "serviceBusTopicSubscriptionName": {
-                        "value": "[variables('deleteSubscriptionName')]"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[variables('deleteTopicName')]"
-            ]
         }
     ],
         "outputs": {}
