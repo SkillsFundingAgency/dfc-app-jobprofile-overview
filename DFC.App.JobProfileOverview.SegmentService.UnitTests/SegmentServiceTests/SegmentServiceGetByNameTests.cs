@@ -1,4 +1,5 @@
 ﻿using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using FakeItEasy;
 using System;
@@ -15,8 +16,11 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 
         public SegmentServiceGetByNameTests()
         {
+            var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            var mapper = A.Fake<AutoMapper.IMapper>();
+
             repository = A.Fake<ICosmosRepository<JobProfileOverviewSegmentModel>>();
-            jobProfileOverviewSegmentService = new JobProfileOverviewSegmentService(repository);
+            jobProfileOverviewSegmentService = new JobProfileOverviewSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]

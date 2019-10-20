@@ -1,4 +1,5 @@
 ﻿using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Extensions;
 using DFC.App.JobProfileOverview.SegmentService;
 using DFC.App.JobProfileOverview.ViewModels;
@@ -16,8 +17,17 @@ namespace DFC.App.JobProfileOverview.Controllers
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
         private const string BodyActionName = nameof(Body);
-        private const string SaveActionName = nameof(Save);
+        private const string PostActionName = nameof(Post);
+        private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
+        private const string PatchApprenticeshipFrameworksActionName = nameof(PatchApprenticeshipFrameworks);
+        private const string PatchApprenticeshipStandardsActionName = nameof(PatchApprenticeshipStandards);
+        private const string PatchWorkingPatternActionName = nameof(PatchWorkingPattern);
+        private const string PatchHiddenAlternativeTitleActionName = nameof(PatchHiddenAlternativeTitle);
+        private const string PatchJobProfileSpecialismActionName = nameof(PatchJobProfileSpecialism);
+        private const string PatchWorkingHoursDetailActionName = nameof(PatchWorkingHoursDetail);
+        private const string PatchWorkingPatternDetailActionName = nameof(PatchWorkingPatternDetail);
+        private const string PatchSocCodeDataActionName = nameof(PatchSocCodeData);
 
         private readonly ILogger<SegmentController> logger;
         private readonly IJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
@@ -93,7 +103,8 @@ namespace DFC.App.JobProfileOverview.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
 
-                return this.NegotiateContentResult(viewModel, model.Data);
+                var test = this.NegotiateContentResult(viewModel, model.Data);
+                return test;
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
@@ -101,14 +112,13 @@ namespace DFC.App.JobProfileOverview.Controllers
             return NoContent();
         }
 
-        [HttpPut]
         [HttpPost]
         [Route("segment")]
-        public async Task<IActionResult> Save([FromBody]JobProfileOverviewSegmentModel upsertJobProfileOverviewSegmentModel)
+        public async Task<IActionResult> Post([FromBody]JobProfileOverviewSegmentModel jobProfileOverviewSegmentModel)
         {
-            logger.LogInformation($"{SaveActionName} has been called");
+            logger.LogInformation($"{PostActionName} has been called");
 
-            if (upsertJobProfileOverviewSegmentModel == null)
+            if (jobProfileOverviewSegmentModel == null)
             {
                 return BadRequest();
             }
@@ -118,24 +128,252 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileOverviewSegmentService.UpsertAsync(upsertJobProfileOverviewSegmentModel).ConfigureAwait(false);
-
-            if (response.ResponseStatusCode == HttpStatusCode.Created)
+            var existingDocument = await jobProfileOverviewSegmentService.GetByIdAsync(jobProfileOverviewSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument != null)
             {
-                logger.LogInformation($"{SaveActionName} has created content for: {upsertJobProfileOverviewSegmentModel.CanonicalName}");
-
-                return new CreatedAtActionResult(
-                    SaveActionName,
-                    "Segment",
-                    new { article = response.JobProfileOverviewSegmentModel.CanonicalName },
-                    response.JobProfileOverviewSegmentModel);
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
             }
-            else
+
+            var response = await jobProfileOverviewSegmentService.UpsertAsync(jobProfileOverviewSegmentModel).ConfigureAwait(false);
+
+            logger.LogInformation($"{PostActionName} has upserted content for: {jobProfileOverviewSegmentModel.CanonicalName}");
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPut]
+        [Route("segment")]
+        public async Task<IActionResult> Put([FromBody]JobProfileOverviewSegmentModel jobProfileOverviewSegmentModel)
+        {
+            logger.LogInformation($"{PutActionName} has been called");
+
+            if (jobProfileOverviewSegmentModel == null)
             {
-                logger.LogInformation($"{SaveActionName} has updated content for: {upsertJobProfileOverviewSegmentModel.CanonicalName}");
-
-                return new OkObjectResult(response.JobProfileOverviewSegmentModel);
+                return BadRequest();
             }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingDocument = await jobProfileOverviewSegmentService.GetByIdAsync(jobProfileOverviewSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument == null)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.NotFound);
+            }
+
+            if (jobProfileOverviewSegmentModel.SequenceNumber <= existingDocument.SequenceNumber)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
+            }
+
+            jobProfileOverviewSegmentModel.Etag = existingDocument.Etag;
+            jobProfileOverviewSegmentModel.SocLevelTwo = existingDocument.SocLevelTwo;
+
+            var response = await jobProfileOverviewSegmentService.UpsertAsync(jobProfileOverviewSegmentModel).ConfigureAwait(false);
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/apprenticeshipFrameworks")]
+        public async Task<IActionResult> PatchApprenticeshipFrameworks([FromBody]PatchApprenticeshipFrameworksModel patchApprenticeshipFrameworksModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchApprenticeshipFrameworksActionName} has been called");
+
+            if (patchApprenticeshipFrameworksModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchApprenticeshipFrameworksAsync(patchApprenticeshipFrameworksModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchApprenticeshipFrameworksActionName}: Error while patching Apprenticeship Framework content for Job Profile with Id: {patchApprenticeshipFrameworksModel.JobProfileId} for the {patchApprenticeshipFrameworksModel.Title} framework");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/apprenticeshipStandards")]
+        public async Task<IActionResult> PatchApprenticeshipStandards([FromBody]PatchApprenticeshipStandardsModel patchApprenticeshipStandardsModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchApprenticeshipStandardsActionName} has been called");
+
+            if (patchApprenticeshipStandardsModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchApprenticeshipStandardsAsync(patchApprenticeshipStandardsModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchApprenticeshipStandardsActionName}: Error while patching Apprenticeship Standards content for Job Profile with Id: {patchApprenticeshipStandardsModel.JobProfileId} for the {patchApprenticeshipStandardsModel.Title} standard");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/workingPattern")]
+        public async Task<IActionResult> PatchWorkingPattern([FromBody]PatchWorkingPatternModel patchWorkingPatternModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchWorkingPatternActionName} has been called");
+
+            if (patchWorkingPatternModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchWorkingPatternAsync(patchWorkingPatternModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchWorkingPatternActionName}: Error while patching Working Pattern content for Job Profile with Id: {patchWorkingPatternModel.JobProfileId} for the {patchWorkingPatternModel.Title} pattern");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/hiddenAlternativeTitle")]
+        public async Task<IActionResult> PatchHiddenAlternativeTitle([FromBody]PatchHiddenAlternativeTitleModel patchHiddenAlternativeTitleModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchHiddenAlternativeTitleActionName} has been called");
+
+            if (patchHiddenAlternativeTitleModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchHiddenAlternativeTitleAsync(patchHiddenAlternativeTitleModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchHiddenAlternativeTitleActionName}: Error while patching Hidden Alternative Title content for Job Profile with Id: {patchHiddenAlternativeTitleModel.JobProfileId} for the {patchHiddenAlternativeTitleModel.Title} title");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/jobProfileSpecialism")]
+        public async Task<IActionResult> PatchJobProfileSpecialism([FromBody]PatchJobProfileSpecialismModel patchJobProfileSpecialismModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchJobProfileSpecialismActionName} has been called");
+
+            if (patchJobProfileSpecialismModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchJobProfileSpecialismAsync(patchJobProfileSpecialismModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchJobProfileSpecialismActionName}: Error while patching Specialism content for Job Profile with Id: {patchJobProfileSpecialismModel.JobProfileId} for the {patchJobProfileSpecialismModel.Title} specialism");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/workingHoursDetail")]
+        public async Task<IActionResult> PatchWorkingHoursDetail([FromBody]PatchWorkingHoursDetailModel patchWorkingHoursDetailModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchWorkingHoursDetailActionName} has been called");
+
+            if (patchWorkingHoursDetailModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchWorkingHoursDetailAsync(patchWorkingHoursDetailModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchWorkingHoursDetailActionName}: Error while patching Working Hours Detail content for Job Profile with Id: {patchWorkingHoursDetailModel.JobProfileId} for the {patchWorkingHoursDetailModel.Title} hours detail");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/workingPatternDetail")]
+        public async Task<IActionResult> PatchWorkingPatternDetail([FromBody]PatchWorkingPatternDetailModel patchWorkingPatternDetailModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchWorkingPatternDetailActionName} has been called");
+
+            if (patchWorkingPatternDetailModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchWorkingPatternDetailAsync(patchWorkingPatternDetailModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchWorkingPatternDetailActionName}: Error while patching Working Pattern Detail content for Job Profile with Id: {patchWorkingPatternDetailModel.JobProfileId} for the {patchWorkingPatternDetailModel.Title} pattern detail");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/socCodeData")]
+        public async Task<IActionResult> PatchSocCodeData([FromBody]PatchSocDataModel patchSocDataModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchSocCodeDataActionName} has been called");
+
+            if (patchSocDataModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileOverviewSegmentService.PatchSocCodeDataAsync(patchSocDataModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchSocCodeDataActionName}: Error while patching Soc Data content for Job Profile with Id: {patchSocDataModel.JobProfileId} for the {patchSocDataModel.SocCode} soc code");
+            }
+
+            return new StatusCodeResult((int)response);
         }
 
         [HttpDelete]

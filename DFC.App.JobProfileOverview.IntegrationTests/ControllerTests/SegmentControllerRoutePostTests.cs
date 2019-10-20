@@ -59,7 +59,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
         }
 
         [Fact]
-        public async Task WhenUpdateExistingArticleReturnsOK()
+        public async Task WhenUpdateExistingArticleReturnsAlreadyReported()
         {
             // Arrange
             var overviewSegmentModel = new JobProfileOverviewSegmentModel()
@@ -78,7 +78,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.AlreadyReported);
         }
     }
 }

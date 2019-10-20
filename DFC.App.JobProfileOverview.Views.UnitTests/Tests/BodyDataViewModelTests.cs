@@ -1,4 +1,5 @@
 using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.ViewModels;
 using DFC.App.JobProfileOverview.Views.UnitTests.Services;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
         public void ViewContainsRenderedContent()
         {
             //Arrange
-            var model = new JobProfileOverviewSegmentDataModel()
+            var model = new BodyDataViewModel
             {
                 Overview = "overview1",
                 MinimumHours = 20,
@@ -20,9 +21,9 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
                 SalaryStarter = 40,
                 SalaryExperienced = 55,
                 Title = "title1",
-                WorkingHoursDetails = "WorkingHoursDetails1",
-                WorkingPattern = "WorkingPattern1",
-                WorkingPatternDetails = "WorkingPatternDetails1",
+                WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingHoursDetails1", Url = new Uri("http://something.com") } },
+                WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = new Uri("http://something.com") } },
+                WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = new Uri("http://something.com") } },
             };
 
             var viewBag = new Dictionary<string, object>();
@@ -41,7 +42,7 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
         public void ViewContainsCurrencySymbol()
         {
             //Arrange
-            var model = new JobProfileOverviewSegmentDataModel()
+            var model = new BodyDataViewModel
             {
                 SalaryStarter = 40,
                 SalaryExperienced = 55,

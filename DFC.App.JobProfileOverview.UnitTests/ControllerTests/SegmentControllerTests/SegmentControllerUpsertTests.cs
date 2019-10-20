@@ -1,6 +1,7 @@
 ﻿using DFC.App.JobProfileOverview.Data.Models;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using Xunit;
 
@@ -15,16 +16,17 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Arrange
             var overviewSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
-            var expectedUpsertResponse = BuildExpectedUpsertResponse(A.Fake<JobProfileOverviewSegmentModel>());
+            var expectedUpsertResponse = HttpStatusCode.Created;
 
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns((JobProfileOverviewSegmentModel)null);
             A.CallTo(() => FakeJobProfileOverviewSegmentService.UpsertAsync(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(expectedUpsertResponse);
 
             // Act
-            var result = await controller.Save(overviewSegmentModel).ConfigureAwait(false);
+            var result = await controller.Post(overviewSegmentModel).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.UpsertAsync(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
-            var okResult = Assert.IsType<CreatedAtActionResult>(result);
+            var okResult = Assert.IsType<StatusCodeResult>(result);
 
             Assert.Equal((int)HttpStatusCode.Created, okResult.StatusCode);
 
@@ -36,18 +38,25 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         public async void SegmentControllerUpsertReturnsSuccessForUpdate(string mediaTypeName)
         {
             // Arrange
-            var relatedCareersSegmentModel = A.Fake<JobProfileOverviewSegmentModel>();
-            var controller = BuildSegmentController(mediaTypeName);
-            var expectedUpsertResponse = BuildExpectedUpsertResponse(A.Fake<JobProfileOverviewSegmentModel>(), HttpStatusCode.OK);
+            var existingModel = A.Fake<JobProfileOverviewSegmentModel>();
+            existingModel.SequenceNumber = 123;
 
+            var modelToUpsert = A.Fake<JobProfileOverviewSegmentModel>();
+            modelToUpsert.SequenceNumber = 124;
+
+            var controller = BuildSegmentController(mediaTypeName);
+
+            var expectedUpsertResponse = HttpStatusCode.OK;
+
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(existingModel);
             A.CallTo(() => FakeJobProfileOverviewSegmentService.UpsertAsync(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(expectedUpsertResponse);
 
             // Act
-            var result = await controller.Save(relatedCareersSegmentModel).ConfigureAwait(false);
+            var result = await controller.Put(modelToUpsert).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.UpsertAsync(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
-            var okResult = Assert.IsType<OkObjectResult>(result);
+            var okResult = Assert.IsType<StatusCodeResult>(result);
             Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
 
             controller.Dispose();
@@ -61,7 +70,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             var controller = BuildSegmentController(mediaTypeName);
 
             // Act
-            var result = await controller.Save(null).ConfigureAwait(false);
+            var result = await controller.Put(null).ConfigureAwait(false);
 
             // Assert
             var statusResult = Assert.IsType<BadRequestResult>(result);
@@ -81,22 +90,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             controller.ModelState.AddModelError(string.Empty, "Model is not valid");
 
             // Act
-            var result = await controller.Save(relatedCareersSegmentModel).ConfigureAwait(false);
+            var result = await controller.Put(relatedCareersSegmentModel).ConfigureAwait(false);
 
             // Assert
             var statusResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal((int)HttpStatusCode.BadRequest, statusResult.StatusCode);
 
             controller.Dispose();
-        }
-
-        private UpsertOverviewModelResponse BuildExpectedUpsertResponse(JobProfileOverviewSegmentModel model, HttpStatusCode status = HttpStatusCode.Created)
-        {
-            return new UpsertOverviewModelResponse
-            {
-                JobProfileOverviewSegmentModel = model,
-                ResponseStatusCode = status,
-            };
         }
     }
 }

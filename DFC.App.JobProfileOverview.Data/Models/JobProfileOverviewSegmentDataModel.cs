@@ -5,34 +5,34 @@ namespace DFC.App.JobProfileOverview.Data.Models
 {
     public class JobProfileOverviewSegmentDataModel
     {
+        public string SegmentName { get; private set; } = "Overview";
+
         public DateTime LastReviewed { get; set; }
 
-        public string SocCode { get; set; }
-
-        public string SocDescription { get; set; }
+        public SocData Soc { get; set; }
 
         public string Title { get; set; }
 
         public string AlternativeTitle { get; set; }
 
-        public List<GenericListContent> HiddenAlternativeTitle { get; set; }
+        public IEnumerable<HiddenAlternativeTitle> HiddenAlternativeTitle { get; set; }
 
-        public List<GenericListContent> JobProfileSpecialism { get; set; }
+        public IEnumerable<JobProfileSpecialism> JobProfileSpecialism { get; set; }
 
         public string Overview { get; set; }
 
-        public int SalaryStarter { get; set; }
+        public decimal SalaryStarter { get; set; }
 
-        public int SalaryExperienced { get; set; }
+        public decimal SalaryExperienced { get; set; }
 
         public decimal MinimumHours { get; set; }
 
         public decimal MaximumHours { get; set; }
 
-        public string WorkingHoursDetails { get; set; }
+        public IEnumerable<WorkingHoursDetail> WorkingHoursDetails { get; set; }
 
-        public string WorkingPattern { get; set; }
+        public IEnumerable<WorkingPattern> WorkingPattern { get; set; }
 
-        public string WorkingPatternDetails { get; set; }
+        public IEnumerable<WorkingPatternDetail> WorkingPatternDetails { get; set; }
     }
 }
