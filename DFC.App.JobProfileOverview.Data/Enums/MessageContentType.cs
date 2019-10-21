@@ -4,8 +4,6 @@
     {
         JobProfile,
         SocCodes,
-        ApprenticeshipStandards,
-        ApprenticeshipFrameworks,
         WorkingHoursDetail,
         WorkingPattern,
         WorkingPatternDetail,

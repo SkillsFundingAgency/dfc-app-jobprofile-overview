@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DFC.App.JobProfileOverview.Data.ServiceBusModels.PatchModels
 {
@@ -14,9 +13,5 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels.PatchModels
         public string ONetOccupationalCode { get; set; }
 
         public string UrlName { get; set; }
-
-        public IEnumerable<Models.ApprenticeshipStandards> ApprenticeshipStandards { get; set; }
-
-        public IEnumerable<Models.ApprenticeshipFrameworks> ApprenticeshipFramework { get; set; }
     }
 }

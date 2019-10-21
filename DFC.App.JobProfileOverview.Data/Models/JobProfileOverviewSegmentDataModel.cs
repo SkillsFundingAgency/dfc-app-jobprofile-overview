@@ -5,7 +5,7 @@ namespace DFC.App.JobProfileOverview.Data.Models
 {
     public class JobProfileOverviewSegmentDataModel
     {
-        public string SegmentName { get; private set; } = "Overview";
+        public const string SegmentName = "Overview";
 
         public DateTime LastReviewed { get; set; }
 

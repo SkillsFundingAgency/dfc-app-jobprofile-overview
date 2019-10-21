@@ -26,26 +26,6 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         {
             switch (messageContentType)
             {
-                case MessageContentType.ApprenticeshipFrameworks:
-                    {
-                        var serviceBusMessage = JsonConvert.DeserializeObject<PatchApprenticeshipFrameworksServiceBusModel>(message);
-                        var patchApprenticeshipFrameworksModel = mapper.Map<PatchApprenticeshipFrameworksModel>(serviceBusMessage);
-                        patchApprenticeshipFrameworksModel.MessageAction = messageAction;
-                        patchApprenticeshipFrameworksModel.SequenceNumber = sequenceNumber;
-
-                        return await httpClientService.PatchAsync(patchApprenticeshipFrameworksModel, "apprenticeshipFrameworks").ConfigureAwait(false);
-                    }
-
-                case MessageContentType.ApprenticeshipStandards:
-                    {
-                        var serviceBusMessage = JsonConvert.DeserializeObject<PatchApprenticeshipStandardsServiceBusModel>(message);
-                        var patchApprenticeshipStandardsModel = mapper.Map<PatchApprenticeshipStandardsModel>(serviceBusMessage);
-                        patchApprenticeshipStandardsModel.MessageAction = messageAction;
-                        patchApprenticeshipStandardsModel.SequenceNumber = sequenceNumber;
-
-                        return await httpClientService.PatchAsync(patchApprenticeshipStandardsModel, "apprenticeshipStandards").ConfigureAwait(false);
-                    }
-
                 case MessageContentType.WorkingPattern:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchWorkingPatternServiceBusModel>(message);

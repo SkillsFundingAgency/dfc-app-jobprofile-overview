@@ -20,11 +20,7 @@ namespace DFC.App.JobProfileOverview.AutoMapperProfiles
 
             CreateMap<JobProfileOverviewSegmentModel, RefreshJobProfileSegmentServiceBusModel>()
                 .ForMember(d => d.JobProfileId, s => s.MapFrom(a => a.DocumentId))
-                .ForMember(d => d.Segment, s => s.MapFrom(a => a.Data.SegmentName));
-
-            CreateMap<PatchApprenticeshipFrameworksModel, Data.Models.ApprenticeshipFrameworks>();
-
-            CreateMap<PatchApprenticeshipStandardsModel, Data.Models.ApprenticeshipStandards>();
+                .ForMember(d => d.Segment, s => s.MapFrom(a => JobProfileOverviewSegmentDataModel.SegmentName));
 
             CreateMap<PatchWorkingPatternModel, Data.Models.WorkingPattern>();
 

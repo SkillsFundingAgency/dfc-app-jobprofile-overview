@@ -3,6 +3,7 @@ using DFC.App.JobProfileOverview.ViewModels;
 using DFC.App.JobProfileOverview.Views.UnitTests.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
@@ -34,8 +35,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
 
             //Assert
             Assert.Contains(model.Overview, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains(model.MinimumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(model.MinimumHours.ToString(CultureInfo.InvariantCulture), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(model.MaximumHours.ToString(CultureInfo.InvariantCulture), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
 
         [Fact]

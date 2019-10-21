@@ -20,8 +20,6 @@ namespace DFC.App.JobProfileOverview.Controllers
         private const string PostActionName = nameof(Post);
         private const string PutActionName = nameof(Put);
         private const string DeleteActionName = nameof(Delete);
-        private const string PatchApprenticeshipFrameworksActionName = nameof(PatchApprenticeshipFrameworks);
-        private const string PatchApprenticeshipStandardsActionName = nameof(PatchApprenticeshipStandards);
         private const string PatchWorkingPatternActionName = nameof(PatchWorkingPattern);
         private const string PatchHiddenAlternativeTitleActionName = nameof(PatchHiddenAlternativeTitle);
         private const string PatchJobProfileSpecialismActionName = nameof(PatchJobProfileSpecialism);
@@ -172,56 +170,6 @@ namespace DFC.App.JobProfileOverview.Controllers
             jobProfileOverviewSegmentModel.SocLevelTwo = existingDocument.SocLevelTwo;
 
             var response = await jobProfileOverviewSegmentService.UpsertAsync(jobProfileOverviewSegmentModel).ConfigureAwait(false);
-
-            return new StatusCodeResult((int)response);
-        }
-
-        [HttpPatch]
-        [Route("segment/{documentId}/apprenticeshipFrameworks")]
-        public async Task<IActionResult> PatchApprenticeshipFrameworks([FromBody]PatchApprenticeshipFrameworksModel patchApprenticeshipFrameworksModel, Guid documentId)
-        {
-            logger.LogInformation($"{PatchApprenticeshipFrameworksActionName} has been called");
-
-            if (patchApprenticeshipFrameworksModel == null)
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var response = await jobProfileOverviewSegmentService.PatchApprenticeshipFrameworksAsync(patchApprenticeshipFrameworksModel, documentId).ConfigureAwait(false);
-            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
-            {
-                logger.LogError($"{PatchApprenticeshipFrameworksActionName}: Error while patching Apprenticeship Framework content for Job Profile with Id: {patchApprenticeshipFrameworksModel.JobProfileId} for the {patchApprenticeshipFrameworksModel.Title} framework");
-            }
-
-            return new StatusCodeResult((int)response);
-        }
-
-        [HttpPatch]
-        [Route("segment/{documentId}/apprenticeshipStandards")]
-        public async Task<IActionResult> PatchApprenticeshipStandards([FromBody]PatchApprenticeshipStandardsModel patchApprenticeshipStandardsModel, Guid documentId)
-        {
-            logger.LogInformation($"{PatchApprenticeshipStandardsActionName} has been called");
-
-            if (patchApprenticeshipStandardsModel == null)
-            {
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var response = await jobProfileOverviewSegmentService.PatchApprenticeshipStandardsAsync(patchApprenticeshipStandardsModel, documentId).ConfigureAwait(false);
-            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
-            {
-                logger.LogError($"{PatchApprenticeshipStandardsActionName}: Error while patching Apprenticeship Standards content for Job Profile with Id: {patchApprenticeshipStandardsModel.JobProfileId} for the {patchApprenticeshipStandardsModel.Title} standard");
-            }
 
             return new StatusCodeResult((int)response);
         }

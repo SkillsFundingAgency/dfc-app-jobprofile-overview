@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace DFC.App.JobProfileOverview.Data.Models.PatchModels
+﻿namespace DFC.App.JobProfileOverview.Data.Models.PatchModels
 {
     public class PatchSocDataModel : BasePatchModel
     {
@@ -11,9 +9,5 @@ namespace DFC.App.JobProfileOverview.Data.Models.PatchModels
         public string ONetOccupationalCode { get; set; }
 
         public string UrlName { get; set; }
-
-        public IEnumerable<ApprenticeshipStandards> ApprenticeshipStandards { get; set; }
-
-        public IEnumerable<ApprenticeshipFrameworks> ApprenticeshipFramework { get; set; }
     }
 }

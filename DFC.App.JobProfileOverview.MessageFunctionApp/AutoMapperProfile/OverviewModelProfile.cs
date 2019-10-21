@@ -30,17 +30,9 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.AutoMapperProfile
 
             CreateMap<Data.ServiceBusModels.WorkingPattern, Data.Models.WorkingPattern>();
 
-            CreateMap<Data.ServiceBusModels.ApprenticeshipFrameworks, Data.Models.ApprenticeshipFrameworks>();
-
-            CreateMap<Data.ServiceBusModels.ApprenticeshipStandards, Data.Models.ApprenticeshipStandards>();
-
             CreateMap<Data.ServiceBusModels.WorkingPatternDetail, Data.Models.WorkingPatternDetail>();
 
             CreateMap<SocCodeData, SocData>();
-
-            CreateMap<PatchApprenticeshipFrameworksServiceBusModel, PatchApprenticeshipFrameworksModel>();
-
-            CreateMap<PatchApprenticeshipStandardsServiceBusModel, PatchApprenticeshipStandardsModel>();
 
             CreateMap<PatchWorkingPatternServiceBusModel, PatchWorkingPatternModel>();
 

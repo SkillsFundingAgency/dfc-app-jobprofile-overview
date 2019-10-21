@@ -9,7 +9,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 {
     public class SegmentControllerBodyTests : BaseSegmentController
     {
-        private const string article = "an-article-name";
+        private const string ArticleName = "an-article-name";
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
@@ -19,13 +19,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            expectedResult.CanonicalName = article;
+            expectedResult.CanonicalName = ArticleName;
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
 
             // Act
-            var result = await controller.Body(article).ConfigureAwait(false);
+            var result = await controller.Body(ArticleName).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
