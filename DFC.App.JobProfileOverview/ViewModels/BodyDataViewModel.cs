@@ -7,6 +7,8 @@ namespace DFC.App.JobProfileOverview.ViewModels
 {
     public class BodyDataViewModel
     {
+        public BreadcrumbViewModel Breadcrumb { get; set; }
+
         public DateTime LastReviewed { get; set; }
 
         public SocData Soc { get; set; }

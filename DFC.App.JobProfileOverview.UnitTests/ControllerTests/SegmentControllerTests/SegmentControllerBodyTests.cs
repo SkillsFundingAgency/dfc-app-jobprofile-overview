@@ -19,12 +19,15 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
+            var fakeBodyViewModel = A.Fake<BodyViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
             expectedResult.CanonicalName = ArticleName;
+            expectedResult.Data = A.Fake<JobProfileOverviewSegmentDataModel>();
+            fakeBodyViewModel.Data = A.Fake<BodyDataViewModel>();
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
+            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
 
             // Act
             var result = await controller.Body(documentId).ConfigureAwait(false);
@@ -45,12 +48,15 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
+            var fakeBodyViewModel = A.Fake<BodyViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
             expectedResult.CanonicalName = ArticleName;
+            expectedResult.Data = A.Fake<JobProfileOverviewSegmentDataModel>();
+            fakeBodyViewModel.Data = A.Fake<BodyDataViewModel>();
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
+            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
 
             // Act
             var result = await controller.Body(documentId).ConfigureAwait(false);
@@ -60,7 +66,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsAssignableFrom<BodyViewModel>(jsonResult.Value);
+            Assert.IsAssignableFrom<JobProfileOverviewSegmentDataModel>(jsonResult.Value);
 
             controller.Dispose();
         }
@@ -71,12 +77,15 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
+            var fakeBodyViewModel = A.Fake<BodyViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
             expectedResult.CanonicalName = ArticleName;
+            expectedResult.Data = A.Fake<JobProfileOverviewSegmentDataModel>();
+            fakeBodyViewModel.Data = A.Fake<BodyDataViewModel>();
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
+            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
 
             // Act
             var result = await controller.Body(documentId).ConfigureAwait(false);

@@ -6,6 +6,7 @@ using DFC.App.JobProfileOverview.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace DFC.App.JobProfileOverview.Controllers
 {
     public class SegmentController : Controller
     {
+        public const string SegmentRoutePrefix = "segment";
+        public const string JobProfileRoutePrefix = "job-profiles";
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
         private const string BodyActionName = nameof(Body);
@@ -77,6 +80,8 @@ namespace DFC.App.JobProfileOverview.Controllers
             {
                 var viewModel = mapper.Map<DocumentViewModel>(model);
 
+                viewModel.Data.Breadcrumb = BuildBreadcrumb(model, SegmentRoutePrefix);
+
                 logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
                 return View(viewModel);
@@ -97,6 +102,8 @@ namespace DFC.App.JobProfileOverview.Controllers
             if (model != null)
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
+
+                viewModel.Data.Breadcrumb = BuildBreadcrumb(model, JobProfileRoutePrefix);
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
@@ -341,5 +348,39 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return NotFound();
             }
         }
+
+        #region Define helper methods
+
+        private static BreadcrumbViewModel BuildBreadcrumb(JobProfileOverviewSegmentModel model, string routePrefix)
+        {
+            var viewModel = new BreadcrumbViewModel
+            {
+                Paths = new List<BreadcrumbPathViewModel>()
+                {
+                    new BreadcrumbPathViewModel()
+                    {
+                        Route = $"/{routePrefix}",
+                        Title = "Home: Explore careers",
+                    },
+                },
+            };
+
+            if (model != null)
+            {
+                var breadcrumbPathViewModel = new BreadcrumbPathViewModel
+                {
+                    Route = $"/{routePrefix}/{model.CanonicalName}",
+                    Title = model.Data.Title,
+                };
+
+                viewModel.Paths.Add(breadcrumbPathViewModel);
+            }
+
+            viewModel.Paths.Last().AddHyperlink = false;
+
+            return viewModel;
+        }
+
+        #endregion
     }
 }
