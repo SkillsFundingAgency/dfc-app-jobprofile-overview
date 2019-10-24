@@ -16,10 +16,14 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Arrange
             const string article = "an-article-name";
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
+            var fakeDocumentViewModel = A.Fake<DocumentViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
+            expectedResult.Data = A.Fake<JobProfileOverviewSegmentDataModel>();
+            fakeDocumentViewModel.Data = A.Fake<BodyDataViewModel>();
+
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(A.Fake<DocumentViewModel>());
+            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeDocumentViewModel);
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
