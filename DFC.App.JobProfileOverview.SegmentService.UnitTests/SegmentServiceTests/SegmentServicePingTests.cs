@@ -1,4 +1,6 @@
-﻿using DFC.App.JobProfileOverview.Data.Models;
+﻿using AutoMapper;
+using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using FakeItEasy;
 using Xunit;
@@ -7,6 +9,15 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 {
     public class SegmentServicePingTests
     {
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService;
+        private readonly IMapper mapper;
+
+        public SegmentServicePingTests()
+        {
+            jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            mapper = A.Fake<IMapper>();
+        }
+
         [Fact]
         public void PingReturnsSuccess()
         {
@@ -16,14 +27,14 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var overviewSegmentService = new JobProfileOverviewSegmentService(repository);
+            var overviewSegmentService = new JobProfileOverviewSegmentService(repository, mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = overviewSegmentService.PingAsync().Result;
 
             // assert
             A.CallTo(() => repository.PingAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]
@@ -35,14 +46,14 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var overviewSegmentService = new JobProfileOverviewSegmentService(repository);
+            var overviewSegmentService = new JobProfileOverviewSegmentService(repository, mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = overviewSegmentService.PingAsync().Result;
 
             // assert
             A.CallTo(() => repository.PingAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            Assert.Equal(expectedResult, result);
         }
     }
 }

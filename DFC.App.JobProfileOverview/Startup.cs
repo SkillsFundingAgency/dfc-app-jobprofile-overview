@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.JobProfileOverview.Data.Models;
+using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.DraftSegmentService;
 using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using DFC.App.JobProfileOverview.SegmentService;
@@ -20,6 +21,7 @@ namespace DFC.App.JobProfileOverview
     public class Startup
     {
         public const string CosmosDbConfigAppSettings = "Configuration:CosmosDbConnections:JobProfileSegment";
+        public const string ServiceBusOptionsAppSettings = "ServiceBusOptions";
         private readonly IConfiguration configuration;
 
         public Startup(IConfiguration configuration)
@@ -37,6 +39,9 @@ namespace DFC.App.JobProfileOverview
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var serviceBusOptions = configuration.GetSection(ServiceBusOptionsAppSettings).Get<ServiceBusOptions>();
+            services.AddSingleton(serviceBusOptions ?? new ServiceBusOptions());
+
             var cosmosDbConnection = configuration.GetSection(CosmosDbConfigAppSettings).Get<CosmosDbConnection>();
             var documentClient = new DocumentClient(new Uri(cosmosDbConnection.EndpointUrl), cosmosDbConnection.AccessKey);
 
@@ -45,6 +50,7 @@ namespace DFC.App.JobProfileOverview
             services.AddSingleton<ICosmosRepository<JobProfileOverviewSegmentModel>, CosmosRepository<JobProfileOverviewSegmentModel>>();
             services.AddSingleton<IJobProfileOverviewSegmentService, JobProfileOverviewSegmentService>();
             services.AddSingleton<IDraftJobProfileOverviewSegmentService, DraftJobProfileOverviewSegmentService>();
+            services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

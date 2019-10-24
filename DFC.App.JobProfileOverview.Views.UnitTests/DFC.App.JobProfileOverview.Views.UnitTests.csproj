@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
-    <CodeAnalysisRuleSet>../DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../UnitTests.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.JobProfileOverview.Data\DFC.App.JobProfileOverview.Data.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileOverview\DFC.App.JobProfileOverview.csproj" />
   </ItemGroup>
   
   <ItemGroup>

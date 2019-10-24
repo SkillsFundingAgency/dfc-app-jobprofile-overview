@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings-template.json" />
-    <Content Remove="appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="../stylecop.json" />
   </ItemGroup>
 
