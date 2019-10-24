@@ -91,7 +91,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionAppTests
                 LastModified = LastModified,
                 Title = Title,
                 AlternativeTitle = AlternativeTitle,
-                SocCodeId = SocCodeId,
+                SocLevelTwo = SocCodeId,
                 Overview = Overview,
                 MaximumHours = MaximumHours,
                 MinimumHours = MinimumHours,

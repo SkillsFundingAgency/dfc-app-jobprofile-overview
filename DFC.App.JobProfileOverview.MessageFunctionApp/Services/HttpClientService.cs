@@ -31,7 +31,12 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
             using (var content = new ObjectContent(typeof(JobProfileOverviewSegmentModel), overviewSegmentModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
                 var response = await httpClient.PostAsync(url, content).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for POST, Id: {overviewSegmentModel?.DocumentId}.");
+                    response.EnsureSuccessStatusCode();
+                }
 
                 return response.StatusCode;
             }
@@ -66,7 +71,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                 if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for patch type {typeof(T)}, Id: {patchModel.JobProfileId}");
+                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for patch type {typeof(T)}, Id: {patchModel?.JobProfileId}");
 
                     response.EnsureSuccessStatusCode();
                 }
@@ -82,7 +87,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                logger.LogError($"Failure status code '{response.StatusCode}' received for Deleting Job Profile with Id: {id}");
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for DELETE, Id: {id}.");
                 response.EnsureSuccessStatusCode();
             }
 

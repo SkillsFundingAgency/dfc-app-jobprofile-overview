@@ -13,7 +13,6 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.AutoMapperProfile
             CreateMap<JobProfileMessage, JobProfileOverviewSegmentModel>()
                 .ForMember(d => d.Data, s => s.MapFrom(a => a))
                 .ForMember(d => d.DocumentId, s => s.MapFrom(a => a.JobProfileId))
-                .ForMember(d => d.SocLevelTwo, s => s.MapFrom(a => a.SocCodeId))
                 .ForMember(d => d.Etag, s => s.Ignore());
 
             CreateMap<JobProfileMessage, JobProfileOverviewSegmentDataModel>()

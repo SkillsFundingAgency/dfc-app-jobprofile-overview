@@ -15,9 +15,9 @@ namespace DFC.App.JobProfileOverview.Data.Models
 
         public string AlternativeTitle { get; set; }
 
-        public IEnumerable<HiddenAlternativeTitle> HiddenAlternativeTitle { get; set; }
+        public IList<HiddenAlternativeTitle> HiddenAlternativeTitle { get; set; }
 
-        public IEnumerable<JobProfileSpecialism> JobProfileSpecialism { get; set; }
+        public IList<JobProfileSpecialism> JobProfileSpecialism { get; set; }
 
         public string Overview { get; set; }
 
@@ -29,10 +29,10 @@ namespace DFC.App.JobProfileOverview.Data.Models
 
         public decimal MaximumHours { get; set; }
 
-        public IEnumerable<WorkingHoursDetail> WorkingHoursDetails { get; set; }
+        public IList<WorkingHoursDetail> WorkingHoursDetails { get; set; }
 
-        public IEnumerable<WorkingPattern> WorkingPattern { get; set; }
+        public IList<WorkingPattern> WorkingPattern { get; set; }
 
-        public IEnumerable<WorkingPatternDetail> WorkingPatternDetails { get; set; }
+        public IList<WorkingPatternDetail> WorkingPatternDetails { get; set; }
     }
 }

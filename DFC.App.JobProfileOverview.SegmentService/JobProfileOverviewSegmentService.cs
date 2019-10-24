@@ -89,16 +89,18 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            var filteredWorkingPatterns = existingSegmentModel.Data.WorkingPattern.Where(ai => ai.Id != patchModel.Id).ToList();
+            var existingIndex = existingSegmentModel.Data.WorkingPattern.ToList().FindIndex(ai => ai.Id == patchModel.Id);
 
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
+            if (patchModel.MessageAction == MessageAction.Deleted)
             {
-                var updatedStandard = mapper.Map<Data.Models.WorkingPattern>(patchModel);
-                var existingIndex = existingSegmentModel.Data.WorkingPattern.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredWorkingPatterns.Insert(existingIndex, updatedStandard);
+                existingSegmentModel.Data.WorkingPattern.RemoveAt(existingIndex);
+            }
+            else
+            {
+                var updatedAdditionalInfo = mapper.Map<Data.Models.WorkingPattern>(patchModel);
+                existingSegmentModel.Data.WorkingPattern[existingIndex] = updatedAdditionalInfo;
             }
 
-            existingSegmentModel.Data.WorkingPattern = filteredWorkingPatterns;
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
 
             return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);
@@ -128,16 +130,17 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            var filteredHiddenAltTitles = existingSegmentModel.Data.HiddenAlternativeTitle.Where(ai => ai.Id != patchModel.Id).ToList();
-
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
+            var existingIndex = existingSegmentModel.Data.HiddenAlternativeTitle.ToList().FindIndex(ai => ai.Id == patchModel.Id);
+            if (patchModel.MessageAction == MessageAction.Deleted)
             {
-                var updatedStandard = mapper.Map<Data.Models.HiddenAlternativeTitle>(patchModel);
-                var existingIndex = existingSegmentModel.Data.HiddenAlternativeTitle.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredHiddenAltTitles.Insert(existingIndex, updatedStandard);
+                existingSegmentModel.Data.HiddenAlternativeTitle.RemoveAt(existingIndex);
+            }
+            else
+            {
+                var updatedHiddenAltTitle = mapper.Map<Data.Models.HiddenAlternativeTitle>(patchModel);
+                existingSegmentModel.Data.HiddenAlternativeTitle[existingIndex] = updatedHiddenAltTitle;
             }
 
-            existingSegmentModel.Data.HiddenAlternativeTitle = filteredHiddenAltTitles;
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
 
             return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);
@@ -167,16 +170,17 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            var filteredSpecialisms = existingSegmentModel.Data.JobProfileSpecialism.Where(ai => ai.Id != patchModel.Id).ToList();
-
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
+            var existingIndex = existingSegmentModel.Data.JobProfileSpecialism.ToList().FindIndex(ai => ai.Id == patchModel.Id);
+            if (patchModel.MessageAction == MessageAction.Deleted)
+            {
+                existingSegmentModel.Data.JobProfileSpecialism.RemoveAt(existingIndex);
+            }
+            else
             {
                 var updatedSpecialism = mapper.Map<Data.Models.JobProfileSpecialism>(patchModel);
-                var existingIndex = existingSegmentModel.Data.JobProfileSpecialism.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredSpecialisms.Insert(existingIndex, updatedSpecialism);
+                existingSegmentModel.Data.JobProfileSpecialism[existingIndex] = updatedSpecialism;
             }
 
-            existingSegmentModel.Data.JobProfileSpecialism = filteredSpecialisms;
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
 
             return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);
@@ -206,16 +210,18 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            var filteredWorkingHoursDetails = existingSegmentModel.Data.WorkingHoursDetails.Where(ai => ai.Id != patchModel.Id).ToList();
+            var existingIndex = existingSegmentModel.Data.WorkingHoursDetails.ToList().FindIndex(ai => ai.Id == patchModel.Id);
 
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
+            if (patchModel.MessageAction == MessageAction.Deleted)
+            {
+                existingSegmentModel.Data.WorkingHoursDetails.RemoveAt(existingIndex);
+            }
+            else
             {
                 var updatedWorkingHoursDetail = mapper.Map<Data.Models.WorkingHoursDetail>(patchModel);
-                var existingIndex = existingSegmentModel.Data.WorkingHoursDetails.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredWorkingHoursDetails.Insert(existingIndex, updatedWorkingHoursDetail);
+                existingSegmentModel.Data.WorkingHoursDetails[existingIndex] = updatedWorkingHoursDetail;
             }
 
-            existingSegmentModel.Data.WorkingHoursDetails = filteredWorkingHoursDetails;
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
 
             return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);
@@ -245,16 +251,18 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            var filteredWorkingPatternDetails = existingSegmentModel.Data.WorkingPatternDetails.Where(ai => ai.Id != patchModel.Id).ToList();
+            var existingIndex = existingSegmentModel.Data.WorkingPatternDetails.ToList().FindIndex(ai => ai.Id == patchModel.Id);
 
-            if (patchModel.MessageAction == MessageAction.Published || patchModel.MessageAction == MessageAction.Draft)
+            if (patchModel.MessageAction == MessageAction.Deleted)
+            {
+                existingSegmentModel.Data.WorkingPatternDetails.RemoveAt(existingIndex);
+            }
+            else
             {
                 var updatedWorkingPatternDetail = mapper.Map<Data.Models.WorkingPatternDetail>(patchModel);
-                var existingIndex = existingSegmentModel.Data.WorkingPatternDetails.ToList().FindIndex(ai => ai.Id == patchModel.Id);
-                filteredWorkingPatternDetails.Insert(existingIndex, updatedWorkingPatternDetail);
+                existingSegmentModel.Data.WorkingPatternDetails[existingIndex] = updatedWorkingPatternDetail;
             }
 
-            existingSegmentModel.Data.WorkingPatternDetails = filteredWorkingPatternDetails;
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
 
             return await UpsertAndRefreshSegmentModel(existingSegmentModel).ConfigureAwait(false);

@@ -88,24 +88,23 @@ namespace DFC.App.JobProfileOverview.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/{article}/contents")]
-        public async Task<IActionResult> Body(string article)
+        [Route("{controller}/{documentId}/contents")]
+        public async Task<IActionResult> Body(Guid documentId)
         {
-            logger.LogInformation($"{BodyActionName} has been called with: {article}");
+            logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
-            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
-
+            var model = await jobProfileOverviewSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
             if (model != null)
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
 
-                logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
+                logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
                 var test = this.NegotiateContentResult(viewModel, model.Data);
                 return test;
             }
 
-            logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
+            logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
 
             return NoContent();
         }

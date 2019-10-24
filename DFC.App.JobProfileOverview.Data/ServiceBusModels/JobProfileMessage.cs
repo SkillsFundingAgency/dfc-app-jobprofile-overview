@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
         public DateTime LastModified { get; set; }
 
         [Required]
-        public string SocCodeId { get; set; }
+        public string SocLevelTwo { get; set; }
 
         public SocCodeData SocCodeData { get; set; }
 
