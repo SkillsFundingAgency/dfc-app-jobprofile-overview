@@ -39,6 +39,11 @@ namespace DFC.App.JobProfileOverview.MessageFunctionAppTests
         private const string WorkingPatternDetailDescription1 = "Working Pattern Detail description 1";
         private const string WorkingHoursDetailTitle1 = "Working Hours Detail title 1";
         private const string WorkingHoursDetailDescription1 = "Working Hours Detail description 1";
+        private const string WorkingPatternUrl1 = "http://WorkingPattern1";
+        private const string HiddenAlternativeUrl1 = "http://HiddenAlternativeUrl1";
+        private const string SpecialismUrl1 = "http://SpecialismUrl1";
+        private const string WorkingPatternDetailUrl1 = "http://WorkingPatternDetailUrl1";
+        private const string WorkingHoursDetailUrl1 = "http://WorkingHoursDetailUrl1";
 
         private static readonly DateTime LastModified = DateTime.UtcNow.AddDays(-1);
         private static readonly Guid JobProfileId = Guid.NewGuid();
@@ -48,11 +53,6 @@ namespace DFC.App.JobProfileOverview.MessageFunctionAppTests
         private static readonly Guid SpecialismId1 = Guid.NewGuid();
         private static readonly Guid WorkingPatternDetailId1 = Guid.NewGuid();
         private static readonly Guid WorkingHoursDetailId1 = Guid.NewGuid();
-        private static readonly Uri WorkingPatternUrl1 = new Uri("http://WorkingPattern1");
-        private static readonly Uri HiddenAlternativeUrl1 = new Uri("http://HiddenAlternativeUrl1");
-        private static readonly Uri SpecialismUrl1 = new Uri("http://SpecialismUrl1");
-        private static readonly Uri WorkingPatternDetailUrl1 = new Uri("http://WorkingPatternDetailUrl1");
-        private static readonly Uri WorkingHoursDetailUrl1 = new Uri("http://WorkingHoursDetailUrl1");
 
         private readonly IMappingService mappingService;
 
