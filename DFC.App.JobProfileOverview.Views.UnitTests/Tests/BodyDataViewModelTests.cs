@@ -22,9 +22,9 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
                 SalaryStarter = 40,
                 SalaryExperienced = 55,
                 Title = "title1",
-                WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingHoursDetails1", Url = new Uri("http://something.com") } },
-                WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = new Uri("http://something.com") } },
-                WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = new Uri("http://something.com") } },
+                WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingHoursDetails1", Url = "http://something.com" } },
+                WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = "http://something.com" } },
+                WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Title 1", Description = "WorkingPattern1", Url = "http://something.com" } },
             };
 
             var viewBag = new Dictionary<string, object>();

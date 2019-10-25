@@ -32,6 +32,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Startup
             builder.Services.AddSingleton<HttpClient>(new HttpClient());
             builder?.Services.AddSingleton<IHttpClientService, HttpClientService>();
             builder?.Services.AddSingleton<IMessageProcessor, MessageProcessor>();
+            builder?.Services.AddSingleton<IMappingService, MappingService>();
             builder?.Services.AddSingleton<ILogger, Logger<WebJobsExtensionStartup>>();
         }
     }
