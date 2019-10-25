@@ -58,7 +58,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
 
             var client = factory?.CreateClient();
 
-            client.DefaultRequestHeaders.Accept.Clear();
+            client?.DefaultRequestHeaders.Accept.Clear();
 
             foreach (var model in models)
             {
@@ -78,13 +78,13 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                     SocLevelTwo = "12345",
                     Data = new JobProfileOverviewSegmentDataModel
                     {
-                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = new Uri("http://something.com") } },
-                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = new Uri("http://something.com") } },
-                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = new Uri("http://something.com") } },
+                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = "http://something.com" } },
+                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = "http://something.com" } },
+                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = "http://something.com" } },
                         Title = Article1Name,
                         Overview = "Children's nurses provide care for children and young people with acute or long-term health problems.",
-                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = new Uri("http://something.com") } },
-                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = new Uri("http://something.com") } },
+                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = "http://something.com" } },
+                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = "http://something.com" } },
                         AlternativeTitle = "Alternative 1, alternative 2",
                         LastReviewed = DateTime.UtcNow,
                         MinimumHours = 5.0M,
@@ -108,13 +108,13 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                     SocLevelTwo = Article2SocCode,
                     Data = new JobProfileOverviewSegmentDataModel
                     {
-                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = new Uri("http://something.com") } },
-                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = new Uri("http://something.com") } },
-                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = new Uri("http://something.com") } },
+                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = "http://something.com" } },
+                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = "http://something.com" } },
+                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = "http://something.com" } },
                         Title = Article2Name,
                         Overview = "Children's nurses provide care for children and young people with acute or long-term health problems.",
-                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = new Uri("http://something.com") } },
-                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = new Uri("http://something.com") } },
+                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = "http://something.com" } },
+                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = "http://something.com" } },
                         AlternativeTitle = "Alternative 1, alternative 2",
                         LastReviewed = DateTime.UtcNow,
                         MinimumHours = 5.0M,
@@ -138,13 +138,13 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.Data
                     SocLevelTwo = "34567",
                     Data = new JobProfileOverviewSegmentDataModel
                     {
-                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = new Uri("http://something.com") } },
-                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = new Uri("http://something.com") } },
-                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = new Uri("http://something.com") } },
+                        WorkingHoursDetails = new List<WorkingHoursDetail> { new WorkingHoursDetail { Id = Guid.NewGuid(), Title = "Hours Detail Title 1", Description = "Working Hours Details 1", Url = "http://something.com" } },
+                        WorkingPattern = new List<WorkingPattern> { new WorkingPattern { Id = Guid.NewGuid(), Title = "Pattern Title 1", Description = "Working Pattern 1", Url = "http://something.com" } },
+                        WorkingPatternDetails = new List<WorkingPatternDetail> { new WorkingPatternDetail { Id = Guid.NewGuid(), Title = "Pattern detail Title 1", Description = "Working Pattern detail1", Url = "http://something.com" } },
                         Title = Article3Name,
                         Overview = "Children's nurses provide care for children and young people with acute or long-term health problems.",
-                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = new Uri("http://something.com") } },
-                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = new Uri("http://something.com") } },
+                        HiddenAlternativeTitle = new List<HiddenAlternativeTitle> { new HiddenAlternativeTitle { Id = Guid.NewGuid(), Title = "Alternative Title 1", Description = "Alternative title 1", Url = "http://something.com" } },
+                        JobProfileSpecialism = new List<JobProfileSpecialism> { new JobProfileSpecialism { Id = Guid.NewGuid(), Title = "Specialism 1", Description = "Job Profile Specialism 1", Url = "http://something.com" } },
                         AlternativeTitle = "Alternative 1, alternative 2",
                         LastReviewed = DateTime.UtcNow,
                         MinimumHours = 5.0M,

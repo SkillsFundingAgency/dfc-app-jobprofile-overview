@@ -37,10 +37,10 @@ namespace DFC.App.JobProfileOverview.ViewModels
 
         public IEnumerable<WorkingPatternDetail> WorkingPatternDetails { get; set; }
 
-        public string WorkingHoursDetailDescription => WorkingHoursDetails?.FirstOrDefault()?.Description;
+        public string WorkingHoursDetailTitle => WorkingHoursDetails?.FirstOrDefault()?.Title;
 
-        public string WorkingPatternDescription => WorkingPattern?.FirstOrDefault()?.Description;
+        public string WorkingPatternTitle => WorkingPattern?.FirstOrDefault()?.Title;
 
-        public string WorkingPatternDetailDescription => WorkingPatternDetails?.FirstOrDefault()?.Description;
+        public string WorkingPatternDetailTitle => WorkingPatternDetails?.FirstOrDefault()?.Title;
     }
 }

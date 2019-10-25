@@ -10,6 +10,6 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
 
         public string Description { get; set; }
 
-        public Uri Url { get; set; }
+        public string Url { get; set; }
     }
 }
