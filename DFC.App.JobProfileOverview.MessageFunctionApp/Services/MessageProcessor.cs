@@ -56,7 +56,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchJobProfileSpecialismModel, "jobProfileSpecialism").ConfigureAwait(false);
                     }
 
-                case MessageContentType.WorkingHoursDetail:
+                case MessageContentType.WorkingHoursDetails:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchWorkingHoursDetailServiceBusModel>(message);
                         var patchWorkingHoursDetailModel = mapper.Map<PatchWorkingHoursDetailModel>(serviceBusMessage);
@@ -66,7 +66,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchWorkingHoursDetailModel, "workingHoursDetail").ConfigureAwait(false);
                     }
 
-                case MessageContentType.WorkingPatternDetail:
+                case MessageContentType.WorkingPatternDetails:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchWorkingPatternDetailServiceBusModel>(message);
                         var patchWorkingPatternDetailModel = mapper.Map<PatchWorkingPatternDetailModel>(serviceBusMessage);
