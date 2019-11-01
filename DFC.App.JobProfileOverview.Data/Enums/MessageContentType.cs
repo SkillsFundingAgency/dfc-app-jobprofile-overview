@@ -4,9 +4,9 @@
     {
         JobProfile,
         SocCodes,
-        WorkingHoursDetail,
+        WorkingHoursDetails,
         WorkingPattern,
-        WorkingPatternDetail,
+        WorkingPatternDetails,
         HiddenAlternativeTitle,
         JobProfileSpecialism,
     }
