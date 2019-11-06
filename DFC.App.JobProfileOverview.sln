@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview", "DFC.App.JobProfileOverview\DFC.App.JobProfileOverview.csproj", "{1EFE386C-4782-4017-ACE4-E65F91E7607B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{03CF7A2B-7429-432D-B0F1-6D7EDCDEA3AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{055C7226-D38C-42B1-9E6E-199713CCB4DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{50817F18-5560-461D-AF60-D8349D998CF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.UnitTests", "DFC.App.JobProfileOverview.UnitTests\DFC.App.JobProfileOverview.UnitTests.csproj", "{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EFE386C-4782-4017-ACE4-E65F91E7607B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EFE386C-4782-4017-ACE4-E65F91E7607B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EFE386C-4782-4017-ACE4-E65F91E7607B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EFE386C-4782-4017-ACE4-E65F91E7607B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{055C7226-D38C-42B1-9E6E-199713CCB4DE} = {03CF7A2B-7429-432D-B0F1-6D7EDCDEA3AF}
+		{50817F18-5560-461D-AF60-D8349D998CF2} = {055C7226-D38C-42B1-9E6E-199713CCB4DE}
+		{0C1C09A1-E39B-4B5D-972F-ACEA6BCB75FB} = {50817F18-5560-461D-AF60-D8349D998CF2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E0FA185-1719-491B-808A-FDEFDC867005}
+	EndGlobalSection
+EndGlobal

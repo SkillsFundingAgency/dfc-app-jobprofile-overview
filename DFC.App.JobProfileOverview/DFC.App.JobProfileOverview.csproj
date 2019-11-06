@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <LangVersion>latest</LangVersion>
+    <ProjectGuid>{1EFE386C-4782-4017-ACE4-E65F91E7607B}</ProjectGuid>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+</Project>
