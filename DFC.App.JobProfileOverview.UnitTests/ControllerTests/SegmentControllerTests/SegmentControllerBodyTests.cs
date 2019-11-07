@@ -1,4 +1,5 @@
-﻿using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.ApiModels;
+using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.ViewModels;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
             var fakeBodyViewModel = A.Fake<BodyViewModel>();
+            var fakeOverviewApiModel = A.Fake<OverviewApiModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
             expectedResult.CanonicalName = ArticleName;
@@ -57,6 +59,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
+            A.CallTo(() => FakeMapper.Map<OverviewApiModel>(A<JobProfileOverviewSegmentDataModel>.Ignored)).Returns(fakeOverviewApiModel);
 
             // Act
             var result = await controller.Body(documentId).ConfigureAwait(false);
@@ -64,9 +67,10 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeMapper.Map<OverviewApiModel>(A<JobProfileOverviewSegmentDataModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            Assert.IsAssignableFrom<JobProfileOverviewSegmentDataModel>(jsonResult.Value);
+            Assert.IsAssignableFrom<OverviewApiModel>(jsonResult.Value);
 
             controller.Dispose();
         }

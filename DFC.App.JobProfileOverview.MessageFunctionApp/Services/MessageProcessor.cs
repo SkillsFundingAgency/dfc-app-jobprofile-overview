@@ -76,14 +76,14 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchWorkingPatternDetailModel, "workingPatternDetail").ConfigureAwait(false);
                     }
 
-                case MessageContentType.SocCodes:
+                case MessageContentType.JobProfileSoc:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchSocDataServiceBusModel>(message);
                         var patchSocDataModel = mapper.Map<PatchSocDataModel>(serviceBusMessage);
                         patchSocDataModel.MessageAction = messageAction;
                         patchSocDataModel.SequenceNumber = sequenceNumber;
 
-                        return await httpClientService.PatchAsync(patchSocDataModel, "socCodeData").ConfigureAwait(false);
+                        return await httpClientService.PatchAsync(patchSocDataModel, "jobProfileSoc").ConfigureAwait(false);
                     }
 
                 case MessageContentType.JobProfile:
