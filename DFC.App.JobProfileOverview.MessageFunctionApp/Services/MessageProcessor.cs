@@ -76,7 +76,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchWorkingPatternDetailModel, "workingPatternDetail").ConfigureAwait(false);
                     }
 
-                case MessageContentType.SocCodes:
+                case MessageContentType.JobProfileSoc:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchSocDataServiceBusModel>(message);
                         var patchSocDataModel = mapper.Map<PatchSocDataModel>(serviceBusMessage);

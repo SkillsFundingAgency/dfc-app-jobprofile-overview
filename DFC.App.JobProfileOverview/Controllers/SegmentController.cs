@@ -1,4 +1,5 @@
-﻿using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.ApiModels;
+using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Extensions;
 using DFC.App.JobProfileOverview.SegmentService;
@@ -107,8 +108,10 @@ namespace DFC.App.JobProfileOverview.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
-                var test = this.NegotiateContentResult(viewModel, model.Data);
-                return test;
+                var apiModel = mapper.Map<OverviewApiModel>(model.Data);
+                apiModel.Url = model.CanonicalName;
+
+                return this.NegotiateContentResult(viewModel, apiModel);
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");

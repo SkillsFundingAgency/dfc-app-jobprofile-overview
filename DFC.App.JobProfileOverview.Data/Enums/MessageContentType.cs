@@ -3,7 +3,7 @@
     public enum MessageContentType
     {
         JobProfile,
-        SocCodes,
+        JobProfileSoc,
         WorkingHoursDetails,
         WorkingPattern,
         WorkingPatternDetails,
