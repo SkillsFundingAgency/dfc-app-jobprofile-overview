@@ -17,7 +17,7 @@ namespace DFC.App.JobProfileOverview.AutoMapperProfiles
                 .ForMember(d => d.Url, s => s.Ignore())
                 .ForMember(d => d.SalaryStarter, opt => opt.ConvertUsing(new SalaryToStringFormatter()))
                 .ForMember(d => d.SalaryExperienced, opt => opt.ConvertUsing(new SalaryToStringFormatter()))
-                .ForMember(d => d.WorkingHoursDetails, s => s.MapFrom(a => a.WorkingPattern.FirstOrDefault().Description))
+                .ForMember(d => d.WorkingHoursDetails, s => s.MapFrom(a => a.WorkingHoursDetails.FirstOrDefault().Description))
                 .ForMember(d => d.WorkingPattern, s => s.MapFrom(a => a.WorkingPattern.FirstOrDefault().Description))
                 .ForMember(d => d.WorkingPatternDetails, s => s.MapFrom(a => a.WorkingPatternDetails.FirstOrDefault().Description))
                 ;
