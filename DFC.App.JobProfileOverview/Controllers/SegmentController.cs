@@ -309,7 +309,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         }
 
         [HttpPatch]
-        [Route("segment/{documentId}/JobProfileSoc")]
+        [Route("segment/{documentId}/socCodeData")]
         public async Task<IActionResult> PatchSocCodeData([FromBody]PatchSocDataModel patchSocDataModel, Guid documentId)
         {
             logger.LogInformation($"{PatchSocCodeDataActionName} has been called");

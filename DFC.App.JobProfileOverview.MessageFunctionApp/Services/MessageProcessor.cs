@@ -83,7 +83,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                         patchSocDataModel.MessageAction = messageAction;
                         patchSocDataModel.SequenceNumber = sequenceNumber;
 
-                        return await httpClientService.PatchAsync(patchSocDataModel, "jobProfileSoc").ConfigureAwait(false);
+                        return await httpClientService.PatchAsync(patchSocDataModel, "socCodeData").ConfigureAwait(false);
                     }
 
                 case MessageContentType.JobProfile:
