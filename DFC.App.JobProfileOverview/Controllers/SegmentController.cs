@@ -362,7 +362,7 @@ namespace DFC.App.JobProfileOverview.Controllers
                 {
                     new BreadcrumbPathViewModel()
                     {
-                        Route = $"/explore-careers",
+                        Route = $"/externalExploreCareers",
                         Title = "Home: Explore careers",
                     },
                 },
