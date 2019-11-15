@@ -8,10 +8,8 @@ namespace DFC.App.JobProfileOverview.Data.Models.PatchModels
         [Required]
         public string Title { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
-        [Required]
         public string Url { get; set; }
     }
 }
