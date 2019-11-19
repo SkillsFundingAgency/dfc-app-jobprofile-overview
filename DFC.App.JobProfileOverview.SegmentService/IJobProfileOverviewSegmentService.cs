@@ -15,7 +15,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
 
         Task<JobProfileOverviewSegmentModel> GetByIdAsync(Guid documentId);
 
-        Task<JobProfileOverviewSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
+        Task<JobProfileOverviewSegmentModel> GetByNameAsync(string canonicalName);
 
         Task<HttpStatusCode> UpsertAsync(JobProfileOverviewSegmentModel jobProfileOverviewSegmentModel);
 
