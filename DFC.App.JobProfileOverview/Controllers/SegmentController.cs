@@ -75,7 +75,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         {
             logger.LogInformation($"{DocumentActionName} has been called with: {article}");
 
-            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article).ConfigureAwait(false);
 
             if (model != null)
             {
