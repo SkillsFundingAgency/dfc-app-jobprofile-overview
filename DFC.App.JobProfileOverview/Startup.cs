@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels;
-using DFC.App.JobProfileOverview.DraftSegmentService;
 using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using DFC.App.JobProfileOverview.SegmentService;
 using Microsoft.AspNetCore.Builder;
@@ -49,7 +48,6 @@ namespace DFC.App.JobProfileOverview
             services.AddSingleton<IDocumentClient>(documentClient);
             services.AddSingleton<ICosmosRepository<JobProfileOverviewSegmentModel>, CosmosRepository<JobProfileOverviewSegmentModel>>();
             services.AddSingleton<IJobProfileOverviewSegmentService, JobProfileOverviewSegmentService>();
-            services.AddSingleton<IDraftJobProfileOverviewSegmentService, DraftJobProfileOverviewSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 
