@@ -6,19 +6,7 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
 {
     public class TestBase
     {
-        private readonly string viewRootPath;
-        private readonly IConfigurationRoot configuration;
-
-        public TestBase()
-        {
-            var config = new ConfigurationBuilder();
-            config.AddJsonFile("appsettings.json");
-            configuration = config.Build();
-
-            viewRootPath = configuration["ViewRootPath"];
-        }
-
-        public string ViewRootPath => viewRootPath;
+        public string ViewRootPath => "..\\..\\..\\..\\DFC.App.JobProfileOverview\\";
 
         protected string CurrencySymbol => CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol;
 
