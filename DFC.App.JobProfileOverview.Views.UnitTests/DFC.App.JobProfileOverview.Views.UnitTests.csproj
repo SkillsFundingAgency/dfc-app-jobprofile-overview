@@ -34,12 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.JobProfileOverview.Data\DFC.App.JobProfileOverview.Data.csproj" />
     <ProjectReference Include="..\DFC.App.JobProfileOverview\DFC.App.JobProfileOverview.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  </ItemGroup>  
 
 </Project>
