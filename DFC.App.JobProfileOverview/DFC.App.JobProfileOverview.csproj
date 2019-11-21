@@ -44,4 +44,8 @@
     <ProjectReference Include="..\DFC.App.JobProfileOverview.SegmentService\DFC.App.JobProfileOverview.SegmentService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
