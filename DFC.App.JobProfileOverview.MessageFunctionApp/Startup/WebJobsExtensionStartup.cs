@@ -8,12 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 [assembly: WebJobsStartup(typeof(DFC.App.JobProfileOverview.MessageFunctionApp.Startup.WebJobsExtensionStartup), "Web Jobs Extension Startup")]
 
 namespace DFC.App.JobProfileOverview.MessageFunctionApp.Startup
 {
+    [ExcludeFromCodeCoverage]
     public class WebJobsExtensionStartup : IWebJobsStartup
     {
         public void Configure(IWebJobsBuilder builder)

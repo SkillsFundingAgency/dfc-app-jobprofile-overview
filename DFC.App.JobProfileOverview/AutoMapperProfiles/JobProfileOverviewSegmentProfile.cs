@@ -3,9 +3,11 @@ using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.App.JobProfileOverview.AutoMapperProfiles
 {
+    [ExcludeFromCodeCoverage]
     public class JobProfileOverviewSegmentProfile : Profile
     {
         public JobProfileOverviewSegmentProfile()

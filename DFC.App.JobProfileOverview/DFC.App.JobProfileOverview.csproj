@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="../stylecop.json" />
   </ItemGroup>
 
@@ -40,12 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.JobProfileOverview.Data\DFC.App.JobProfileOverview.Data.csproj" />
     <ProjectReference Include="..\DFC.App.JobProfileOverview.Repository.CosmosDb\DFC.App.JobProfileOverview.Repository.CosmosDb.csproj" />
-    <ProjectReference Include="..\DFC.App.JobProfileOverview.Repository.SitefinityApi\DFC.App.JobProfileOverview.Repository.SitefinityApi.csproj" />
     <ProjectReference Include="..\DFC.App.JobProfileOverview.SegmentService\DFC.App.JobProfileOverview.SegmentService.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
