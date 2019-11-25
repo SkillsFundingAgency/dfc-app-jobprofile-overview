@@ -6,6 +6,7 @@ using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
 {
+    [Trait("Segment Controller", "Delete Tests")]
     public class SegmentControllerDeleteTests : BaseSegmentController
     {
         [Theory]

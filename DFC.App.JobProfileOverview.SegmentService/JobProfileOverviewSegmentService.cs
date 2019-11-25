@@ -83,7 +83,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingWorkingPattern = existingSegmentModel.Data.WorkingPattern.SingleOrDefault(r => r.Id == patchModel.Id);
+            var existingWorkingPattern = existingSegmentModel.Data?.WorkingPattern.SingleOrDefault(r => r.Id == patchModel.Id);
             if (existingWorkingPattern is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -124,13 +124,14 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingHiddenAltTitle = existingSegmentModel.Data.HiddenAlternativeTitle.SingleOrDefault(r => r.Id == patchModel.Id);
+            var existingHiddenAltTitle = existingSegmentModel.Data?.HiddenAlternativeTitle.SingleOrDefault(r => r.Id == patchModel.Id);
             if (existingHiddenAltTitle is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
             var existingIndex = existingSegmentModel.Data.HiddenAlternativeTitle.ToList().FindIndex(ai => ai.Id == patchModel.Id);
+
             if (patchModel.MessageAction == MessageAction.Deleted)
             {
                 existingSegmentModel.Data.HiddenAlternativeTitle.RemoveAt(existingIndex);
@@ -164,7 +165,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingSpecialism = existingSegmentModel.Data.JobProfileSpecialism.SingleOrDefault(r => r.Id == patchModel.Id);
+            var existingSpecialism = existingSegmentModel.Data?.JobProfileSpecialism.SingleOrDefault(r => r.Id == patchModel.Id);
             if (existingSpecialism is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -204,7 +205,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingWorkingHoursDetail = existingSegmentModel.Data.WorkingHoursDetails.SingleOrDefault(r => r.Id == patchModel.Id);
+            var existingWorkingHoursDetail = existingSegmentModel.Data?.WorkingHoursDetails.SingleOrDefault(r => r.Id == patchModel.Id);
             if (existingWorkingHoursDetail is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -245,7 +246,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingWorkingPatternDetail = existingSegmentModel.Data.WorkingPatternDetails.SingleOrDefault(r => r.Id == patchModel.Id);
+            var existingWorkingPatternDetail = existingSegmentModel.Data?.WorkingPatternDetails.SingleOrDefault(r => r.Id == patchModel.Id);
             if (existingWorkingPatternDetail is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -286,7 +287,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingSocData = existingSegmentModel.Data.Soc;
+            var existingSocData = existingSegmentModel.Data?.Soc;
             if (existingSocData is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
