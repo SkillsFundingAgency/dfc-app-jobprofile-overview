@@ -215,7 +215,6 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
         public async Task ProcessAsyncWithBadMessageMessageActionReturnsException()
         {
             // arrange
-            const HttpStatusCode expectedResult = HttpStatusCode.OK;
             const string message = "{}";
             const long sequenceNumber = 1;
 
