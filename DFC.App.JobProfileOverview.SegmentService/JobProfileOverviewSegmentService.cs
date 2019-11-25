@@ -293,7 +293,7 @@ namespace DFC.App.JobProfileOverview.SegmentService
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
             }
 
-            if (patchModel.MessageAction == MessageAction.Deleted) // What should this do on delete of SocData - null or new SocData?
+            if (patchModel.MessageAction == MessageAction.Deleted)
             {
                 existingSegmentModel.Data.Soc = new SocData();
             }
