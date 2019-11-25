@@ -2,10 +2,12 @@
 using DFC.App.JobProfileOverview.ApiModels;
 using DFC.App.JobProfileOverview.AutoMapperProfiles.ValueConverters;
 using DFC.App.JobProfileOverview.Data.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DFC.App.JobProfileOverview.AutoMapperProfiles
 {
+    [ExcludeFromCodeCoverage]
     public class ApiModelProfile : Profile
     {
         public ApiModelProfile()

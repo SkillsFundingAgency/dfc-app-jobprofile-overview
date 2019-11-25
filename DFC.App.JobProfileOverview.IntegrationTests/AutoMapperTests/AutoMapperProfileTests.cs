@@ -18,7 +18,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.AutoMapperTests
         public void AutoMapperProfileConfigurationForJobProfileModelProfileReturnSuccess()
         {
             // Arrange
-            factory.CreateClient();
+            _ = factory.CreateClient();
             var mapper = factory.Server.Host.Services.GetRequiredService<IMapper>();
 
             // Act
@@ -46,7 +46,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.AutoMapperTests
         public void AutoMapperProfileConfigurationForAllProfilesReturnSuccess()
         {
             // Arrange
-            factory.CreateClient();
+            _ = factory.CreateClient();
             var mapper = factory.Server.Host.Services.GetRequiredService<IMapper>();
 
             // Act

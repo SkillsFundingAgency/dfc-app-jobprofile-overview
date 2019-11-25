@@ -90,10 +90,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                     return await ProcessJobProfileMessageAsync(message, messageAction, sequenceNumber).ConfigureAwait(false);
 
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException(nameof(messageContentType), $"Unexpected sitefinity content type '{messageContentType}'");
             }
-
-            return await Task.FromResult(HttpStatusCode.InternalServerError).ConfigureAwait(false);
         }
 
         private async Task<HttpStatusCode> ProcessJobProfileMessageAsync(string message, MessageAction messageAction, long sequenceNumber)
