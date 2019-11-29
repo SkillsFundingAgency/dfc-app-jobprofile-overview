@@ -8,6 +8,7 @@ using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
 {
+    [Trait("Segment Controller", "Index Tests")]
     public class SegmentControllerIndexTests : BaseSegmentController
     {
         [Theory]

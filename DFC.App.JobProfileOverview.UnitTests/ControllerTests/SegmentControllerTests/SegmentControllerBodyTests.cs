@@ -9,6 +9,7 @@ using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
 {
+    [Trait("Segment Controller", "Get Body Tests")]
     public class SegmentControllerBodyTests : BaseSegmentController
     {
         private const string ArticleName = "an-article-name";
@@ -39,6 +40,25 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+
+            controller.Dispose();
+        }
+
+        [Theory]
+        [MemberData(nameof(HtmlMediaTypes))]
+        public async void ReturnsNoContentWhenNoData(string mediaTypeName)
+        {
+            // Arrange
+            var controller = BuildSegmentController(mediaTypeName);
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns((JobProfileOverviewSegmentModel)null);
+
+            // Act
+            var result = await controller.Body(documentId).ConfigureAwait(false);
+
+            // Assert
+            A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
+            var statusResult = Assert.IsType<NoContentResult>(result);
+            Assert.Equal((int)HttpStatusCode.NoContent, statusResult.StatusCode);
 
             controller.Dispose();
         }
