@@ -30,12 +30,13 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Startup
 
             builder.AddDependencyInjection();
             builder?.Services.AddAutoMapper(typeof(WebJobsExtensionStartup).Assembly);
-            builder.Services.AddSingleton<SegmentClientOptions>(segmentClientOptions);
-            builder.Services.AddSingleton<HttpClient>(new HttpClient());
+            builder?.Services.AddSingleton<SegmentClientOptions>(segmentClientOptions);
+            builder?.Services.AddSingleton<HttpClient>(new HttpClient());
             builder?.Services.AddSingleton<IHttpClientService, HttpClientService>();
             builder?.Services.AddSingleton<IMessageProcessor, MessageProcessor>();
             builder?.Services.AddSingleton<IMappingService, MappingService>();
             builder?.Services.AddSingleton<ILogger, Logger<WebJobsExtensionStartup>>();
+            builder?.Services.AddSingleton<IMessagePropertiesService, MessagePropertiesService>();
         }
     }
 }
