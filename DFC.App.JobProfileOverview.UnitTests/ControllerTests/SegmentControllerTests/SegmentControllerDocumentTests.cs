@@ -17,24 +17,24 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             // Arrange
             const string article = "an-article-name";
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
-            var fakeDocumentViewModel = A.Fake<DocumentViewModel>();
+            var fakeBodyViewModel = A.Fake<BodyViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
             expectedResult.Data = A.Fake<JobProfileOverviewSegmentDataModel>();
-            fakeDocumentViewModel.Data = A.Fake<BodyDataViewModel>();
+            fakeBodyViewModel.Data = A.Fake<BodyDataViewModel>();
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeDocumentViewModel);
+            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<DocumentViewModel>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }

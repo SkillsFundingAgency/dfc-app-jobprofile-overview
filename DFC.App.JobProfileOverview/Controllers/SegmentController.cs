@@ -79,13 +79,13 @@ namespace DFC.App.JobProfileOverview.Controllers
 
             if (model != null)
             {
-                var viewModel = mapper.Map<DocumentViewModel>(model);
+                var viewModel = mapper.Map<BodyViewModel>(model);
 
                 viewModel.Data.Breadcrumb = BuildBreadcrumb(model, SegmentRoutePrefix);
 
                 logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
-                return View(viewModel);
+                return View(nameof(Body), viewModel);
             }
 
             logger.LogWarning($"{DocumentActionName} has returned no content for: {article}");
