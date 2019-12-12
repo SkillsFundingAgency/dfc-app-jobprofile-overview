@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DFC.App.JobProfileOverview.ViewModels
+﻿namespace DFC.App.JobProfileOverview.ViewModels
 {
     public class HealthItemViewModel
     {

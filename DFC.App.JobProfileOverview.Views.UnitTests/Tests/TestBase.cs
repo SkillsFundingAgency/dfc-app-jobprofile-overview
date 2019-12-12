@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Net;
 
 namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
