@@ -26,9 +26,9 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
 
         public string Overview { get; set; }
 
-        public decimal SalaryStarter { get; set; }
+        public decimal? SalaryStarter { get; set; }
 
-        public decimal SalaryExperienced { get; set; }
+        public decimal? SalaryExperienced { get; set; }
 
         public decimal MinimumHours { get; set; }
 

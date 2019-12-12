@@ -21,9 +21,9 @@ namespace DFC.App.JobProfileOverview.Data.Models
 
         public string Overview { get; set; }
 
-        public decimal SalaryStarter { get; set; }
+        public decimal? SalaryStarter { get; set; }
 
-        public decimal SalaryExperienced { get; set; }
+        public decimal? SalaryExperienced { get; set; }
 
         public decimal MinimumHours { get; set; }
 
