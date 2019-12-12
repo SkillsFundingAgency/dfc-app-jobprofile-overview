@@ -1,6 +1,8 @@
+using DFC.App.CareerPath.Common.Contracts;
 using DFC.App.JobProfileOverview.Data.Enums;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
 using DFC.Functions.DI.Standard.Attributes;
+using DFC.Logger.AppInsights.Contracts;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -11,28 +13,43 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.MessageFunctionApp.Functions
 {
-    public static class SitefinityMessageHandler
+    public class SitefinityMessageHandler
     {
-        private static readonly string ClassFullName = typeof(SitefinityMessageHandler).FullName;
+        private readonly string ClassFullName = typeof(SitefinityMessageHandler).FullName;
+        private readonly IMessageProcessor messageProcessor;
+        private readonly IMessagePropertiesService messagePropertiesService;
+        private readonly ICorrelationIdProvider correlationIdProvider;
+        private readonly ILogService logService;
+
+        public SitefinityMessageHandler(
+            IMessageProcessor messageProcessor,
+            IMessagePropertiesService messagePropertiesService,
+            ICorrelationIdProvider correlationIdProvider,
+            ILogService logService)
+        {
+            this.messageProcessor = messageProcessor;
+            this.messagePropertiesService = messagePropertiesService;
+            this.correlationIdProvider = correlationIdProvider;
+            this.logService = logService;
+        }
 
         [FunctionName("SitefinityMessageHandler")]
-        public static async Task Run(
-            [ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] Message sitefinityMessage,
-            [Inject] IMessageProcessor messageProcessor,
-            [Inject] IMessagePropertiesService messagePropertiesService,
-            ILogger log)
+        public async Task Run(
+            [ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] Message sitefinityMessage)
         {
             if (sitefinityMessage == null)
             {
                 throw new ArgumentNullException(nameof(sitefinityMessage));
             }
 
+            correlationIdProvider.CorrelationId = sitefinityMessage.CorrelationId;
+
             sitefinityMessage.UserProperties.TryGetValue("ActionType", out var actionType);
             sitefinityMessage.UserProperties.TryGetValue("CType", out var contentType);
             sitefinityMessage.UserProperties.TryGetValue("Id", out var messageContentId);
 
             // logger should allow setting up correlation id and should be picked up from message
-            log.LogInformation($"{nameof(SitefinityMessageHandler)}: Received message action '{actionType}' for type '{contentType}' with Id: '{messageContentId}': Correlation id {sitefinityMessage.CorrelationId}");
+            logService.LogInformation($"{nameof(SitefinityMessageHandler)}: Received message action '{actionType}' for type '{contentType}' with Id: '{messageContentId}'");
 
             var message = Encoding.UTF8.GetString(sitefinityMessage?.Body);
 
@@ -60,19 +77,19 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Functions
             switch (result)
             {
                 case HttpStatusCode.OK:
-                    log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Updated segment");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Updated segment");
                     break;
 
                 case HttpStatusCode.Created:
-                    log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Created segment");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Created segment");
                     break;
 
                 case HttpStatusCode.AlreadyReported:
-                    log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
                     break;
 
                 default:
-                    log.LogWarning($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment not Posted: Status: {result}");
+                    logService.LogWarning($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment not Posted: Status: {result}");
                     break;
             }
         }

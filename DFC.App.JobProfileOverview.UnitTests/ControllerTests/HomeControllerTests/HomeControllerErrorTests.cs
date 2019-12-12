@@ -1,5 +1,4 @@
 ﻿using DFC.App.JobProfileOverview.ViewModels;
-using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
