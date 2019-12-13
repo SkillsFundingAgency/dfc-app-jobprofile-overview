@@ -9,7 +9,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
@@ -33,8 +32,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Startup
 
             builder.AddDependencyInjection();
             builder?.Services.AddAutoMapper(typeof(WebJobsExtensionStartup).Assembly);
-            builder?.Services.AddSingleton<SegmentClientOptions>(segmentClientOptions);
-            builder?.Services.AddSingleton<HttpClient>(new HttpClient());
+            builder?.Services.AddSingleton(segmentClientOptions);
+            builder?.Services.AddScoped(sp => new HttpClient());
             builder?.Services.AddScoped<IHttpClientService, HttpClientService>();
             builder?.Services.AddScoped<IMessageProcessor, MessageProcessor>();
             builder?.Services.AddScoped<IMappingService, MappingService>();

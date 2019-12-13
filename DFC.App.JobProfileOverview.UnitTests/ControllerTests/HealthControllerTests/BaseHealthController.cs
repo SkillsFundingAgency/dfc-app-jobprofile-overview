@@ -1,6 +1,6 @@
-﻿using DFC.App.CareerPath.Common.Contracts;
-using DFC.App.JobProfileOverview.Controllers;
+﻿using DFC.App.JobProfileOverview.Controllers;
 using DFC.App.JobProfileOverview.SegmentService;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

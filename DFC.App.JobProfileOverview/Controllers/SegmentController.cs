@@ -1,12 +1,11 @@
-﻿using DFC.App.CareerPath.Common.Contracts;
-using DFC.App.JobProfileOverview.ApiModels;
+﻿using DFC.App.JobProfileOverview.ApiModels;
 using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Extensions;
 using DFC.App.JobProfileOverview.SegmentService;
 using DFC.App.JobProfileOverview.ViewModels;
+using DFC.Logger.AppInsights.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

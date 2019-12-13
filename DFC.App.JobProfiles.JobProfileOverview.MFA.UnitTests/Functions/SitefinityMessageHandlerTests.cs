@@ -1,12 +1,10 @@
-﻿using DFC.App.CareerPath.Common.Contracts;
-using DFC.App.JobProfileOverview.Data.Enums;
+﻿using DFC.App.JobProfileOverview.Data.Enums;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Functions;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
 using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
