@@ -1,10 +1,8 @@
-﻿using DFC.App.CareerPath.Common.Contracts;
-using DFC.App.JobProfileOverview.Data.Models;
+﻿using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Models;
 using DFC.Logger.AppInsights.Constants;
 using DFC.Logger.AppInsights.Contracts;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Net.Http;

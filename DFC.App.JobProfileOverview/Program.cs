@@ -15,8 +15,8 @@ namespace DFC.App.JobProfileOverview
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-.UseApplicationInsights()
-.UseStartup<Startup>();
+                .UseApplicationInsights()
+                .UseStartup<Startup>();
         }
     }
 }

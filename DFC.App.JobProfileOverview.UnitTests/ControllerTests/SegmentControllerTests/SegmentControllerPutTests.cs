@@ -112,13 +112,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.BadRequest;
-            var relatedCareersSegmentModel = new JobProfileOverviewSegmentModel();
+            var overviewSegmentModel = new JobProfileOverviewSegmentModel();
             var controller = BuildSegmentController(mediaTypeName);
 
             controller.ModelState.AddModelError(string.Empty, "Model is not valid");
 
             // Act
-            var result = await controller.Put(relatedCareersSegmentModel).ConfigureAwait(false);
+            var result = await controller.Put(overviewSegmentModel).ConfigureAwait(false);
 
             // Assert
             var statusResult = Assert.IsType<BadRequestObjectResult>(result);

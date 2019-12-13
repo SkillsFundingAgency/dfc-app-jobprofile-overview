@@ -1,11 +1,8 @@
-using DFC.App.CareerPath.Common.Contracts;
 using DFC.App.JobProfileOverview.Data.Enums;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
-using DFC.Functions.DI.Standard.Attributes;
 using DFC.Logger.AppInsights.Contracts;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Text;
