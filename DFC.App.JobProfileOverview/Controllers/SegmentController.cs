@@ -43,7 +43,6 @@ namespace DFC.App.JobProfileOverview.Controllers
         }
 
         [HttpGet]
-        [Route("/")]
         [Route("{controller}")]
         public async Task<IActionResult> Index()
         {
