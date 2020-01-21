@@ -23,8 +23,6 @@ namespace DFC.App.JobProfileOverview.ViewModels
 
         public string Overview { get; set; }
 
-        public string SalaryBlankText { get; set; }
-
         public decimal SalaryStarter { get; set; }
 
         public decimal SalaryExperienced { get; set; }
