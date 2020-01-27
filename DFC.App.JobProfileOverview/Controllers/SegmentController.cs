@@ -1,6 +1,7 @@
 ﻿using DFC.App.JobProfileOverview.ApiModels;
 using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
+using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.Extensions;
 using DFC.App.JobProfileOverview.SegmentService;
 using DFC.App.JobProfileOverview.ViewModels;
@@ -30,16 +31,19 @@ namespace DFC.App.JobProfileOverview.Controllers
         private const string PatchWorkingHoursDetailActionName = nameof(PatchWorkingHoursDetail);
         private const string PatchWorkingPatternDetailActionName = nameof(PatchWorkingPatternDetail);
         private const string PatchSocCodeDataActionName = nameof(PatchSocCodeData);
+        private const string RefreshDocumentsActionName = nameof(RefreshDocuments);
 
         private readonly ILogService logService;
         private readonly IJobProfileOverviewSegmentService jobProfileOverviewSegmentService;
         private readonly AutoMapper.IMapper mapper;
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService;
 
-        public SegmentController(ILogService logService, IJobProfileOverviewSegmentService jobProfileOverviewSegmentService, AutoMapper.IMapper mapper)
+        public SegmentController(ILogService logService, IJobProfileOverviewSegmentService jobProfileOverviewSegmentService, AutoMapper.IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService)
         {
             this.logService = logService;
             this.jobProfileOverviewSegmentService = jobProfileOverviewSegmentService;
             this.mapper = mapper;
+            this.refreshService = refreshService;
         }
 
         [HttpGet]
@@ -89,6 +93,30 @@ namespace DFC.App.JobProfileOverview.Controllers
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("{controller}/refreshDocuments")]
+        public async Task<IActionResult> RefreshDocuments()
+        {
+            logService.LogInformation($"{RefreshDocumentsActionName} has been called");
+
+            var segmentModels = await jobProfileOverviewSegmentService.GetAllAsync().ConfigureAwait(false);
+            if (segmentModels != null)
+            {
+                var result = segmentModels
+                    .OrderBy(x => x.CanonicalName)
+                    .Select(x => mapper.Map<RefreshJobProfileSegmentServiceBusModel>(x))
+                    .ToList();
+
+                await refreshService.SendMessageListAsync(result).ConfigureAwait(false);
+
+                logService.LogInformation($"{RefreshDocumentsActionName} has succeeded");
+                return Json(result);
+            }
+
+            logService.LogWarning($"{RefreshDocumentsActionName} has returned with no results");
             return NoContent();
         }
 
@@ -383,6 +411,6 @@ namespace DFC.App.JobProfileOverview.Controllers
             return viewModel;
         }
 
-        #endregion
+        #endregion Define helper methods
     }
 }
