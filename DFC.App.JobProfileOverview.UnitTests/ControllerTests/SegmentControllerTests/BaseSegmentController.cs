@@ -1,4 +1,5 @@
 ﻿using DFC.App.JobProfileOverview.Controllers;
+using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.SegmentService;
 using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
@@ -17,6 +18,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             FakeLogger = A.Fake<ILogService>();
             FakeJobProfileOverviewSegmentService = A.Fake<IJobProfileOverviewSegmentService>();
             FakeMapper = A.Fake<AutoMapper.IMapper>();
+            FakeJobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
         }
 
         public static IEnumerable<object[]> HtmlMediaTypes => new List<object[]>
@@ -39,6 +41,8 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         protected IJobProfileOverviewSegmentService FakeJobProfileOverviewSegmentService { get; }
 
+        protected IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> FakeJobProfileSegmentRefreshService { get; }
+
         protected AutoMapper.IMapper FakeMapper { get; }
 
         protected SegmentController BuildSegmentController(string mediaTypeName)
@@ -47,7 +51,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
             httpContext.Request.Headers[HeaderNames.Accept] = mediaTypeName;
 
-            var controller = new SegmentController(FakeLogger, FakeJobProfileOverviewSegmentService, FakeMapper)
+            var controller = new SegmentController(FakeLogger, FakeJobProfileOverviewSegmentService, FakeMapper, FakeJobProfileSegmentRefreshService)
             {
                 ControllerContext = new ControllerContext()
                 {
