@@ -7,5 +7,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
     interface IServiceBusSupport
     {
         Message CreateServiceBusMessage(Guid messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
+        Message CreateServiceBusMessage(string messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
     }
 }

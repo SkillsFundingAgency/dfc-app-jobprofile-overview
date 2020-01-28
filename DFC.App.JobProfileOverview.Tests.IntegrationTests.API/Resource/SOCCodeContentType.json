@@ -1,0 +1,26 @@
+{
+  "SOCCode": "6139A",
+  "Description": "Zookeeper",
+  "ONetOccupationalCode": "39-2021.00",
+  "UrlName": "6139a",
+  "ApprenticeshipFramework": [
+    {
+      "Id": "f2c0ef57-00cf-4138-a0fe-ce2b2a6039a4",
+      "Title": "Animal Care",
+      "Url": "439",
+      "Description": null
+    }
+  ],
+  "ApprenticeshipStandards": [
+    {
+      "Id": "21b2cb1d-0c51-48b5-bd7d-5a48362dcbaa",
+      "Title": "Animal Trainer (Level 4)",
+      "Url": "379",
+      "Description": null
+    }
+  ],
+  "Id": "c06a73b0-6936-4445-adbe-c5cbdf71477b",
+  "Title": "6139A",
+  "JobProfileId": "0cf9a53f-2260-4604-b9ad-dbc9c1bc7f8e",
+  "JobProfileTitle": "Zookeeper"
+}

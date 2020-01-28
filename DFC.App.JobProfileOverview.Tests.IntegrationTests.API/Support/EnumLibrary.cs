@@ -14,16 +14,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public enum CType
         {
             JobProfile,
-            UniversityLink,
-            CollegeLink,
-            ApprenticeshipLink,
-            UniversityRequirement,
-            CollegeRequirement,
-            ApprenticeshipRequirement,
-            UniversityEntryRequirements,
-            CollegeEntryRequirements,
-            ApprenticeshipEntryRequirements,
-            Registration
+            JobProfileSoc
         }
 
         public enum ActionType

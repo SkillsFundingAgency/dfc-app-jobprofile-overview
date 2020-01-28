@@ -18,5 +18,13 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             Message message = CreateServiceBusMessage(messageId, ConvertObjectToByteArray(messageBody), EnumLibrary.ContentType.JSON, ActionType.Published, CType.JobProfile);
             await topic.SendAsync(message);
         }
+
+        public async Task DeleteJobProfileWithId(Topic topic, Guid jobProfileId)
+        {
+            JobProfileDeleteMessageBody messageBody = ResourceManager.GetResource<JobProfileDeleteMessageBody>("JobProfileDeleteMessageBody");
+            messageBody.JobProfileId = jobProfileId.ToString();
+            Message deleteMessage = CreateServiceBusMessage(jobProfileId, ConvertObjectToByteArray(messageBody), EnumLibrary.ContentType.JSON, ActionType.Deleted, CType.JobProfile);
+            await topic.SendAsync(deleteMessage);
+        }
     }
 }

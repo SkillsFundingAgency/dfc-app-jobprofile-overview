@@ -7,5 +7,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
     interface IJobProfileSupport
     {
         Task CreateJobProfile(Topic topic, Guid messageId, string canonicalName);
+        Task DeleteJobProfileWithId(Topic topic, Guid jobProfileId);
     }
 }
