@@ -1,4 +1,5 @@
 ﻿using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
 {
     interface IJobProfileSupport
     {
-        Task CreateJobProfile(Topic topic, Guid messageId, string canonicalName);
-        Task DeleteJobProfileWithId(Topic topic, Guid jobProfileId);
+        JobProfileContentType GenerateJobProfileContentType();
+        Task DeleteJobProfile(Topic topic, JobProfileContentType jobProfileId);
     }
 }

@@ -1,3 +1,4 @@
+using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support;
 using NUnit.Framework;
@@ -11,10 +12,10 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Test]
         public async Task ProofOfConcept()
         {
-            SOCCodeContentType socCodeContentType = CommonAction.GenerateSOCCodeContentType();
+            SOCCodeContentType socCodeContentType = CommonAction.GenerateSOCCodeContentTypeForJobProfile(JobProfile);
             byte[] messageBody = CommonAction.ConvertObjectToByteArray(socCodeContentType);
-            CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.HTML, ActionType.Published, CType.JobProfileSoc);
-
+            Message message = CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.HTML, ActionType.Published, CType.JobProfileSoc);
+            await CommonAction.SendMessage(Topic, message);
         }
     }
 }

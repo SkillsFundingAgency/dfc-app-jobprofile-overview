@@ -9,21 +9,21 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
     internal partial class CommonAction : IJobProfileSupport
     {
-        public async Task CreateJobProfile(Topic topic, Guid messageId, string canonicalName)
+       public JobProfileContentType GenerateJobProfileContentType()
         {
-            JobProfileCreateMessageBody messageBody = ResourceManager.GetResource<JobProfileCreateMessageBody>("JobProfileCreateMessageBody");
-            messageBody.JobProfileId = messageId.ToString();
-            messageBody.UrlName = canonicalName;
-            messageBody.CanonicalName = canonicalName;
-            Message message = CreateServiceBusMessage(messageId, ConvertObjectToByteArray(messageBody), EnumLibrary.ContentType.JSON, ActionType.Published, CType.JobProfile);
-            await topic.SendAsync(message);
+            string canonicalName = RandomString(10).ToLower();
+            JobProfileContentType jobProfileContentType = ResourceManager.GetResource<JobProfileContentType>("JobProfileContentType");
+            jobProfileContentType.JobProfileId = Guid.NewGuid().ToString();
+            jobProfileContentType.UrlName = canonicalName;
+            jobProfileContentType.CanonicalName = canonicalName;
+            return jobProfileContentType;
         }
 
-        public async Task DeleteJobProfileWithId(Topic topic, Guid jobProfileId)
+        public async Task DeleteJobProfile(Topic topic, JobProfileContentType jobProfile)
         {
-            JobProfileDeleteMessageBody messageBody = ResourceManager.GetResource<JobProfileDeleteMessageBody>("JobProfileDeleteMessageBody");
-            messageBody.JobProfileId = jobProfileId.ToString();
-            Message deleteMessage = CreateServiceBusMessage(jobProfileId, ConvertObjectToByteArray(messageBody), EnumLibrary.ContentType.JSON, ActionType.Deleted, CType.JobProfile);
+            JobProfileDelete messageBody = ResourceManager.GetResource<JobProfileDelete>("JobProfileDelete");
+            messageBody.JobProfileId = jobProfile.JobProfileId;
+            Message deleteMessage = CreateServiceBusMessage(jobProfile.JobProfileId, ConvertObjectToByteArray(messageBody), ContentType.JSON, ActionType.Deleted, CType.JobProfile);
             await topic.SendAsync(deleteMessage);
         }
     }

@@ -1,9 +1,11 @@
 ﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
+using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface
 {
     interface IJobProfileOverviewSupport
     {
-        SOCCodeContentType GenerateSOCCodeContentType();
+        SocCodeData GenerateSOCCodeJobProfileSection();
+        SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile);
     }
 }
