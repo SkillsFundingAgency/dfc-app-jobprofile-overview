@@ -21,6 +21,7 @@ namespace DFC.App.JobProfileOverview.Controllers
         public const string JobProfileRoutePrefix = "job-profiles";
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
+        private const string GetByNameActionName = nameof(GetByName);
         private const string BodyActionName = nameof(Body);
         private const string PostActionName = nameof(Post);
         private const string PutActionName = nameof(Put);
@@ -94,6 +95,25 @@ namespace DFC.App.JobProfileOverview.Controllers
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("{controller}/{action}/{article}")]
+        public async Task<IActionResult> GetByName(string article)
+        {
+            logService.LogInformation($"{GetByNameActionName} has been called with: {article}");
+
+            var model = await jobProfileOverviewSegmentService.GetByNameAsync(article).ConfigureAwait(false);
+            if (model != null)
+            {
+                var viewModel = mapper.Map<BodyViewModel>(model);
+                logService.LogInformation($"{GetByNameActionName} has succeeded for: {article}");
+
+                return View(nameof(Body), viewModel);
+            }
+
+            logService.LogWarning($"{GetByNameActionName} has returned no content for: {article}");
+            return NotFound();
         }
 
         [HttpPost]
