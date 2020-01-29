@@ -29,7 +29,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingHoursDetails' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverview_WorkingHoursDetails()
         {
-            SOCCodeContentType socCodeContentType = CommonAction.GenerateSOCCodeContentTypeForJobProfile(JobProfile);
+            WorkingHoursDetailsClassification workingHoursDetailsClassification = CommonAction.Genr(JobProfile);
             byte[] messageBody = CommonAction.ConvertObjectToByteArray(socCodeContentType);
             Message message = CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.JSON, ActionType.Published, CType.JobProfileSoc);
             await CommonAction.SendMessage(Topic, message);

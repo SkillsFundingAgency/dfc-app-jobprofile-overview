@@ -8,5 +8,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
         SocCodeData GenerateSOCCodeJobProfileSection();
         SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile);
         WorkingHoursDetail GenerateWorkingHoursDetailSection();
+        WorkingHoursDetailsClassification GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfileContentType jobProfile);
     }
 }

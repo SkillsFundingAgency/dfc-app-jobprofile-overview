@@ -65,5 +65,17 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Url = $"https://{RandomString(10)}.com/"
             };
         }
+
+        public WorkingHoursDetailsClassification GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfileContentType jobProfile)
+        {
+            WorkingHoursDetailsClassification workingHoursDetailsClassification = ResourceManager.GetResource<WorkingHoursDetailsClassification>("WorkingHoursDetailsClassification");
+            workingHoursDetailsClassification.Id = jobProfile.WorkingHoursDetails[0].Id;
+            workingHoursDetailsClassification.Description = "Updated description";
+            workingHoursDetailsClassification.JobProfileId = jobProfile.JobProfileId;
+            workingHoursDetailsClassification.JobProfileTitle = jobProfile.Title;
+            workingHoursDetailsClassification.Title = "Updated title";
+            workingHoursDetailsClassification.Url = jobProfile.WorkingHoursDetails[0].Url;
+            return workingHoursDetailsClassification;
+        }
     }
 }
