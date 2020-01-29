@@ -26,6 +26,9 @@
     <None Update="Resource\SOCCodeContentType.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resource\WorkingHoursDetailsClassification.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

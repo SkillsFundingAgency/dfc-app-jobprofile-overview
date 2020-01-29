@@ -10,7 +10,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile)
         {
             SOCCodeContentType socCodeContentType = ResourceManager.GetResource<SOCCodeContentType>("SOCCodeContentType");
-            socCodeContentType.SOCCode = "1234S";
+            socCodeContentType.SOCCode = "12345";
             socCodeContentType.Id = jobProfile.SocCodeData.Id;
             socCodeContentType.JobProfileId = jobProfile.JobProfileId;
             socCodeContentType.JobProfileTitle = jobProfile.Title;
@@ -53,6 +53,17 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             };
 
             return jobProfileSOCCodeSection;
+        }
+
+        public WorkingHoursDetail GenerateWorkingHoursDetailSection()
+        {
+            return new WorkingHoursDetail()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Description = "default-description",
+                Title = "default-title",
+                Url = $"https://{RandomString(10)}.com/"
+            };
         }
     }
 }

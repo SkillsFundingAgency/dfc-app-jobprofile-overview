@@ -12,10 +12,9 @@ namespace DFC.Api.JobProfiles.Common.APISupport
         private RestRequest Request { get; set; }
         public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
 
-        public GetRequest(string endpoint, ContentType contentType)
+        public GetRequest(string endpoint)
         {
             Request = new RestRequest(endpoint, Method.GET);
-            AddContentType(contentType);
         }
 
         public void AddQueryParameter(string name, string value)
@@ -33,6 +32,22 @@ namespace DFC.Api.JobProfiles.Common.APISupport
         {
             Request.AddHeader("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
             Headers.Add("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
+        }
+
+        public void AddAcceptHeader(ContentType contentType)
+        {
+            switch (contentType)
+            {
+                case ContentType.Json:
+                    Request.AddHeader("Accept", "application/json");
+                    Headers.Add("Accept", "application/json");
+                    break;
+
+                case ContentType.Html:
+                    Request.AddHeader("Accept", "text/html");
+                    Headers.Add("Accept", "text/html");
+                    break;
+            }
         }
 
         public void AddContentType(ContentType contentType)

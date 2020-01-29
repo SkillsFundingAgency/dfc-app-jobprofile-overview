@@ -27,8 +27,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             Settings.ServiceBusConfig.Endpoint = Configuration.GetSection("ServiceBusConfig").GetSection("Endpoint").Value;
             Settings.APIConfig.Version = Configuration.GetSection("APIConfig").GetSection("Version").Value;
             Settings.APIConfig.ApimSubscriptionKey = Configuration.GetSection("APIConfig").GetSection("ApimSubscriptionKey").Value;
-            Settings.APIConfig.EndpointBaseUrl.HTMLContent = Configuration.GetSection("APIConfig").GetSection("EndpointBaseUrl").GetSection("HTMLContent").Value;
-            Settings.APIConfig.EndpointBaseUrl.JSONContent = Configuration.GetSection("APIConfig").GetSection("EndpointBaseUrl").GetSection("JSONContent").Value;
+            Settings.APIConfig.EndpointBaseUrl = Configuration.GetSection("APIConfig").GetSection("EndpointBaseUrl").Value;
             if (!int.TryParse(Configuration.GetSection("GracePeriodInSeconds").Value, out int gracePeriodInSeconds)) { throw new InvalidCastException("Unable to retrieve an integer value for the grace period setting"); }
             Settings.GracePeriod = TimeSpan.FromSeconds(gracePeriodInSeconds);
         }

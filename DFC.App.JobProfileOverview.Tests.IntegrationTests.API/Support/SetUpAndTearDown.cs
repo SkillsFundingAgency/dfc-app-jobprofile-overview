@@ -1,6 +1,7 @@
 ﻿using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.EnumLibrary;
 
@@ -19,7 +20,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             Topic = new Topic(Settings.ServiceBusConfig.Endpoint);
             JobProfile = CommonAction.GenerateJobProfileContentType();
             SocCodeData jobProfileSOCCodeSection = CommonAction.GenerateSOCCodeJobProfileSection();
+            WorkingHoursDetail workingHoursDetailSection = CommonAction.GenerateWorkingHoursDetailSection();
             JobProfile.SocCodeData = jobProfileSOCCodeSection;
+            JobProfile.WorkingHoursDetails = new List<WorkingHoursDetail>() { workingHoursDetailSection };
             byte[] jobProfileMessageBody =  CommonAction.ConvertObjectToByteArray(JobProfile);
             Message jobProfileMessage = CommonAction.CreateServiceBusMessage(JobProfile.JobProfileId, jobProfileMessageBody, ContentType.JSON, ActionType.Published, CType.JobProfile);
             await CommonAction.SendMessage(Topic, jobProfileMessage);
