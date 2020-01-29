@@ -14,8 +14,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         {
             SOCCodeContentType socCodeContentType = CommonAction.GenerateSOCCodeContentTypeForJobProfile(JobProfile);
             byte[] messageBody = CommonAction.ConvertObjectToByteArray(socCodeContentType);
-            Message message = CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.HTML, ActionType.Published, CType.JobProfileSoc);
+            Message message = CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.JSON, ActionType.Published, CType.JobProfileSoc);
             await CommonAction.SendMessage(Topic, message);
+
         }
     }
 }

@@ -10,14 +10,14 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile)
         {
             SOCCodeContentType socCodeContentType = ResourceManager.GetResource<SOCCodeContentType>("SOCCodeContentType");
-            socCodeContentType.SOCCode = jobProfile.SocCodeData.SOCCode;
+            socCodeContentType.SOCCode = "1234S";
             socCodeContentType.Id = jobProfile.SocCodeData.Id;
             socCodeContentType.JobProfileId = jobProfile.JobProfileId;
             socCodeContentType.JobProfileTitle = jobProfile.Title;
             socCodeContentType.UrlName = jobProfile.SocCodeData.UrlName;
             socCodeContentType.Title = socCodeContentType.SOCCode;
             socCodeContentType.Description = "This record has been updated";
-            socCodeContentType.ONetOccupationalCode = RandomString(5).ToLower();
+            socCodeContentType.ONetOccupationalCode = "12.1234-00";
             socCodeContentType.ApprenticeshipFramework = jobProfile.SocCodeData.ApprenticeshipFramework;
             socCodeContentType.ApprenticeshipStandards = jobProfile.SocCodeData.ApprenticeshipStandards;
             return socCodeContentType;
