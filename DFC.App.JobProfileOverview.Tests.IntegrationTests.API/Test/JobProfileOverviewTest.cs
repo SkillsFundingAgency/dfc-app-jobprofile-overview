@@ -38,5 +38,33 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             Response<JobProfileOverviewAPIResponse> apiResponse = await CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
             Assert.AreEqual(workingHoursDetailsClassification.Title, apiResponse.Data.workingHoursDetails);
         }
+
+        [Test]
+        [Description("Tests that the CType 'WorkingPattern' successfully tiggers an update to an existing job profile")]
+        public async Task JobProfileOverview_WorkingPattern()
+        {
+            WorkingPatternClassification workingPatternClassification = CommonAction.GenerateWorkingPatternClassificationForJobProfile(JobProfile);
+            byte[] messageBody = CommonAction.ConvertObjectToByteArray(workingPatternClassification);
+            Message message = CommonAction.CreateServiceBusMessage(workingPatternClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPattern);
+            await CommonAction.SendMessage(Topic, message);
+            await Task.Delay(5000);
+            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", JobProfile.JobProfileId);
+            Response<JobProfileOverviewAPIResponse> apiResponse = await CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            Assert.AreEqual(workingPatternClassification.Title, apiResponse.Data.workingPattern);
+        }
+
+        [Test]
+        [Description("Tests that the CType 'WorkingPatternDetails' successfully tiggers an update to an existing job profile")]
+        public async Task JobProfileOverview_WorkingPatternDetails()
+        {
+            WorkingPatternDetailClassification workingPatternDetailClassification = CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(JobProfile);
+            byte[] messageBody = CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
+            Message message = CommonAction.CreateServiceBusMessage(workingPatternDetailClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPatternDetails);
+            await CommonAction.SendMessage(Topic, message);
+            await Task.Delay(5000);
+            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", JobProfile.JobProfileId);
+            Response<JobProfileOverviewAPIResponse> apiResponse = await CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.workingPattern);
+        }
     }
 }

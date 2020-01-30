@@ -15,7 +15,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         {
             JobProfile,
             JobProfileSoc,
-            WorkingHoursDetails
+            WorkingHoursDetails,
+            WorkingPattern,
+            WorkingPatternDetails
         }
 
         public enum ActionType

@@ -1,5 +1,4 @@
 ﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
-using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface
 {
@@ -9,5 +8,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
         SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile);
         WorkingHoursDetail GenerateWorkingHoursDetailSection();
         WorkingHoursDetailsClassification GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfileContentType jobProfile);
+        WorkingPatternClassification GenerateWorkingPatternClassificationForJobProfile(JobProfileContentType jobProfile);
+        WorkingPattern GenerateWorkingPatternSection();
+        WorkingPatternDetail GenerateWorkingPatternDetailsSection();
+        WorkingPatternDetailClassification GenerateWorkingPatternDetailsClassificationForJobProfile(JobProfileContentType jobProfile);
     }
 }

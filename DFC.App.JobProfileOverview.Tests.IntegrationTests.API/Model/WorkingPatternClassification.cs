@@ -1,6 +1,6 @@
 ﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model
 {
-    public class WorkingHoursDetailsClassification
+    public class WorkingPatternClassification
     {
         public string Url { get; set; }
         public string Description { get; set; }

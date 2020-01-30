@@ -68,14 +68,63 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
         public WorkingHoursDetailsClassification GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfileContentType jobProfile)
         {
-            WorkingHoursDetailsClassification workingHoursDetailsClassification = ResourceManager.GetResource<WorkingHoursDetailsClassification>("WorkingHoursDetailsClassification");
-            workingHoursDetailsClassification.Id = jobProfile.WorkingHoursDetails[0].Id;
-            workingHoursDetailsClassification.Description = "Updated description";
-            workingHoursDetailsClassification.JobProfileId = jobProfile.JobProfileId;
-            workingHoursDetailsClassification.JobProfileTitle = jobProfile.Title;
-            workingHoursDetailsClassification.Title = "Updated title";
-            workingHoursDetailsClassification.Url = jobProfile.WorkingHoursDetails[0].Url;
-            return workingHoursDetailsClassification;
+            return new WorkingHoursDetailsClassification()
+            {
+                Id = jobProfile.WorkingHoursDetails[0].Id,
+                Description = "Updated description",
+                JobProfileId = jobProfile.JobProfileId,
+                JobProfileTitle = jobProfile.Title,
+                Title = "Updated title",
+                Url = jobProfile.WorkingHoursDetails[0].Url,
+            };
+        }
+
+        public WorkingPatternClassification GenerateWorkingPatternClassificationForJobProfile(JobProfileContentType jobProfile)
+        {
+            return new WorkingPatternClassification()
+            {
+                Id = jobProfile.WorkingPattern[0].Id,
+                Description = "Updated description",
+                JobProfileId = jobProfile.JobProfileId,
+                JobProfileTitle = jobProfile.Title,
+                Title = "Updated title",
+                Url = jobProfile.WorkingPattern[0].Url,
+            };
+        }
+
+        public WorkingPattern GenerateWorkingPatternSection()
+        {
+            return new WorkingPattern()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Description = "default-description",
+                Title = "default-title",
+                Url = $"https://{RandomString(10)}.com/"
+            };
+        }
+
+        public WorkingPatternDetailClassification GenerateWorkingPatternDetailsClassificationForJobProfile(JobProfileContentType jobProfile)
+        {
+            return new WorkingPatternDetailClassification()
+            {
+                Id = jobProfile.WorkingPattern[0].Id,
+                Description = "Updated description",
+                JobProfileId = jobProfile.JobProfileId,
+                JobProfileTitle = jobProfile.Title,
+                Title = "Updated title",
+                Url = jobProfile.WorkingPattern[0].Url,
+            };
+        }
+
+        public WorkingPatternDetail GenerateWorkingPatternDetailsSection()
+        {
+            return new WorkingPatternDetail()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Description = "default-description",
+                Title = "default-title",
+                Url = $"https://{RandomString(10)}.com/"
+            };
         }
     }
 }

@@ -21,8 +21,12 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             JobProfile = CommonAction.GenerateJobProfileContentType();
             SocCodeData jobProfileSOCCodeSection = CommonAction.GenerateSOCCodeJobProfileSection();
             WorkingHoursDetail workingHoursDetailSection = CommonAction.GenerateWorkingHoursDetailSection();
+            WorkingPattern workingPattern = CommonAction.GenerateWorkingPatternSection();
+            WorkingPatternDetail workingPatternDetails = CommonAction.GenerateWorkingPatternDetailsSection();
             JobProfile.SocCodeData = jobProfileSOCCodeSection;
             JobProfile.WorkingHoursDetails = new List<WorkingHoursDetail>() { workingHoursDetailSection };
+            JobProfile.WorkingPattern = new List<WorkingPattern>() { workingPattern };
+            JobProfile.WorkingPatternDetails = new List<WorkingPatternDetail>() { workingPatternDetails };
             byte[] jobProfileMessageBody =  CommonAction.ConvertObjectToByteArray(JobProfile);
             Message jobProfileMessage = CommonAction.CreateServiceBusMessage(JobProfile.JobProfileId, jobProfileMessageBody, ContentType.JSON, ActionType.Published, CType.JobProfile);
             await CommonAction.SendMessage(Topic, jobProfileMessage);
