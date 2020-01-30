@@ -10,7 +10,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
         WorkingHoursDetailsClassification GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfileContentType jobProfile);
         WorkingPatternClassification GenerateWorkingPatternClassificationForJobProfile(JobProfileContentType jobProfile);
         WorkingPattern GenerateWorkingPatternSection();
-        WorkingPatternDetail GenerateWorkingPatternDetailsSection();
         WorkingPatternDetailClassification GenerateWorkingPatternDetailsClassificationForJobProfile(JobProfileContentType jobProfile);
+        WorkingPatternDetail GenerateWorkingPatternDetailsSection(); 
     }
 }

@@ -9,29 +9,34 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
     {
         public SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile)
         {
-            SOCCodeContentType socCodeContentType = ResourceManager.GetResource<SOCCodeContentType>("SOCCodeContentType");
-            socCodeContentType.SOCCode = "12345";
-            socCodeContentType.Id = jobProfile.SocCodeData.Id;
-            socCodeContentType.JobProfileId = jobProfile.JobProfileId;
-            socCodeContentType.JobProfileTitle = jobProfile.Title;
-            socCodeContentType.UrlName = jobProfile.SocCodeData.UrlName;
-            socCodeContentType.Title = socCodeContentType.SOCCode;
-            socCodeContentType.Description = "This record has been updated";
-            socCodeContentType.ONetOccupationalCode = "12.1234-00";
-            socCodeContentType.ApprenticeshipFramework = jobProfile.SocCodeData.ApprenticeshipFramework;
-            socCodeContentType.ApprenticeshipStandards = jobProfile.SocCodeData.ApprenticeshipStandards;
-            return socCodeContentType;
+            string socCode = "12345";
+
+            return new SOCCodeContentType()
+            {
+                SOCCode = socCode,
+                Id = jobProfile.SocCodeData.Id,
+                JobProfileId = jobProfile.JobProfileId,
+                JobProfileTitle = jobProfile.Title,
+                UrlName = jobProfile.SocCodeData.UrlName,
+                Title = socCode,
+                Description = "This record has been updated",
+                ONetOccupationalCode = "12.1234-00",
+                ApprenticeshipFramework = jobProfile.SocCodeData.ApprenticeshipFramework,
+                ApprenticeshipStandards = jobProfile.SocCodeData.ApprenticeshipStandards
+            };
         }
 
         public SocCodeData GenerateSOCCodeJobProfileSection()
         {
-            SocCodeData jobProfileSOCCodeSection = new SocCodeData();
-            jobProfileSOCCodeSection.SOCCode = RandomString(5);
-            jobProfileSOCCodeSection.Id = Guid.NewGuid().ToString();
-            jobProfileSOCCodeSection.UrlName = jobProfileSOCCodeSection.SOCCode.ToLower();
-            jobProfileSOCCodeSection.Description = "This record is the original record";
-            jobProfileSOCCodeSection.ONetOccupationalCode = RandomString(5).ToLower();
-            jobProfileSOCCodeSection.ApprenticeshipFramework = new List<ApprenticeshipFrameworkContentType>()
+            string socCode = RandomString(5);
+            return new SocCodeData()
+            {
+                SOCCode = socCode,
+                Id = Guid.NewGuid().ToString(),
+                UrlName = socCode.ToLower(),
+                Description = "This record is the original record",
+                ONetOccupationalCode = RandomString(5).ToLower(),
+                ApprenticeshipFramework = new List<ApprenticeshipFrameworkContentType>()
             {
                 new ApprenticeshipFrameworkContentType()
                 {
@@ -40,8 +45,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                     Title = RandomString(10).ToLower(),
                     Url = $"https://{RandomString(10).ToLower()}.com/"
                 }
-            };
-            jobProfileSOCCodeSection.ApprenticeshipStandards = new List<ApprenticeshipStandard>()
+            },
+                ApprenticeshipStandards = new List<ApprenticeshipStandard>()
             {
                 new ApprenticeshipStandard()
                 {
@@ -50,9 +55,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                     Title = RandomString(10).ToLower(),
                     Url = $"https://{RandomString(10).ToLower()}.com/"
                 }
+                }
             };
-
-            return jobProfileSOCCodeSection;
         }
 
         public WorkingHoursDetail GenerateWorkingHoursDetailSection()
@@ -74,7 +78,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
-                Title = "Updated title",
+                Title = "Updated working hours detail title",
                 Url = jobProfile.WorkingHoursDetails[0].Url,
             };
         }
@@ -87,7 +91,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
-                Title = "Updated title",
+                Title = "Updated working pattern title",
                 Url = jobProfile.WorkingPattern[0].Url,
             };
         }
@@ -107,12 +111,12 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         {
             return new WorkingPatternDetailClassification()
             {
-                Id = jobProfile.WorkingPattern[0].Id,
+                Id = jobProfile.WorkingPatternDetails[0].Id,
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
-                Title = "Updated title",
-                Url = jobProfile.WorkingPattern[0].Url,
+                Title = "Updated working pattern detail title",
+                Url = jobProfile.WorkingPatternDetails[0].Url
             };
         }
 

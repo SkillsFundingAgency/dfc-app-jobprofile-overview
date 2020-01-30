@@ -64,7 +64,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             await Task.Delay(5000);
             string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", JobProfile.JobProfileId);
             Response<JobProfileOverviewAPIResponse> apiResponse = await CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
-            Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.workingPattern);
+            Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.workingPatternDetails);
         }
     }
 }

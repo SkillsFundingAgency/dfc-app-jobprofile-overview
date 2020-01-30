@@ -1,4 +1,5 @@
 ﻿using DFC.Api.JobProfiles.Common.APISupport;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface;
 using System;
 using System.Net;
