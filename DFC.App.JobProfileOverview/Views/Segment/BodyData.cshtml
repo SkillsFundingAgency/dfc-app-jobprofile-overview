@@ -1,7 +1,9 @@
 ﻿<header class="job-profile-hero">
     <div class="govuk-width-container">
-
-        <partial name="_Breadcrumb" model="Model.Breadcrumb" />
+        @if (Model.Breadcrumb != null)
+        {
+            <partial name="_Breadcrumb" model="Model.Breadcrumb" />
+        }
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
@@ -20,23 +22,30 @@
                 </h2>
 
                 <div class="job-profile-salary job-profile-heroblock-content">
-                @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
-                {
-                    <p class="dfc-code-jpsstarter">@Model.SalaryStarter.ToString("C0") <span>Starter</span></p>
-                    <i class="sr-hidden">to</i>
-                    <p class="dfc-code-jpsexperienced">@Model.SalaryExperienced.ToString("C0") <span>Experienced</span></p>
-                }
-                else
-                {
-                    <h5 class="dfc-code-jpsalaryblank">Variable</h5>
-                }
+                    @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
+                    {
+                        <p class="dfc-code-jpsstarter">@Model.SalaryStarter.ToString("C0") <span>Starter</span></p>
+                        <i class="sr-hidden">to</i>
+                        <p class="dfc-code-jpsexperienced">@Model.SalaryExperienced.ToString("C0") <span>Experienced</span></p>
+                    }
+                    else
+                    {
+                        <h5 class="dfc-code-jpsalaryblank">Variable</h5>
+                    }
                 </div>
             </div>
             <div id="WorkingHours" class="column-30 job-profile-heroblock">
                 <h2>Typical hours <span>(a week)</span></h2>
                 <div class="job-profile-hours job-profile-heroblock-content">
                     <p class="dfc-code-jphours">
-                        @Model.MinimumHours to @Model.MaximumHours
+                        @if (Model.MinimumHours > 0 && Model.MaximumHours > 0)
+                        {
+                            @Model.MinimumHours @(" to ") @Model.MaximumHours
+                        }
+                        else
+                        {
+                            @("Variable")
+                        }
                         <span class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetailTitle</span>
                     </p>
                 </div>
