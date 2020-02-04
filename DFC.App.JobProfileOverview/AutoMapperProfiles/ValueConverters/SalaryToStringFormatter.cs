@@ -4,11 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 namespace DFC.App.JobProfileOverview.AutoMapperProfiles.ValueConverters
 {
     [ExcludeFromCodeCoverage]
-    public class SalaryToStringFormatter : IValueConverter<decimal, string>
+    public class SalaryToStringFormatter : IValueConverter<decimal?, string>
     {
-        public string Convert(decimal sourceMember, ResolutionContext context)
+        public string Convert(decimal? sourceMember, ResolutionContext context)
         {
-            return sourceMember == 0 ? "variable" : $"{sourceMember}";
+            return sourceMember.HasValue && sourceMember.Value != 0 ? $"{sourceMember}" : "variable";
         }
     }
 }

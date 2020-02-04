@@ -3,19 +3,21 @@ using DFC.App.JobProfileOverview.ViewModels;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
 {
-    [Trait("Segment Controller", "Document Tests")]
-    public class SegmentControllerDocumentTests : BaseSegmentController
+    [Trait("Segment Controller", "Get By Name Tests")]
+    public class SegmentControllerGetByNameTests : BaseSegmentController
     {
+        private const string Article = "an-article-name";
+
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
+        public async Task ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
             var fakeBodyViewModel = A.Fake<BodyViewModel>();
             var controller = BuildSegmentController(mediaTypeName);
@@ -27,38 +29,38 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).Returns(fakeBodyViewModel);
 
             // Act
-            var result = await controller.Document(article).ConfigureAwait(false);
+            var result = await controller.GetByName(Article).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileOverviewSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+            var resultViewModel = Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+            Assert.Null(resultViewModel.Data.Breadcrumb);
 
             controller.Dispose();
         }
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsNoContentWhenNoData(string mediaTypeName)
+        public async Task ReturnsNoContentWhenNoData(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
             JobProfileOverviewSegmentModel expectedResult = null;
             var controller = BuildSegmentController(mediaTypeName);
 
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
 
             // Act
-            var result = await controller.Document(article).ConfigureAwait(false);
+            var result = await controller.GetByName(Article).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeJobProfileOverviewSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
 
-            var statusResult = Assert.IsType<NoContentResult>(result);
+            var statusResult = Assert.IsType<NotFoundResult>(result);
 
-            A.Equals((int)HttpStatusCode.NoContent, statusResult.StatusCode);
+            Assert.Equal((int)HttpStatusCode.NotFound, statusResult.StatusCode);
 
             controller.Dispose();
         }
