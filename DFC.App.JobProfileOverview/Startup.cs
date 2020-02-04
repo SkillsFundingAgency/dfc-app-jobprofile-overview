@@ -3,6 +3,7 @@ using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.Repository.CosmosDb;
 using DFC.App.JobProfileOverview.SegmentService;
+using DFC.Logger.AppInsights.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,9 +51,10 @@ namespace DFC.App.JobProfileOverview
             services.AddSingleton<IDocumentClient>(documentClient);
             services.AddSingleton<ITopicClient>(topicClient);
             services.AddSingleton<ICosmosRepository<JobProfileOverviewSegmentModel>, CosmosRepository<JobProfileOverviewSegmentModel>>();
-            services.AddSingleton<IJobProfileOverviewSegmentService, JobProfileOverviewSegmentService>();
-            services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            services.AddScoped<IJobProfileOverviewSegmentService, JobProfileOverviewSegmentService>();
+            services.AddScoped<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddDFCLogging(configuration["ApplicationInsights:InstrumentationKey"]);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -87,7 +89,11 @@ namespace DFC.App.JobProfileOverview
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseMvc(routes =>
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Health}/{action=Ping}"));
 
             mapper?.ConfigurationProvider.AssertConfigurationIsValid();
         }

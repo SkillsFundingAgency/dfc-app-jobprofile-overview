@@ -79,13 +79,13 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
         public async void SegmentControllerPostReturnsBadResultWhenModelIsInvalid(string mediaTypeName)
         {
             // Arrange
-            var relatedCareersSegmentModel = new JobProfileOverviewSegmentModel();
+            var overviewSegmentModel = new JobProfileOverviewSegmentModel();
             var controller = BuildSegmentController(mediaTypeName);
 
             controller.ModelState.AddModelError(string.Empty, "Model is not valid");
 
             // Act
-            var result = await controller.Post(relatedCareersSegmentModel).ConfigureAwait(false);
+            var result = await controller.Post(overviewSegmentModel).ConfigureAwait(false);
 
             // Assert
             var statusResult = Assert.IsType<BadRequestObjectResult>(result);

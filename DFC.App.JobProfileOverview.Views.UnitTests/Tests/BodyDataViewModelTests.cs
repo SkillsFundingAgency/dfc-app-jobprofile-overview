@@ -59,5 +59,77 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SalaryValidationViewTests(bool isVariableSalary)
+        {
+            //Arrange
+            var model = new BodyDataViewModel
+            {
+                SalaryStarter = 40,
+                SalaryExperienced = 55,
+            };
+
+            if (isVariableSalary)
+            {
+                model.SalaryStarter = 0;
+                model.SalaryExperienced = 0;
+            }
+
+            var viewBag = new Dictionary<string, object>();
+            var viewRenderer = new RazorEngineRenderer(ViewRootPath);
+
+            //Act
+            var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
+
+            //Assert
+            if (isVariableSalary)
+            {
+                Assert.Contains("Variable", viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryStarter), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(string.Concat(HtmlEncode(CurrencySymbol), model.SalaryExperienced), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void WorkingHrsValidationViewTests(bool isVariableWorkingHrs)
+        {
+            //Arrange
+            var model = new BodyDataViewModel
+            {
+                MinimumHours = 40,
+                MaximumHours = 55,
+            };
+
+            if (isVariableWorkingHrs)
+            {
+                model.MinimumHours = 0;
+                model.MaximumHours = 0;
+            }
+
+            var viewBag = new Dictionary<string, object>();
+            var viewRenderer = new RazorEngineRenderer(ViewRootPath);
+
+            //Act
+            var viewRenderResponse = viewRenderer.Render(@"BodyData", model, viewBag);
+
+            //Assert
+            if (isVariableWorkingHrs)
+            {
+                Assert.Contains("Variable", viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                Assert.Contains(model.MinimumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            }
+        }
     }
 }

@@ -14,8 +14,6 @@ namespace DFC.App.JobProfileOverview.AutoMapperProfiles
         {
             CreateMap<JobProfileOverviewSegmentModel, IndexDocumentViewModel>();
 
-            CreateMap<JobProfileOverviewSegmentModel, DocumentViewModel>();
-
             CreateMap<JobProfileOverviewSegmentModel, BodyViewModel>();
 
             CreateMap<JobProfileOverviewSegmentDataModel, BodyDataViewModel>()
