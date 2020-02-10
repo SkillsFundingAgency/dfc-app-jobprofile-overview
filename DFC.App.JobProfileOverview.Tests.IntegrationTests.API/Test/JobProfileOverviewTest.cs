@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
     {
         [Test]
         [Description("Tests that the CType 'JobProfileSoc' successfully tiggers an update to an existing job profile")]
-        public async Task JobProfileOverview_JobProfileSOC()
+        public async Task JobProfileOverviewJobProfileSOC()
         {
             SOCCodeContentType socCodeContentType = this.CommonAction.GenerateSOCCodeContentTypeForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(socCodeContentType);
@@ -27,7 +27,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
 
         [Test]
         [Description("Tests that the CType 'WorkingHoursDetails' successfully tiggers an update to an existing job profile")]
-        public async Task JobProfileOverview_WorkingHoursDetails()
+        public async Task JobProfileOverviewWorkingHoursDetails()
         {
             WorkingHoursDetailsClassification workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingHoursDetailsClassification);
@@ -41,7 +41,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
 
         [Test]
         [Description("Tests that the CType 'WorkingPattern' successfully tiggers an update to an existing job profile")]
-        public async Task JobProfileOverview_WorkingPattern()
+        public async Task JobProfileOverviewWorkingPattern()
         {
             WorkingPatternClassification workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternClassification);
@@ -55,7 +55,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
 
         [Test]
         [Description("Tests that the CType 'WorkingPatternDetails' successfully tiggers an update to an existing job profile")]
-        public async Task JobProfileOverview_WorkingPatternDetails()
+        public async Task JobProfileOverviewWorkingPatternDetails()
         {
             WorkingPatternDetailClassification workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
