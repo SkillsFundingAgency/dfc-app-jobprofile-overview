@@ -20,7 +20,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public async Task OneTimeSetUp()
         {
             this.CommonAction.InitialiseAppSettings();
-            this.Topic = new Topic(Settings.ServiceBusConfig.Endpoint);
+            this.Topic = new Topic(Settings.ServiceBusConfig.ConnectionString);
             this.JobProfile = this.CommonAction.GenerateJobProfileContentType();
             SocCodeData jobProfileSOCCodeSection = this.CommonAction.GenerateSOCCodeJobProfileSection();
             WorkingHoursDetail workingHoursDetailSection = this.CommonAction.GenerateWorkingHoursDetailSection();

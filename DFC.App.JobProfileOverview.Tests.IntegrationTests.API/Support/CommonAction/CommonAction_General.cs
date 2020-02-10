@@ -24,7 +24,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public void InitialiseAppSettings()
         {
             IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            Settings.ServiceBusConfig.Endpoint = configuration.GetSection("ServiceBusConfig").GetSection("Endpoint").Value;
+            Settings.ServiceBusConfig.ConnectionString = configuration.GetSection("ServiceBusConfig").GetSection("ConnectionString").Value;
             Settings.APIConfig.Version = configuration.GetSection("APIConfig").GetSection("Version").Value;
             Settings.APIConfig.ApimSubscriptionKey = configuration.GetSection("APIConfig").GetSection("ApimSubscriptionKey").Value;
             Settings.APIConfig.EndpointBaseUrl = configuration.GetSection("APIConfig").GetSection("EndpointBaseUrl").Value;
