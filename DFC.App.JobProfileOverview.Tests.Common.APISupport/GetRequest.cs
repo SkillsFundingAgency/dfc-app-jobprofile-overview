@@ -9,29 +9,36 @@ namespace DFC.Api.JobProfiles.Common.APISupport
 {
     public class GetRequest
     {
-        private RestRequest Request { get; set; }
-        public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
-
         public GetRequest(string endpoint)
         {
-            Request = new RestRequest(endpoint, Method.GET);
+            this.Request = new RestRequest(endpoint, Method.GET);
         }
+
+        public enum ContentType
+        {
+            Json,
+            Html,
+        }
+
+        public Dictionary<string, string> Headers { get; } = new Dictionary<string, string>();
+
+        private RestRequest Request { get; set; }
 
         public void AddQueryParameter(string name, string value)
         {
-            Request.AddParameter(name, value);
+            this.Request.AddParameter(name, value);
         }
 
         public void AddVersionHeader(string version)
         {
-            Request.AddHeader("version", version);
-            Headers.Add("version", version);
+            this.Request.AddHeader("version", version);
+            this.Headers.Add("version", version);
         }
 
         public void AddApimKeyHeader(string apimSubscriptionKey)
         {
-            Request.AddHeader("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
-            Headers.Add("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
+            this.Request.AddHeader("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
+            this.Headers.Add("Ocp-Apim-Subscription-Key", apimSubscriptionKey);
         }
 
         public void AddAcceptHeader(ContentType contentType)
@@ -39,37 +46,34 @@ namespace DFC.Api.JobProfiles.Common.APISupport
             switch (contentType)
             {
                 case ContentType.Json:
-                    Request.AddHeader("Accept", "application/json");
-                    Headers.Add("Accept", "application/json");
+                    this.Request.AddHeader("Accept", "application/json");
+                    this.Headers.Add("Accept", "application/json");
                     break;
 
                 case ContentType.Html:
-                    Request.AddHeader("Accept", "text/html");
-                    Headers.Add("Accept", "text/html");
+                    this.Request.AddHeader("Accept", "text/html");
+                    this.Headers.Add("Accept", "text/html");
                     break;
             }
         }
 
         public void AddContentType(ContentType contentType)
         {
-            switch(contentType)
+            switch (contentType)
             {
                 case ContentType.Json:
-                    Request.AddHeader("Content-Type", "application/json");
-                    Headers.Add("Content-Type", "application/json");
+                    this.Request.AddHeader("Content-Type", "application/json");
+                    this.Headers.Add("Content-Type", "application/json");
                     break;
 
                 case ContentType.Html:
-                    Request.AddHeader("Content-Type", "text/html");
-                    Headers.Add("Content-Type", "text/html");
+                    this.Request.AddHeader("Content-Type", "text/html");
+                    this.Headers.Add("Content-Type", "text/html");
                     break;
-            }
-        }
 
-        public enum ContentType
-        {
-            Json,
-            Html
+                default:
+                    throw new System.Exception("Unrecognised content type");
+            }
         }
 
         public Response<T> Execute<T>()
@@ -77,8 +81,9 @@ namespace DFC.Api.JobProfiles.Common.APISupport
             AutoResetEvent autoResetEvent = new AutoResetEvent(false);
             Response<T> response = new Response<T>();
             IRestResponse rawResponse = null;
-            
-            new RestClient().ExecuteAsync(Request, (IRestResponse apiResponse) => { 
+
+            new RestClient().ExecuteAsync(this.Request, (IRestResponse apiResponse) =>
+            {
                 rawResponse = apiResponse;
                 autoResetEvent.Set();
             });
@@ -92,6 +97,7 @@ namespace DFC.Api.JobProfiles.Common.APISupport
             {
                 response.Data = JsonConvert.DeserializeObject<T>(rawResponse.Content);
             }
+
             return response;
         }
 
@@ -101,7 +107,8 @@ namespace DFC.Api.JobProfiles.Common.APISupport
             Response<HtmlDocument> response = new Response<HtmlDocument>();
             IRestResponse rawResponse = null;
 
-            new RestClient().ExecuteAsync(Request, (IRestResponse apiResponse) => {
+            new RestClient().ExecuteAsync(this.Request, (IRestResponse apiResponse) =>
+            {
                 rawResponse = apiResponse;
                 autoResetEvent.Set();
             });
@@ -117,6 +124,7 @@ namespace DFC.Api.JobProfiles.Common.APISupport
                 htmlDocument.LoadHtml(rawResponse.Content);
                 response.Data = htmlDocument;
             }
+
             return response;
         }
     }
