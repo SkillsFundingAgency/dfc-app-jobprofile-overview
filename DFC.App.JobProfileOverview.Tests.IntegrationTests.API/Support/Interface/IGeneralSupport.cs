@@ -5,8 +5,11 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
     internal interface IGeneralSupport
     {
         string RandomString(int length);
+
         void InitialiseAppSettings();
+
         byte[] ConvertObjectToByteArray(object obj);
+
         string GetDescription(Enum enumerator);
     }
 }

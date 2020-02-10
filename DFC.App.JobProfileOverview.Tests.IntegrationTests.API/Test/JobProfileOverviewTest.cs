@@ -29,7 +29,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingHoursDetails' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverview_WorkingHoursDetails()
         {
-            WorkingHoursDetailsClassification workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(JobProfile);
+            WorkingHoursDetailsClassification workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingHoursDetailsClassification);
             Message message = this.CommonAction.CreateServiceBusMessage(workingHoursDetailsClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingHoursDetails);
             await this.CommonAction.SendMessage(this.Topic, message);
@@ -43,7 +43,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingPattern' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverview_WorkingPattern()
         {
-            WorkingPatternClassification workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(JobProfile);
+            WorkingPatternClassification workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternClassification);
             Message message = this.CommonAction.CreateServiceBusMessage(workingPatternClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPattern);
             await this.CommonAction.SendMessage(this.Topic, message);
@@ -57,7 +57,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingPatternDetails' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverview_WorkingPatternDetails()
         {
-            WorkingPatternDetailClassification workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(JobProfile);
+            WorkingPatternDetailClassification workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
             byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
             Message message = this.CommonAction.CreateServiceBusMessage(workingPatternDetailClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPatternDetails);
             await this.CommonAction.SendMessage(this.Topic, message);

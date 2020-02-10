@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile
+﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile
 {
-
     public class Restriction
     {
         public string Id { get; set; }

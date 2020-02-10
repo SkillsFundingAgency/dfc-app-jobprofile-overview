@@ -128,7 +128,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{RandomString(10)}.com/",
+                Url = $"https://{this.RandomString(10)}.com/",
             };
         }
     }

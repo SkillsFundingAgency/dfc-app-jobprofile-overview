@@ -1,6 +1,5 @@
 ﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile
 {
-
     public class RelatedSkill
     {
         public string Id { get; set; }

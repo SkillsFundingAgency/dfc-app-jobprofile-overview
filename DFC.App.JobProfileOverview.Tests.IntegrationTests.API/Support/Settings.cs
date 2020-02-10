@@ -14,7 +14,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         public class APIConfig
         {
             public static string Version { get; set; }
+
             public static string ApimSubscriptionKey { get; set; }
+
             public static string EndpointBaseUrl { get; set; }
         }
     }

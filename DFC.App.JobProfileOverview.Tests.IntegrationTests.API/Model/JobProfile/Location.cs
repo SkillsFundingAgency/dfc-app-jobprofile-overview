@@ -1,6 +1,5 @@
 ﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile
 {
-
     public class Location
     {
         public string Id { get; set; }

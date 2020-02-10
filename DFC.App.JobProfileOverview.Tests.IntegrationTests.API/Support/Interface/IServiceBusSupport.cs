@@ -8,9 +8,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
     internal interface IServiceBusSupport
     {
         Message CreateServiceBusMessage(Guid messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
-        
+
         Message CreateServiceBusMessage(string messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
-        
+
         Task SendMessage(Topic topic, Message message);
     }
 }
