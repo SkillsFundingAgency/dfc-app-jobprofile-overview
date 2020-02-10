@@ -59,13 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfiles.JobProf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{21D647E3-D9EB-4304-86C2-C6F9064BCC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileOverview.Tests.IntegrationTests.API", "DFC.App.JobProfileOverview.Tests.IntegrationTests.API\DFC.App.JobProfileOverview.Tests.IntegrationTests.API.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.IntegrationTests.API", "DFC.App.JobProfileOverview.Tests.IntegrationTests.API\DFC.App.JobProfileOverview.Tests.IntegrationTests.API.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F348A005-21D5-426C-BCDF-911D2630AC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport", "DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport\DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport.csproj", "{527D6B52-0CA8-4720-9408-9460ACBDA21D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport", "DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport\DFC.App.JobProfileOverview.Tests.Common.AzureServiceBusSupport.csproj", "{527D6B52-0CA8-4720-9408-9460ACBDA21D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileOverview.Tests.Common.APISupport", "DFC.App.JobProfileOverview.Tests.Common.APISupport\DFC.App.JobProfileOverview.Tests.Common.APISupport.csproj", "{5AD0C4B6-AE3A-49D8-AC3F-7E85E440C17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.Common.APISupport", "DFC.App.JobProfileOverview.Tests.Common.APISupport\DFC.App.JobProfileOverview.Tests.Common.APISupport.csproj", "{5AD0C4B6-AE3A-49D8-AC3F-7E85E440C17C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

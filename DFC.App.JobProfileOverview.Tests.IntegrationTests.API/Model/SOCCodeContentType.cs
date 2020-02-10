@@ -1,4 +1,6 @@
-﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model
+﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile;
+
+namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model
 {
     public class SOCCodeContentType : SocCodeData
     {

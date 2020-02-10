@@ -5,10 +5,12 @@ using static DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.EnumL
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface
 {
-    interface IServiceBusSupport
+    internal interface IServiceBusSupport
     {
         Message CreateServiceBusMessage(Guid messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
+        
         Message CreateServiceBusMessage(string messageId, byte[] messageBody, ContentType contentType, ActionType actionType, CType ctype);
+        
         Task SendMessage(Topic topic, Message message);
     }
 }

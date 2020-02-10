@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface
 {
-    interface IJobProfileSupport
+    internal interface IJobProfileSupport
     {
         JobProfileContentType GenerateJobProfileContentType();
+
         Task DeleteJobProfile(Topic topic, JobProfileContentType jobProfileId);
     }
 }

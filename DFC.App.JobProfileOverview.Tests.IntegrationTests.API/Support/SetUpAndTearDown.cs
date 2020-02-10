@@ -1,5 +1,6 @@
 ﻿using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
     public class SetUpAndTearDown
     {
         internal JobProfileContentType JobProfile { get; private set; }
+
         internal CommonAction CommonAction { get; } = new CommonAction();
+
         public Topic Topic { get; private set; }
 
         [OneTimeSetUp]

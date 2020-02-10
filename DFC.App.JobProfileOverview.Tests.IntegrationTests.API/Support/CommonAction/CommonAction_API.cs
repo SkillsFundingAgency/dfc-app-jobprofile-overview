@@ -10,19 +10,19 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
     internal partial class CommonAction : IAPISupport
     {
-        public async Task<Response<T>> ExecuteGetRequest<T>(string endpoint, ContentType responseFormat, bool AuthoriseRequest = true)
+        public async Task<Response<T>> ExecuteGetRequest<T>(string endpoint, ContentType responseFormat, bool authoriseRequest = true)
         {
             GetRequest getRequest = new GetRequest(endpoint);
             getRequest.AddAcceptHeader(responseFormat);
             getRequest.AddVersionHeader(Settings.APIConfig.Version);
 
-            if (AuthoriseRequest)
+            if (authoriseRequest)
             {
                 getRequest.AddApimKeyHeader(Settings.APIConfig.ApimSubscriptionKey);
             }
             else
             {
-                getRequest.AddApimKeyHeader(RandomString(20).ToLower());
+                getRequest.AddApimKeyHeader(this.RandomString(20).ToLower());
             }
 
             Response<T> response = getRequest.Execute<T>();

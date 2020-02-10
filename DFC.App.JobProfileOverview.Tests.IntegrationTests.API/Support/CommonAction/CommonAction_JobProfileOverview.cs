@@ -1,4 +1,5 @@
 ﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface;
 using System;
 using System.Collections.Generic;
@@ -22,40 +23,40 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Description = "This record has been updated",
                 ONetOccupationalCode = "12.1234-00",
                 ApprenticeshipFramework = jobProfile.SocCodeData.ApprenticeshipFramework,
-                ApprenticeshipStandards = jobProfile.SocCodeData.ApprenticeshipStandards
+                ApprenticeshipStandards = jobProfile.SocCodeData.ApprenticeshipStandards,
             };
         }
 
         public SocCodeData GenerateSOCCodeJobProfileSection()
         {
-            string socCode = RandomString(5);
+            string socCode = this.RandomString(5);
             return new SocCodeData()
             {
                 SOCCode = socCode,
                 Id = Guid.NewGuid().ToString(),
                 UrlName = socCode.ToLower(),
                 Description = "This record is the original record",
-                ONetOccupationalCode = RandomString(5).ToLower(),
-                ApprenticeshipFramework = new List<ApprenticeshipFrameworkContentType>()
+                ONetOccupationalCode = this.RandomString(5).ToLower(),
+                ApprenticeshipFramework = new List<ApprenticeshipFramework>()
             {
-                new ApprenticeshipFrameworkContentType()
+                new ApprenticeshipFramework()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Description = RandomString(10).ToLower(),
-                    Title = RandomString(10).ToLower(),
-                    Url = $"https://{RandomString(10).ToLower()}.com/"
-                }
+                    Description = this.RandomString(10).ToLower(),
+                    Title = this.RandomString(10).ToLower(),
+                    Url = $"https://{this.RandomString(10).ToLower()}.com/",
+                },
             },
                 ApprenticeshipStandards = new List<ApprenticeshipStandard>()
             {
                 new ApprenticeshipStandard()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Description = RandomString(10).ToLower(),
-                    Title = RandomString(10).ToLower(),
-                    Url = $"https://{RandomString(10).ToLower()}.com/"
-                }
-                }
+                    Description = this.RandomString(10).ToLower(),
+                    Title = this.RandomString(10).ToLower(),
+                    Url = $"https://{this.RandomString(10).ToLower()}.com/",
+                },
+            },
             };
         }
 
@@ -66,7 +67,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{RandomString(10)}.com/"
+                Url = $"https://{this.RandomString(10)}.com/",
             };
         }
 
@@ -103,7 +104,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{RandomString(10)}.com/"
+                Url = $"https://{this.RandomString(10)}.com/",
             };
         }
 
@@ -116,7 +117,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
                 Title = "Updated working pattern detail title",
-                Url = jobProfile.WorkingPatternDetails[0].Url
+                Url = jobProfile.WorkingPatternDetails[0].Url,
             };
         }
 
@@ -127,7 +128,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{RandomString(10)}.com/"
+                Url = $"https://{RandomString(10)}.com/",
             };
         }
     }
