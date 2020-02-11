@@ -1,5 +1,4 @@
 ﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile;
-using System;
 using System.Collections.Generic;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model

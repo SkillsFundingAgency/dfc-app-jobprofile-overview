@@ -9,7 +9,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
     internal partial class CommonAction : IJobProfileSupport
     {
-       public JobProfileContentType GenerateJobProfileContentType()
+        public JobProfileContentType GenerateJobProfileContentType()
         {
             string canonicalName = this.RandomString(10).ToLower();
             JobProfileContentType jobProfileContentType = ResourceManager.GetResource<JobProfileContentType>("JobProfileContentType");
@@ -19,7 +19,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             return jobProfileContentType;
         }
 
-       public async Task DeleteJobProfile(Topic topic, JobProfileContentType jobProfile)
+        public async Task DeleteJobProfile(Topic topic, JobProfileContentType jobProfile)
         {
             JobProfileDelete messageBody = ResourceManager.GetResource<JobProfileDelete>("JobProfileDelete");
             messageBody.JobProfileId = jobProfile.JobProfileId;
