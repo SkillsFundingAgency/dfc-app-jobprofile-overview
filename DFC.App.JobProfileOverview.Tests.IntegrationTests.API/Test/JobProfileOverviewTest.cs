@@ -1,10 +1,7 @@
-using DFC.Api.JobProfiles.Common.APISupport;
-using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
-using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
 using NUnit.Framework;
 using System.Threading.Tasks;
-using static DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.EnumLibrary;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
 {
@@ -14,13 +11,12 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'JobProfileSoc' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverviewJobProfileSOC()
         {
-            SOCCodeContentType socCodeContentType = this.CommonAction.GenerateSOCCodeContentTypeForJobProfile(this.JobProfile);
-            byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(socCodeContentType);
-            Message message = this.CommonAction.CreateServiceBusMessage(socCodeContentType.Id, messageBody, ContentType.JSON, ActionType.Published, CType.JobProfileSoc);
-            await this.CommonAction.SendMessage(this.Topic, message);
+            var socCodeContentType = this.CommonAction.GenerateSOCCodeContentTypeForJobProfile(this.JobProfile);
+            var messageBody = this.CommonAction.ConvertObjectToByteArray(socCodeContentType);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "JobProfileSoc");
+            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
-            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", this.JobProfile.JobProfileId);
-            Response<JobProfileOverviewAPIResponse> apiResponse = await this.CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(socCodeContentType.SOCCode.Substring(0, 4), apiResponse.Data.SOC);
             Assert.AreEqual(socCodeContentType.ONetOccupationalCode, apiResponse.Data.ONetOccupationalCode);
         }
@@ -29,13 +25,12 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingHoursDetails' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverviewWorkingHoursDetails()
         {
-            WorkingHoursDetailsClassification workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(this.JobProfile);
-            byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingHoursDetailsClassification);
-            Message message = this.CommonAction.CreateServiceBusMessage(workingHoursDetailsClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingHoursDetails);
-            await this.CommonAction.SendMessage(this.Topic, message);
+            var workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(this.JobProfile);
+            var messageBody = this.CommonAction.ConvertObjectToByteArray(workingHoursDetailsClassification);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingHoursDetails");
+            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
-            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", this.JobProfile.JobProfileId);
-            Response<JobProfileOverviewAPIResponse> apiResponse = await this.CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingHoursDetailsClassification.Title, apiResponse.Data.WorkingHoursDetails);
         }
 
@@ -43,13 +38,12 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingPattern' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverviewWorkingPattern()
         {
-            WorkingPatternClassification workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(this.JobProfile);
-            byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternClassification);
-            Message message = this.CommonAction.CreateServiceBusMessage(workingPatternClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPattern);
-            await this.CommonAction.SendMessage(this.Topic, message);
+            var workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(this.JobProfile);
+            var messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternClassification);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingPattern");
+            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
-            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", this.JobProfile.JobProfileId);
-            Response<JobProfileOverviewAPIResponse> apiResponse = await this.CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingPatternClassification.Title, apiResponse.Data.WorkingPattern);
         }
 
@@ -57,13 +51,13 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         [Description("Tests that the CType 'WorkingPatternDetails' successfully tiggers an update to an existing job profile")]
         public async Task JobProfileOverviewWorkingPatternDetails()
         {
-            WorkingPatternDetailClassification workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
-            byte[] messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
-            Message message = this.CommonAction.CreateServiceBusMessage(workingPatternDetailClassification.Id, messageBody, ContentType.JSON, ActionType.Published, CType.WorkingPatternDetails);
-            await this.CommonAction.SendMessage(this.Topic, message);
+            var workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
+
+            var messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
+            var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingPatternDetails");
+            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
-            string endpoint = Settings.APIConfig.EndpointBaseUrl.Replace("{id}", this.JobProfile.JobProfileId);
-            Response<JobProfileOverviewAPIResponse> apiResponse = await this.CommonAction.ExecuteGetRequest<JobProfileOverviewAPIResponse>(endpoint, GetRequest.ContentType.Json);
+            var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.WorkingPatternDetails);
         }
     }

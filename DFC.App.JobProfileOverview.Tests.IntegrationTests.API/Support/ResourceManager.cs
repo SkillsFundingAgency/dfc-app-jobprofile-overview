@@ -8,12 +8,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
     {
         internal static T GetResource<T>(string resourceName)
         {
-            string content = GetResourceContent(resourceName);
-            return JsonConvert.DeserializeObject<T>(content);
-        }
-
-        private static string GetResourceContent(string resourceName)
-        {
             DirectoryInfo resourcesDirectory = Directory.CreateDirectory(Environment.CurrentDirectory).GetDirectories("Resource")[0];
             FileInfo[] files = resourcesDirectory.GetFiles();
             FileInfo selectedResource = null;
@@ -34,7 +28,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
             using (StreamReader streamReader = new StreamReader(selectedResource.FullName))
             {
-                return streamReader.ReadToEnd();
+                string content = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<T>(content);
             }
         }
     }

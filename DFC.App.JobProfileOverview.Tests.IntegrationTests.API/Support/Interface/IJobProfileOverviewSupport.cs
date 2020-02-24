@@ -1,5 +1,6 @@
-﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model;
-using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.JobProfile;
+﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Classification;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType.JobProfile;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface
 {
