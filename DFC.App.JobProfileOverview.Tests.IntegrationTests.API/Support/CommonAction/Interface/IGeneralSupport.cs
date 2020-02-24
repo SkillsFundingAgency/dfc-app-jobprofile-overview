@@ -7,5 +7,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interfac
         string RandomString(int length);
 
         byte[] ConvertObjectToByteArray(object obj);
+
+        T GetResource<T>(string resourceName);
     }
 }

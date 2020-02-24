@@ -2,25 +2,69 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType.JobProfile;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.Interface;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
-    internal partial class CommonAction : IJobProfileOverviewSupport
+    internal class CommonAction : IGeneralSupport, IJobProfileOverviewSupport
     {
+        private static readonly Random Random = new Random();
+
+        public string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[Random.Next(s.Length)]).ToArray());
+        }
+
+        public byte[] ConvertObjectToByteArray(object obj)
+        {
+            string serialisedContent = JsonConvert.SerializeObject(obj);
+            return Encoding.ASCII.GetBytes(serialisedContent);
+        }
+
+        public T GetResource<T>(string resourceName)
+        {
+            DirectoryInfo resourcesDirectory = Directory.CreateDirectory(System.Environment.CurrentDirectory).GetDirectories("Resource")[0];
+            FileInfo[] files = resourcesDirectory.GetFiles();
+            FileInfo selectedResource = null;
+
+            for (int fileIndex = 0; fileIndex < files.Length; fileIndex++)
+            {
+                if (files[fileIndex].Name.ToLower().StartsWith(resourceName.ToLower()))
+                {
+                    selectedResource = files[fileIndex];
+                    break;
+                }
+            }
+
+            if (selectedResource == null)
+            {
+                throw new Exception($"No resource with the name {resourceName} was found");
+            }
+
+            using (StreamReader streamReader = new StreamReader(selectedResource.FullName))
+            {
+                string content = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<T>(content);
+            }
+        }
+
         public SOCCodeContentType GenerateSOCCodeContentTypeForJobProfile(JobProfileContentType jobProfile)
         {
-            string socCode = "12345";
-
             return new SOCCodeContentType()
             {
-                SOCCode = socCode,
+                SOCCode = "12345",
                 Id = jobProfile.SocCodeData.Id,
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
                 UrlName = jobProfile.SocCodeData.UrlName,
-                Title = socCode,
+                Title = "12345",
                 Description = "This record has been updated",
                 ONetOccupationalCode = "12.1234-00",
                 ApprenticeshipFramework = jobProfile.SocCodeData.ApprenticeshipFramework,

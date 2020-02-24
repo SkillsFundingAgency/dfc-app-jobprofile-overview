@@ -52,7 +52,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
         public async Task JobProfileOverviewWorkingPatternDetails()
         {
             var workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
-
             var messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingPatternDetails");
             await this.serviceBus.SendMessage(message).ConfigureAwait(true);

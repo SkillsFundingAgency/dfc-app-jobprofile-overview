@@ -6,6 +6,7 @@ using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureService
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -27,15 +28,15 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             this.appSettings = configuration.Get<AppSettings>();
             this.CommonAction = new CommonAction();
             this.API = new JobProfileOverviewAPI(new RestClientFactory(), new RestRequestFactory(), this.appSettings);
-            this.JobProfile = this.CommonAction.GenerateJobProfileContentType();
-            SocCodeData jobProfileSOCCodeSection = this.CommonAction.GenerateSOCCodeJobProfileSection();
-            WorkingHoursDetail workingHoursDetailSection = this.CommonAction.GenerateWorkingHoursDetailSection();
-            WorkingPattern workingPattern = this.CommonAction.GenerateWorkingPatternSection();
-            WorkingPatternDetail workingPatternDetails = this.CommonAction.GenerateWorkingPatternDetailsSection();
-            this.JobProfile.SocCodeData = jobProfileSOCCodeSection;
-            this.JobProfile.WorkingHoursDetails = new List<WorkingHoursDetail>() { workingHoursDetailSection };
-            this.JobProfile.WorkingPattern = new List<WorkingPattern>() { workingPattern };
-            this.JobProfile.WorkingPatternDetails = new List<WorkingPatternDetail>() { workingPatternDetails };
+            string canonicalName = this.CommonAction.RandomString(10).ToLower();
+            this.JobProfile = this.CommonAction.GetResource<JobProfileContentType>("JobProfileContentType");
+            this.JobProfile.JobProfileId = Guid.NewGuid().ToString();
+            this.JobProfile.UrlName = canonicalName;
+            this.JobProfile.CanonicalName = canonicalName;
+            this.JobProfile.SocCodeData = this.CommonAction.GenerateSOCCodeJobProfileSection();
+            this.JobProfile.WorkingHoursDetails = new List<WorkingHoursDetail>() { this.CommonAction.GenerateWorkingHoursDetailSection() };
+            this.JobProfile.WorkingPattern = new List<WorkingPattern>() { this.CommonAction.GenerateWorkingPatternSection() };
+            this.JobProfile.WorkingPatternDetails = new List<WorkingPatternDetail>() { this.CommonAction.GenerateWorkingPatternDetailsSection() };
             var jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);
             this.serviceBus = new ServiceBus(new TopicClientFactory(), this.appSettings);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
@@ -46,7 +47,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         [OneTimeTearDown]
         public async Task OneTimeTearDown()
         {
-            var jobProfileDelete = ResourceManager.GetResource<JobProfileContentType>("JobProfileDelete");
+            var jobProfileDelete = this.CommonAction.GetResource<JobProfileContentType>("JobProfileDelete");
             var messageBody = this.CommonAction.ConvertObjectToByteArray(jobProfileDelete);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Deleted", "JobProfile");
             await this.serviceBus.SendMessage(message).ConfigureAwait(true);
