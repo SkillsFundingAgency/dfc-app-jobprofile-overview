@@ -14,7 +14,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             var socCodeContentType = this.CommonAction.GenerateSOCCodeContentTypeForJobProfile(this.JobProfile);
             var messageBody = this.CommonAction.ConvertObjectToByteArray(socCodeContentType);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "JobProfileSoc");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
             var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(socCodeContentType.SOCCode.Substring(0, 4), apiResponse.Data.SOC);
@@ -28,7 +28,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             var workingHoursDetailsClassification = this.CommonAction.GenerateWorkingHoursDetailsClassificationForJobProfile(this.JobProfile);
             var messageBody = this.CommonAction.ConvertObjectToByteArray(workingHoursDetailsClassification);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingHoursDetails");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
             var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingHoursDetailsClassification.Title, apiResponse.Data.WorkingHoursDetails);
@@ -41,7 +41,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             var workingPatternClassification = this.CommonAction.GenerateWorkingPatternClassificationForJobProfile(this.JobProfile);
             var messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternClassification);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingPattern");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
             var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingPatternClassification.Title, apiResponse.Data.WorkingPattern);
@@ -54,7 +54,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             var workingPatternDetailClassification = this.CommonAction.GenerateWorkingPatternDetailsClassificationForJobProfile(this.JobProfile);
             var messageBody = this.CommonAction.ConvertObjectToByteArray(workingPatternDetailClassification);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Published", "WorkingPatternDetails");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
             var apiResponse = this.API.GetById(this.JobProfile.JobProfileId);
             Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.WorkingPatternDetails);

@@ -15,19 +15,23 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
     public class SetUpAndTearDown
     {
-        internal AppSettings appSettings;
-        internal JobProfileContentType JobProfile;
-        internal CommonAction CommonAction;
-        internal ServiceBus serviceBus;
-        internal JobProfileOverviewAPI API;
+        internal CommonAction CommonAction { get; set; }
+
+        internal AppSettings AppSettings { get; set; }
+
+        internal JobProfileContentType JobProfile { get; set; }
+
+        internal ServiceBus ServiceBus { get; set; }
+
+        internal JobProfileOverviewAPI API { get; set; }
 
         [OneTimeSetUp]
         public async Task OneTimeSetUp()
         {
             IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
-            this.appSettings = configuration.Get<AppSettings>();
+            this.AppSettings = configuration.Get<AppSettings>();
             this.CommonAction = new CommonAction();
-            this.API = new JobProfileOverviewAPI(new RestClientFactory(), new RestRequestFactory(), this.appSettings);
+            this.API = new JobProfileOverviewAPI(new RestClientFactory(), new RestRequestFactory(), this.AppSettings);
             string canonicalName = this.CommonAction.RandomString(10).ToLower();
             this.JobProfile = this.CommonAction.GetResource<JobProfileContentType>("JobProfileContentType");
             this.JobProfile.JobProfileId = Guid.NewGuid().ToString();
@@ -38,9 +42,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             this.JobProfile.WorkingPattern = new List<WorkingPattern>() { this.CommonAction.GenerateWorkingPatternSection() };
             this.JobProfile.WorkingPatternDetails = new List<WorkingPatternDetail>() { this.CommonAction.GenerateWorkingPatternDetailsSection() };
             var jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);
-            this.serviceBus = new ServiceBus(new TopicClientFactory(), this.appSettings);
+            this.ServiceBus = new ServiceBus(new TopicClientFactory(), this.AppSettings);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
             await Task.Delay(5000);
         }
 
@@ -50,7 +54,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             var jobProfileDelete = this.CommonAction.GetResource<JobProfileContentType>("JobProfileDelete");
             var messageBody = this.CommonAction.ConvertObjectToByteArray(jobProfileDelete);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Deleted", "JobProfile");
-            await this.serviceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
         }
     }
 }
