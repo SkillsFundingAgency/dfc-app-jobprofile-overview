@@ -1,5 +1,5 @@
-﻿using DFC.Api.JobProfiles.Common.AzureServiceBusSupport;
-using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.Interface;
+﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.Interface;
+using Microsoft.Azure.ServiceBus;
 using System;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory
