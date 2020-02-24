@@ -2,7 +2,7 @@
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFactory.Interface
 {
-    internal interface IRestClientFactory
+    public interface IRestClientFactory
     {
         RestClient Create(string baseUrl);
     }
