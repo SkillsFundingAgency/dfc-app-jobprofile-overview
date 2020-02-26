@@ -2,7 +2,7 @@
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.Interface
 {
-    internal interface ITopicClientFactory
+    public interface ITopicClientFactory
     {
         ITopicClient Create(string connectionString);
     }

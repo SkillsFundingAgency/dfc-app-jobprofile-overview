@@ -2,7 +2,6 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFactory.Interface;
 using RestSharp;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
@@ -32,8 +31,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
             restRequest.AddHeader("version", this.appSettings.APIConfig.Version);
-            var response = await restClient.ExecuteGetAsync<JobProfileOverviewResponseBody>(restRequest).ConfigureAwait(false);
-            return response;
+            return await Task.Run(() => restClient.Execute<JobProfileOverviewResponseBody>(restRequest)).ConfigureAwait(false);
         }
     }
 }

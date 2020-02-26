@@ -4,6 +4,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.Rest
 {
     public interface IRestClientFactory
     {
-        RestClient Create(string baseUrl);
+        IRestClient Create(string baseUrl);
     }
 }

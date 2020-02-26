@@ -4,7 +4,7 @@ using System;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory
 {
-    internal class MessageFactory : IMessageFactory
+    public class MessageFactory : IMessageFactory
     {
         public Message Create(string messageId, byte[] body, string actionType, string cType)
         {

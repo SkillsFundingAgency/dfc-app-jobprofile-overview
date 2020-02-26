@@ -5,7 +5,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.Rest
 {
     internal class RestClientFactory : IRestClientFactory
     {
-        public RestClient Create(string baseUrl)
+        public IRestClient Create(string baseUrl)
         {
             return new RestClient(baseUrl);
         }

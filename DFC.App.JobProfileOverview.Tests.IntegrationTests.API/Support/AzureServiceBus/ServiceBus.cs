@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus
 {
-    internal class ServiceBus : IServiceBus
+    public class ServiceBus : IServiceBus
     {
         private ITopicClientFactory topicClientFactory;
         private AppSettings appSettings;

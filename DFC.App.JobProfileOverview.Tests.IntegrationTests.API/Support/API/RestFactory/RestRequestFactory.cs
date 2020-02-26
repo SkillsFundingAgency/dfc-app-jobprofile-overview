@@ -5,7 +5,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.Rest
 {
     internal class RestRequestFactory : IRestRequestFactory
     {
-        public RestRequest Create(string url)
+        public IRestRequest Create(string url)
         {
             return new RestRequest(url);
         }

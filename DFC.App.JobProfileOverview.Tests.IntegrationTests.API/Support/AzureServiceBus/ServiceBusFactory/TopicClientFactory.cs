@@ -3,7 +3,7 @@ using Microsoft.Azure.ServiceBus;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory
 {
-    internal class TopicClientFactory : ITopicClientFactory
+    public class TopicClientFactory : ITopicClientFactory
     {
         public ITopicClient Create(string connectionString)
         {
