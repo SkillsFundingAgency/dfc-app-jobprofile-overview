@@ -1,5 +1,6 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.Interface;
 using FakeItEasy;
@@ -35,6 +36,24 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         {
             this.serviceBus.SendMessage(this.message);
             A.CallTo(() => this.topicClient.SendAsync(this.message)).MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void AppSettingsConnectionStringIsPassedToTheServiceBusTopicClient()
+        {
+            this.serviceBus.SendMessage(this.message);
+            A.CallTo(() => this.topicClientFactory.Create(this.appSettings.ServiceBusConfig.ConnectionString)).MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void CreateANewServiceBusMessage()
+        {
+            IMessageFactory messageFactory = new MessageFactory();
+            Message message = messageFactory.Create("id", new byte[] { }, "action", "content");
+            Assert.AreEqual("id", message.MessageId);
+            Assert.AreEqual(new byte[] { }, message.Body);
+            Assert.AreEqual("action", message.UserProperties["ActionType"]);
+            Assert.AreEqual("content", message.UserProperties["CType"]);
         }
     }
 }

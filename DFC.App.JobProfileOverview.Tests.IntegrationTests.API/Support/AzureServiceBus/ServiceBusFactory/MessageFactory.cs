@@ -17,8 +17,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureSer
                 MessageId = messageId,
             };
 
-            message.UserProperties.Add("ActionType", actionType.ToString());
-            message.UserProperties.Add("CType", cType.ToString());
+            message.UserProperties.Add("ActionType", actionType);
+            message.UserProperties.Add("CType", cType);
             return message;
         }
     }
