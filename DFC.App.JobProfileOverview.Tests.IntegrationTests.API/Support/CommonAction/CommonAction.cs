@@ -11,7 +11,7 @@ using System.Text;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 {
-    internal class CommonAction : IGeneralSupport, IJobProfileOverviewSupport
+    public class CommonAction : IGeneralSupport, IJobProfileOverviewSupport
     {
         private static readonly Random Random = new Random();
 
