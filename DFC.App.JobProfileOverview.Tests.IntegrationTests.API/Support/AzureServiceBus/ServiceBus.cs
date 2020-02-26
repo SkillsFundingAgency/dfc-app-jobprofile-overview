@@ -19,7 +19,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureSer
         public async Task SendMessage(Message message)
         {
             ITopicClient topicClient = this.topicClientFactory.Create(this.appSettings.ServiceBusConfig.ConnectionString);
-            await topicClient.SendAsync(message).ConfigureAwait(true);
+            await topicClient.SendAsync(message).ConfigureAwait(false);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             var jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);
             this.ServiceBus = new ServiceBus(new TopicClientFactory(), this.AppSettings);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
-            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
             await Task.Delay(5000);
         }
 
@@ -54,7 +54,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             var jobProfileDelete = this.CommonAction.GetResource<JobProfileContentType>("JobProfileDelete");
             var messageBody = this.CommonAction.ConvertObjectToByteArray(jobProfileDelete);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, messageBody, "Deleted", "JobProfile");
-            await this.ServiceBus.SendMessage(message).ConfigureAwait(true);
+            await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.API;
 using RestSharp;
+using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
 {
-    internal interface IJobProfileOverviewAPI
+    public interface IJobProfileOverviewAPI
     {
-        IRestResponse<JobProfileOverviewResponseBody> GetById(string id);
+        Task<IRestResponse<JobProfileOverviewResponseBody>> GetById(string id);
     }
 }

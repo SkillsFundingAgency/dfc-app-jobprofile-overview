@@ -4,6 +4,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.Rest
 {
     public interface IRestRequestFactory
     {
-        RestRequest Create(string url, Method method);
+        RestRequest Create(string url);
     }
 }
