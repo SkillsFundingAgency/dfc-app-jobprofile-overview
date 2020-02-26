@@ -3,7 +3,7 @@ using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureService
 using Microsoft.Azure.ServiceBus;
 using System.Threading.Tasks;
 
-namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus
+namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus
 {
     public class ServiceBus : IServiceBus
     {

@@ -27,7 +27,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             }
 
             var restClient = this.restClientFactory.Create(this.appSettings.APIConfig.EndpointBaseUrl);
-            var restRequest = this.restRequestFactory.Create(string.Format("{0}/contents", id));
+            var restRequest = this.restRequestFactory.Create($"{id}/contents");
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
             restRequest.AddHeader("version", this.appSettings.APIConfig.Version);

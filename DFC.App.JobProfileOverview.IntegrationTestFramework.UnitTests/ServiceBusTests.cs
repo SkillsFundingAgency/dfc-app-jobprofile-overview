@@ -1,11 +1,11 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
-using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.Interface;
 using FakeItEasy;
 using Microsoft.Azure.ServiceBus;
 using NUnit.Framework;
+using System;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
@@ -24,7 +24,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
             this.appSettings = new AppSettings();
             this.topicClient = A.Fake<ITopicClient>();
             this.appSettings.ServiceBusConfig.ConnectionString = "ConnectionString";
-            this.message = new Message(new byte[] { });
+            this.message = new Message(Array.Empty<byte>());
             this.topicClientFactory = A.Fake<ITopicClientFactory>();
             A.CallTo(() => this.topicClientFactory.Create(this.appSettings.ServiceBusConfig.ConnectionString)).Returns(this.topicClient);
             this.serviceBus = new ServiceBus(this.topicClientFactory, this.appSettings);
@@ -49,9 +49,9 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         public void CreateANewServiceBusMessage()
         {
             IMessageFactory messageFactory = new MessageFactory();
-            Message message = messageFactory.Create("id", new byte[] { }, "action", "content");
+            Message message = messageFactory.Create("id", Array.Empty<byte>(), "action", "content");
             Assert.AreEqual("id", message.MessageId);
-            Assert.AreEqual(new byte[] { }, message.Body);
+            Assert.AreEqual(Array.Empty<byte>(), message.Body);
             Assert.AreEqual("action", message.UserProperties["ActionType"]);
             Assert.AreEqual("content", message.UserProperties["CType"]);
         }

@@ -4,6 +4,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureSer
 {
     public interface IMessageFactory
     {
-        Message Create(string messageId, byte[] messageBody, string actionType, string cType);
+        Message Create(string messageId, byte[] messageBody, string actionType, string contentType);
     }
 }

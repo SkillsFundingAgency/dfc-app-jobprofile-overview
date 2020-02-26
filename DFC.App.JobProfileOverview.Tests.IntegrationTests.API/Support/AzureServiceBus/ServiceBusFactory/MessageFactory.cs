@@ -6,11 +6,11 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureSer
 {
     public class MessageFactory : IMessageFactory
     {
-        public Message Create(string messageId, byte[] body, string actionType, string cType)
+        public Message Create(string messageId, byte[] body, string actionType, string contentType)
         {
             Message message = new Message()
             {
-                ContentType = cType,
+                ContentType = contentType,
                 Body = body,
                 CorrelationId = Guid.NewGuid().ToString(),
                 Label = "Automated message",
@@ -18,7 +18,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureSer
             };
 
             message.UserProperties.Add("ActionType", actionType);
-            message.UserProperties.Add("CType", cType);
+            message.UserProperties.Add("CType", contentType);
             return message;
         }
     }

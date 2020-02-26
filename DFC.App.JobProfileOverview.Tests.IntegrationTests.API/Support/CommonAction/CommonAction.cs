@@ -36,7 +36,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
             for (int fileIndex = 0; fileIndex < files.Length; fileIndex++)
             {
-                if (files[fileIndex].Name.ToLower().StartsWith(resourceName.ToLower()))
+                if (files[fileIndex].Name.ToUpperInvariant().StartsWith(resourceName.ToUpperInvariant(), StringComparison.OrdinalIgnoreCase))
                 {
                     selectedResource = files[fileIndex];
                     break;
@@ -79,17 +79,17 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             {
                 SOCCode = socCode,
                 Id = Guid.NewGuid().ToString(),
-                UrlName = socCode.ToLower(),
+                UrlName = socCode.ToUpperInvariant(),
                 Description = "This record is the original record",
-                ONetOccupationalCode = this.RandomString(5).ToLower(),
+                ONetOccupationalCode = this.RandomString(5),
                 ApprenticeshipFramework = new List<ApprenticeshipFramework>()
             {
                 new ApprenticeshipFramework()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Description = this.RandomString(10).ToLower(),
-                    Title = this.RandomString(10).ToLower(),
-                    Url = $"https://{this.RandomString(10).ToLower()}.com/",
+                    Description = this.RandomString(10),
+                    Title = this.RandomString(10),
+                    Url = $"https://{this.RandomString(10)}.com/",
                 },
             },
                 ApprenticeshipStandards = new List<ApprenticeshipStandard>()
@@ -97,9 +97,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 new ApprenticeshipStandard()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Description = this.RandomString(10).ToLower(),
-                    Title = this.RandomString(10).ToLower(),
-                    Url = $"https://{this.RandomString(10).ToLower()}.com/",
+                    Description = this.RandomString(10),
+                    Title = this.RandomString(10),
+                    Url = $"https://{this.RandomString(10)}.com/",
                 },
             },
             };
@@ -120,7 +120,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         {
             return new WorkingHoursDetailsClassification()
             {
-                Id = jobProfile.WorkingHoursDetails[0].Id,
+                Id = jobProfile?.WorkingHoursDetails[0].Id,
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
@@ -133,7 +133,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         {
             return new WorkingPatternClassification()
             {
-                Id = jobProfile.WorkingPattern[0].Id,
+                Id = jobProfile?.WorkingPattern[0].Id,
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
@@ -157,7 +157,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
         {
             return new WorkingPatternDetailClassification()
             {
-                Id = jobProfile.WorkingPatternDetails[0].Id,
+                Id = jobProfile?.WorkingPatternDetails[0].Id,
                 Description = "Updated description",
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,

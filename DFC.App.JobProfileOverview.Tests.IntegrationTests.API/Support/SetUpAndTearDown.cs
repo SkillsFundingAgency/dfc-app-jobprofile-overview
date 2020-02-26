@@ -2,8 +2,8 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFactory;
+using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
-using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory.AzureServiceBus;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
@@ -32,7 +32,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             this.AppSettings = configuration.Get<AppSettings>();
             this.CommonAction = new CommonAction();
             this.API = new JobProfileOverviewAPI(new RestClientFactory(), new RestRequestFactory(), this.AppSettings);
-            string canonicalName = this.CommonAction.RandomString(10).ToLower();
+            string canonicalName = this.CommonAction.RandomString(10).ToUpperInvariant();
             this.JobProfile = this.CommonAction.GetResource<JobProfileContentType>("JobProfileContentType");
             this.JobProfile.JobProfileId = Guid.NewGuid().ToString();
             this.JobProfile.UrlName = canonicalName;
@@ -45,7 +45,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             this.ServiceBus = new ServiceBus(new TopicClientFactory(), this.AppSettings);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
             await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
-            await Task.Delay(5000);
+            await Task.Delay(5000).ConfigureAwait(false);
         }
 
         [OneTimeTearDown]
