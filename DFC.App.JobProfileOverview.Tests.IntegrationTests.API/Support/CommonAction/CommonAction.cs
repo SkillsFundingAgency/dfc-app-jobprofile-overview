@@ -17,24 +17,21 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
         public string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[Random.Next(s.Length)]).ToArray());
+            return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ", length).Select(s => s[Random.Next(s.Length)]).ToArray());
         }
 
         public byte[] ConvertObjectToByteArray(object obj)
         {
-            string serialisedContent = JsonConvert.SerializeObject(obj);
-            return Encoding.ASCII.GetBytes(serialisedContent);
+            return Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(obj));
         }
 
         public T GetResource<T>(string resourceName)
         {
-            DirectoryInfo resourcesDirectory = Directory.CreateDirectory(System.Environment.CurrentDirectory).GetDirectories("Resource")[0];
-            FileInfo[] files = resourcesDirectory.GetFiles();
+            var resourcesDirectory = Directory.CreateDirectory(System.Environment.CurrentDirectory).GetDirectories("Resource")[0];
+            var files = resourcesDirectory.GetFiles();
             FileInfo selectedResource = null;
 
-            for (int fileIndex = 0; fileIndex < files.Length; fileIndex++)
+            for (var fileIndex = 0; fileIndex < files.Length; fileIndex++)
             {
                 if (files[fileIndex].Name.ToUpperInvariant().StartsWith(resourceName.ToUpperInvariant(), StringComparison.OrdinalIgnoreCase))
                 {
@@ -48,9 +45,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 throw new Exception($"No resource with the name {resourceName} was found");
             }
 
-            using (StreamReader streamReader = new StreamReader(selectedResource.FullName))
+            using (var streamReader = new StreamReader(selectedResource.FullName))
             {
-                string content = streamReader.ReadToEnd();
+                var content = streamReader.ReadToEnd();
                 return JsonConvert.DeserializeObject<T>(content);
             }
         }
@@ -60,7 +57,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             return new SOCCodeContentType()
             {
                 SOCCode = "12345",
-                Id = jobProfile.SocCodeData.Id,
+                Id = jobProfile?.SocCodeData.Id,
                 JobProfileId = jobProfile.JobProfileId,
                 JobProfileTitle = jobProfile.Title,
                 UrlName = jobProfile.SocCodeData.UrlName,
@@ -74,7 +71,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
         public SocCodeData GenerateSOCCodeJobProfileSection()
         {
-            string socCode = this.RandomString(5);
+            var socCode = this.RandomString(5);
             return new SocCodeData()
             {
                 SOCCode = socCode,
