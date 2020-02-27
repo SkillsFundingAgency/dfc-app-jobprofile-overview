@@ -86,7 +86,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                     Id = Guid.NewGuid().ToString(),
                     Description = this.RandomString(10),
                     Title = this.RandomString(10),
-                    Url = $"https://{this.RandomString(10)}.com/",
+                    Url = new Uri($"https://{this.RandomString(10)}.com/"),
                 },
             },
                 ApprenticeshipStandards = new List<ApprenticeshipStandard>()
@@ -96,7 +96,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                     Id = Guid.NewGuid().ToString(),
                     Description = this.RandomString(10),
                     Title = this.RandomString(10),
-                    Url = $"https://{this.RandomString(10)}.com/",
+                    Url = new Uri($"https://{this.RandomString(10)}.com/"),
                 },
             },
             };
@@ -109,7 +109,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{this.RandomString(10)}.com/",
+                Url = new Uri($"https://{this.RandomString(10)}.com/"),
             };
         }
 
@@ -146,7 +146,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{this.RandomString(10)}.com/",
+                Url = new Uri($"https://{this.RandomString(10)}.com/"),
             };
         }
 
@@ -170,7 +170,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 Id = Guid.NewGuid().ToString(),
                 Description = "default-description",
                 Title = "default-title",
-                Url = $"https://{this.RandomString(10)}.com/",
+                Url = new Uri($"https://{this.RandomString(10)}.com/"),
             };
         }
     }

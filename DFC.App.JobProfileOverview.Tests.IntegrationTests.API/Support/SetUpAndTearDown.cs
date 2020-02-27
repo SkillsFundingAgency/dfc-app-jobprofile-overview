@@ -21,7 +21,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
 
         internal JobProfileContentType JobProfile { get; set; }
 
-        internal ServiceBus ServiceBus { get; set; }
+        internal ServiceBusSupport ServiceBus { get; set; }
 
         internal JobProfileOverviewAPI API { get; set; }
 
@@ -42,10 +42,10 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
             this.JobProfile.WorkingPattern = new List<WorkingPattern>() { this.CommonAction.GenerateWorkingPatternSection() };
             this.JobProfile.WorkingPatternDetails = new List<WorkingPatternDetail>() { this.CommonAction.GenerateWorkingPatternDetailsSection() };
             var jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);
-            this.ServiceBus = new ServiceBus(new TopicClientFactory(), this.AppSettings);
+            this.ServiceBus = new ServiceBusSupport(new TopicClientFactory(), this.AppSettings);
             var message = new MessageFactory().Create(this.JobProfile.JobProfileId, jobProfileMessageBody, "Published", "JobProfile");
             await this.ServiceBus.SendMessage(message).ConfigureAwait(false);
-            await Task.Delay(5000).ConfigureAwait(false);
+            await Task.Delay(10000).ConfigureAwait(false);
         }
 
         [OneTimeTearDown]

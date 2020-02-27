@@ -14,7 +14,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
     {
         private AppSettings appSettings;
         private Message message;
-        private IServiceBus serviceBus;
+        private IServiceBusSupport serviceBus;
         private ITopicClient topicClient;
         private ITopicClientFactory topicClientFactory;
 
@@ -27,7 +27,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
             this.message = new Message(Array.Empty<byte>());
             this.topicClientFactory = A.Fake<ITopicClientFactory>();
             A.CallTo(() => this.topicClientFactory.Create(this.appSettings.ServiceBusConfig.ConnectionString)).Returns(this.topicClient);
-            this.serviceBus = new ServiceBus(this.topicClientFactory, this.appSettings);
+            this.serviceBus = new ServiceBusSupport(this.topicClientFactory, this.appSettings);
             A.CallTo(() => this.topicClient.SendAsync(this.message)).Returns(Task.CompletedTask);
         }
 

@@ -1,4 +1,6 @@
-﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support
+﻿using System;
+
+namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support
 {
     public class APIConfig
     {
@@ -6,6 +8,6 @@
 
         public string ApimSubscriptionKey { get; set; }
 
-        public string EndpointBaseUrl { get; set; }
+        public Uri EndpointBaseUrl { get; set; }
     }
 }

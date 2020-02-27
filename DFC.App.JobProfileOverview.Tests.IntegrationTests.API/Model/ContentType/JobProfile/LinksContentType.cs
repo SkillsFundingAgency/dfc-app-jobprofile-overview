@@ -1,8 +1,10 @@
-﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType.JobProfile
+﻿using System;
+
+namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.ContentType.JobProfile
 {
     public class LinksContentType
     {
-        public string Url { get; set; }
+        public Uri Url { get; set; }
 
         public string Title { get; set; }
 

@@ -1,8 +1,10 @@
-﻿namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Classification
+﻿using System;
+
+namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Classification
 {
     public class WorkingHoursDetailsClassification
     {
-        public string Url { get; set; }
+        public Uri Url { get; set; }
 
         public string Description { get; set; }
 

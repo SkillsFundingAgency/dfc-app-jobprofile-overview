@@ -5,6 +5,7 @@ using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFact
 using FakeItEasy;
 using NUnit.Framework;
 using RestSharp;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
             this.restRequestFactory = A.Fake<IRestRequestFactory>();
             this.restClient = A.Fake<IRestClient>();
             this.restRequest = A.Fake<IRestRequest>();
-            A.CallTo(() => this.restClientFactory.Create(A<string>.Ignored)).Returns(this.restClient);
+            A.CallTo(() => this.restClientFactory.Create(A<Uri>.Ignored)).Returns(this.restClient);
             A.CallTo(() => this.restRequestFactory.Create(A<string>.Ignored)).Returns(this.restRequest);
             this.jobProfileOverviewAPI = new JobProfileOverviewAPI(this.restClientFactory, this.restRequestFactory, this.appSettings);
         }

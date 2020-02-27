@@ -8,7 +8,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.API
 
         public DateTime LastUpdatedDate { get; set; }
 
-        public string URL { get; set; }
+        public Uri URL { get; set; }
 
         public string SOC { get; set; }
 
