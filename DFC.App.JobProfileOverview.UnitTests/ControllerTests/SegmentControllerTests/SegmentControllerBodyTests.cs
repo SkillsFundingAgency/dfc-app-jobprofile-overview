@@ -5,6 +5,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
@@ -17,7 +18,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
+        public async Task ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
@@ -46,7 +47,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsNoContentWhenNoData(string mediaTypeName)
+        public async Task ReturnsNoContentWhenNoData(string mediaTypeName)
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
@@ -65,7 +66,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void ReturnsSuccessForJsonMediaType(string mediaTypeName)
+        public async Task ReturnsSuccessForJsonMediaType(string mediaTypeName)
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();
@@ -97,7 +98,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(InvalidMediaTypes))]
-        public async void ReturnsNotAcceptableForInvalidMediaType(string mediaTypeName)
+        public async Task ReturnsNotAcceptableForInvalidMediaType(string mediaTypeName)
         {
             // Arrange
             var expectedResult = A.Fake<JobProfileOverviewSegmentModel>();

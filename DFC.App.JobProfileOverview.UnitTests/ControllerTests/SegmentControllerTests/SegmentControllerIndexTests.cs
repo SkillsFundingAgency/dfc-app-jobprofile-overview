@@ -4,6 +4,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
@@ -13,7 +14,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
+        public async Task ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
             const int resultsCount = 2;
@@ -33,14 +34,14 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IndexViewModel>(viewResult.ViewData.Model);
 
-            A.Equals(resultsCount, model.Documents.Count());
+            Assert.Equal(resultsCount, model.Documents.Count());
 
             controller.Dispose();
         }
 
         [Theory]
         [MemberData(nameof(HtmlMediaTypes))]
-        public async void ReturnsSuccessWhenNoData(string mediaTypeName)
+        public async Task ReturnsSuccessWhenNoData(string mediaTypeName)
         {
             // Arrange
             IEnumerable<JobProfileOverviewSegmentModel> expectedResults = null;
@@ -59,7 +60,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
             var viewResult = Assert.IsType<ViewResult>(result);
             var model = Assert.IsAssignableFrom<IndexViewModel>(viewResult.ViewData.Model);
 
-            A.Equals(null, model.Documents);
+            Assert.Null(model.Documents);
 
             controller.Dispose();
         }

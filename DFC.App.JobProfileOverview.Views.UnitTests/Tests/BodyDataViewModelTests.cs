@@ -127,8 +127,8 @@ namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
             }
             else
             {
-                Assert.Contains(model.MinimumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
-                Assert.Contains(model.MaximumHours.ToString(), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(model.MinimumHours.ToString(new NumberFormatInfo()), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(model.MaximumHours.ToString(new NumberFormatInfo()), viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             }
         }
     }
