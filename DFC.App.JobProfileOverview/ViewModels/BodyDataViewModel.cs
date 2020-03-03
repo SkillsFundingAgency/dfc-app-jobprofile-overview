@@ -1,6 +1,7 @@
 ﻿using DFC.App.JobProfileOverview.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace DFC.App.JobProfileOverview.ViewModels
@@ -9,6 +10,7 @@ namespace DFC.App.JobProfileOverview.ViewModels
     {
         public BreadcrumbViewModel Breadcrumb { get; set; }
 
+        [Display(Name = "Last Updated")]
         public DateTime LastReviewed { get; set; }
 
         public SocData Soc { get; set; }

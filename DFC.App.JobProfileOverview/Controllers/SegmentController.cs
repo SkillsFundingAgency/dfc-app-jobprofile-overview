@@ -89,7 +89,7 @@ namespace DFC.App.JobProfileOverview.Controllers
 
                 logService.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
-                return View(nameof(Body), viewModel);
+                return View(nameof(Document), viewModel);
             }
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");

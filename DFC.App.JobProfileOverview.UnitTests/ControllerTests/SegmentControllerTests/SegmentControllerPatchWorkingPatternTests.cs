@@ -3,6 +3,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
@@ -12,7 +13,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPatchWorkingPatternReturnsSuccess(string mediaTypeName)
+        public async Task SegmentControllerPatchWorkingPatternReturnsSuccess(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.OK;
@@ -35,7 +36,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPatchWorkingPatternReturnsNotFound(string mediaTypeName)
+        public async Task SegmentControllerPatchWorkingPatternReturnsNotFound(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.NotFound;
@@ -58,7 +59,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPatchWorkingPatternReturnsBadRequestWhenNullPatchmodel(string mediaTypeName)
+        public async Task SegmentControllerPatchWorkingPatternReturnsBadRequestWhenNullPatchmodel(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.BadRequest;
@@ -78,7 +79,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPatchWorkingPatternReturnsBadRequestWhenInvalidPatchmodel(string mediaTypeName)
+        public async Task SegmentControllerPatchWorkingPatternReturnsBadRequestWhenInvalidPatchmodel(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.BadRequest;
