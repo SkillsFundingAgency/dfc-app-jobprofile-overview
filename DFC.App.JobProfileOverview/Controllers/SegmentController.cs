@@ -109,7 +109,7 @@ namespace DFC.App.JobProfileOverview.Controllers
                 var viewModel = mapper.Map<BodyViewModel>(model);
                 logService.LogInformation($"{GetByNameActionName} has succeeded for: {article}");
 
-                return View(nameof(Body), viewModel);
+                return View("ExternalBodyData", viewModel);
             }
 
             logService.LogWarning($"{GetByNameActionName} has returned no content for: {article}");
