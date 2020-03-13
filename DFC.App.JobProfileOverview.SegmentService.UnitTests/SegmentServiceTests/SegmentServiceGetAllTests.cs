@@ -35,7 +35,7 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 
             // assert
             A.CallTo(() => repository.GetAllAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(results, expectedResults);
+            Assert.Equal(expectedResults, results);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
 
             // assert
             A.CallTo(() => repository.GetAllAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(results, expectedResults);
+            Assert.Null(results);
         }
     }
 }
