@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "service-bus-connection-string": "[Placeholder]",
+    "cms-messages-topic": "cms-messages",
+    "cms-messages-subscription": "job-profile-overview",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "[instrumentation key]"
+  },
+  "JobProfileOverviewSegmentClientOptions": {
+    "Timeout": "00:00:30",
+    "BaseAddress": "https://localhost"
+  }
+}
