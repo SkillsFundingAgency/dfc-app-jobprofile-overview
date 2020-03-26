@@ -60,11 +60,10 @@ jobs:
 
   steps:
   # Build DFC.App.JobProfileOverview.IntegrationTests
-  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-sonar.yml@dfc-devops
+  - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
     parameters:
       SolutionBaseName: $(SolutionBaseName).IntegrationTests
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
       DotNetCoreVersion: 3.1.101
       PublishWebApp: true
-      TestSuffix: UnitTests
