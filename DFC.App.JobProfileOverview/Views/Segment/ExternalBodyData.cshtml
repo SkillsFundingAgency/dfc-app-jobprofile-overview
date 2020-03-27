@@ -12,8 +12,8 @@
             <div>
                 @if (Model.Data.SalaryStarter > 0 && Model.Data.SalaryExperienced > 0)
                 {
-                    <p class="salary-min">£@Model.Data.SalaryStarter.ToString("N0")<span class="visually-hidden">&nbsp;(starter)</span></p>
-                    <p class="salary-max"><span class="visually-hidden">up to&nbsp;</span>£@Model.Data.SalaryExperienced.ToString("N0")<span class="visually-hidden">&nbsp;(experienced)</span></p>
+                    <p class="salary-min">£@Model.Data.SalaryStarter.ToString("N0")<span class="govuk-visually-hidden">&nbsp;(starter)</span></p>
+                    <p class="salary-max"><span class="govuk-visually-hidden">up to&nbsp;</span>£@Model.Data.SalaryExperienced.ToString("N0")<span class="govuk-visually-hidden">&nbsp;(experienced)</span></p>
                     <div class="range-bar" aria-hidden="true"><hr></div>
                     <p class="level-min">Starter</p>
                     <p class="level-max">Experienced</p>
