@@ -59,10 +59,10 @@ jobs:
     - visualstudio
 
   steps:
-  # Build DFC.App.JobProfileOverview.IntegrationTests
+  # Build DFC.App.JobProfileOverview.Tests.IntegrationTests.API
   - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build-notests.yml@dfc-devops
     parameters:
-      SolutionBaseName: $(SolutionBaseName).IntegrationTests
+      SolutionBaseName: $(SolutionBaseName).Tests.IntegrationTests.API
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
       DotNetCoreVersion: 3.1.101
