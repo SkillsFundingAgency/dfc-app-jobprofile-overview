@@ -53,12 +53,12 @@ jobs:
 
 #Build integration tests
 - job: BuildIntegrationTests
-  displayName: Build Integration Tests
+  displayName: Build integration tests
   steps:
-  # Build DFC.App.JobProfileOverview.Tests.IntegrationTests.API
-  - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build-notests.yml@dfc-devops
+  # Build DFC.App.JobProfiles.JobProfileOverview.IntegrationTests
+  - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
     parameters:
-      SolutionBaseName: $(SolutionBaseName).Tests.IntegrationTests.API
+      SolutionBaseName: $(SolutionBaseName).IntegrationTests
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
       DotNetCoreVersion: 3.1.101
