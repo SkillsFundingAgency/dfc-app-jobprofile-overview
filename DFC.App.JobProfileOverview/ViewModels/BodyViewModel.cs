@@ -11,6 +11,9 @@ namespace DFC.App.JobProfileOverview.ViewModels
         [Display(Name = "Canonical Name")]
         public string CanonicalName { get; set; }
 
+        [Display(Name = "Sequence Number")]
+        public long SequenceNumber { get; set; }
+
         public BodyDataViewModel Data { get; set; }
     }
 }

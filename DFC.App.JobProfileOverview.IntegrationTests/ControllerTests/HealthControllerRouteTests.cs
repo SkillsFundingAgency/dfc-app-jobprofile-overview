@@ -31,7 +31,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.ControllerTests
             var response = await client.GetAsync(uri).ConfigureAwait(false);
 
             // Assert
-            response.EnsureSuccessStatusCode();
+            Assert.True(response.IsSuccessStatusCode);
         }
 
         [Theory]
