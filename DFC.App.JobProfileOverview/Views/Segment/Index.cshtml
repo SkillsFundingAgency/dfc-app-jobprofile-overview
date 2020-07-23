@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Job profile overviews</title>
+    <title>Job profile overview</title>
 </head>
 <body>
     @if (Model.Documents?.Count() > 0)
     {
+        <h2>Job Profiles List</h2>
         <p>Found @Model.Documents.Count() document(s)</p>
         <ul>
             @foreach (var document in Model.Documents)

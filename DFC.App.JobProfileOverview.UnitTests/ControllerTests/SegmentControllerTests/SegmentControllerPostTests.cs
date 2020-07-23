@@ -3,6 +3,7 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentControllerTests
@@ -12,7 +13,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
     {
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPostReturnsSuccessForCreate(string mediaTypeName)
+        public async Task SegmentControllerPostReturnsSuccessForCreate(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.Created;
@@ -36,7 +37,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPostReturnsAlreadyReportedForCreate(string mediaTypeName)
+        public async Task SegmentControllerPostReturnsAlreadyReportedForCreate(string mediaTypeName)
         {
             // Arrange
             const HttpStatusCode expectedResponse = HttpStatusCode.AlreadyReported;
@@ -59,7 +60,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPostReturnsBadResultWhenModelIsNull(string mediaTypeName)
+        public async Task SegmentControllerPostReturnsBadResultWhenModelIsNull(string mediaTypeName)
         {
             // Arrange
             var controller = BuildSegmentController(mediaTypeName);
@@ -76,7 +77,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.SegmentController
 
         [Theory]
         [MemberData(nameof(JsonMediaTypes))]
-        public async void SegmentControllerPostReturnsBadResultWhenModelIsInvalid(string mediaTypeName)
+        public async Task SegmentControllerPostReturnsBadResultWhenModelIsInvalid(string mediaTypeName)
         {
             // Arrange
             var overviewSegmentModel = new JobProfileOverviewSegmentModel();

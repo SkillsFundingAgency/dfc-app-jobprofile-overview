@@ -41,7 +41,7 @@ namespace DFC.App.JobProfileOverview.SegmentService.UnitTests.SegmentServiceTest
             var exceptionResult = await Assert.ThrowsAsync<ArgumentNullException>(async () => await jobProfileOverviewSegmentService.PatchWorkingHoursDetailAsync(patchModel, documentId).ConfigureAwait(false)).ConfigureAwait(false);
 
             // assert
-            Assert.Equal("Value cannot be null.\r\nParameter name: patchModel", exceptionResult.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'patchModel')", exceptionResult.Message);
         }
 
         [Fact]

@@ -10,7 +10,7 @@ namespace DFC.App.JobProfileOverview.UnitTests.ControllerTests.HealthControllerT
 {
     public abstract class BaseHealthController
     {
-        public BaseHealthController()
+        protected BaseHealthController()
         {
             Logger = A.Fake<ILogService>();
             JobProfileOverviewSegmentService = A.Fake<IJobProfileOverviewSegmentService>();
