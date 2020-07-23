@@ -23,10 +23,12 @@ jobs:
 
 #Build and test resources
 - job: BuildArmTemplates
+  displayName: "Test & package ARM template(s)"
   steps:
   - template: AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
     parameters:
-      ArmTemplateRoot: $(ArmTemplateRoot)
+      ArmTemplateRoot: '${{ variables.ArmTemplateRoot }}'
+      SolutionBaseName: '${{ variables.SolutionBaseName }}'
 
 #Build and test application
 - job: BuildDotNetCore
