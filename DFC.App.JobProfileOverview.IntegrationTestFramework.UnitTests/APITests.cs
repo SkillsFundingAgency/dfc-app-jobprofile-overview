@@ -49,9 +49,9 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         [Test]
         public async Task SuccessfulGetRequest()
         {
-            var apiResponse = new RestResponse<JobProfileOverviewResponseBody>();
+            var apiResponse = new RestResponse<JobProfileOverviewApiResponse>();
             apiResponse.StatusCode = HttpStatusCode.OK;
-            A.CallTo(() => this.restClient.Execute<JobProfileOverviewResponseBody>(A<IRestRequest>.Ignored)).Returns(apiResponse);
+            A.CallTo(() => this.restClient.Execute<JobProfileOverviewApiResponse>(A<IRestRequest>.Ignored)).Returns(apiResponse);
             var response = await this.jobProfileOverviewAPI.GetById("id").ConfigureAwait(false);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }

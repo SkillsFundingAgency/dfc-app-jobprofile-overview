@@ -6,6 +6,6 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
 {
     public interface IJobProfileOverviewAPI
     {
-        Task<IRestResponse<JobProfileOverviewResponseBody>> GetById(string id);
+        Task<IRestResponse<JobProfileOverviewApiResponse>> GetById(string id);
     }
 }
