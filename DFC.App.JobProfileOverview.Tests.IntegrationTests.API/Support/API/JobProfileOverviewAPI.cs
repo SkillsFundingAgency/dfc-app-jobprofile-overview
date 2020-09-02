@@ -2,7 +2,6 @@
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.Support;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFactory.Interface;
 using RestSharp;
-using System;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
@@ -28,7 +27,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             }
 
             var restClient = this.restClientFactory.Create(this.appSettings.APIConfig.EndpointBaseUrl);
-            var restRequest = this.restRequestFactory.Create($"{id}/contents");
+            var restRequest = this.restRequestFactory.Create($"segment/{id}/contents");
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
             restRequest.AddHeader("version", this.appSettings.APIConfig.Version);
