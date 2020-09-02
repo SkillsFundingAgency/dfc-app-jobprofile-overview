@@ -20,7 +20,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             this.appSettings = appSettings;
         }
 
-        public async Task<IRestResponse<JobProfileOverviewResponseBody>> GetById(string id)
+        public async Task<IRestResponse<JobProfileOverviewApiResponse>> GetById(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -32,7 +32,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             restRequest.AddHeader("Accept", "application/json");
             restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
             restRequest.AddHeader("version", this.appSettings.APIConfig.Version);
-            return await Task.Run(() => restClient.Execute<JobProfileOverviewResponseBody>(restRequest)).ConfigureAwait(false);
+            return await Task.Run(() => restClient.Execute<JobProfileOverviewApiResponse>(restRequest)).ConfigureAwait(false);
         }
     }
 }
