@@ -59,11 +59,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfiles.JobProf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{21D647E3-D9EB-4304-86C2-C6F9064BCC44}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.IntegrationTests.API", "DFC.App.JobProfileOverview.Tests.IntegrationTests.API\DFC.App.JobProfileOverview.Tests.IntegrationTests.API.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.API.IntegrationTests", "DFC.App.JobProfileOverview.Tests.IntegrationTests.API\DFC.App.JobProfileOverview.Tests.API.IntegrationTests.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFrameworks", "TestFrameworks", "{297099C4-BACF-420F-88DB-9D2AAF54CEE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests", "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests\DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests.csproj", "{93222AC1-912C-4FAD-BB29-9C710D29A928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests", "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests\DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests.csproj", "{93222AC1-912C-4FAD-BB29-9C710D29A928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
