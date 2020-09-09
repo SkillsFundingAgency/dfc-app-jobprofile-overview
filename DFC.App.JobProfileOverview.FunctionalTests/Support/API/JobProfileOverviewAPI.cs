@@ -27,10 +27,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API
             }
 
             var restClient = this.restClientFactory.Create(this.appSettings.APIConfig.EndpointBaseUrl);
-            var restRequest = this.restRequestFactory.Create($"segment/{id}/contents");
+            var restRequest = this.restRequestFactory.Create($"/segment/{id}/contents");
             restRequest.AddHeader("Accept", "application/json");
-            restRequest.AddHeader("Ocp-Apim-Subscription-Key", this.appSettings.APIConfig.ApimSubscriptionKey);
-            restRequest.AddHeader("version", this.appSettings.APIConfig.Version);
             return await Task.Run(() => restClient.Execute<JobProfileOverviewApiResponse>(restRequest)).ConfigureAwait(false);
         }
     }

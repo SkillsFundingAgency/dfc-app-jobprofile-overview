@@ -13,9 +13,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
 {
     public class APITests
     {
-        private const string ApimSubscriptionKey = "ApimSubscriptionKey";
-        private const string Version = "Version";
-
         private AppSettings appSettings;
         private IRestClientFactory restClientFactory;
         private IRestRequestFactory restRequestFactory;
@@ -27,8 +24,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         public void Setup()
         {
             this.appSettings = new AppSettings();
-            this.appSettings.APIConfig.ApimSubscriptionKey = ApimSubscriptionKey;
-            this.appSettings.APIConfig.Version = Version;
             this.restClientFactory = A.Fake<IRestClientFactory>();
             this.restRequestFactory = A.Fake<IRestRequestFactory>();
             this.restClient = A.Fake<IRestClient>();
@@ -58,8 +53,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
 
         [Test]
         [TestCase("Accept", "application/json")]
-        [TestCase("Ocp-Apim-Subscription-Key", ApimSubscriptionKey)]
-        [TestCase("version", Version)]
         public async Task AllRequestHeadersAreSet(string headerKey, string headerValue)
         {
             var response = await this.jobProfileOverviewAPI.GetById("id").ConfigureAwait(false);
