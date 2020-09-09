@@ -30,9 +30,9 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
 
         public decimal? SalaryExperienced { get; set; }
 
-        public decimal MinimumHours { get; set; }
+        public decimal? MinimumHours { get; set; }
 
-        public decimal MaximumHours { get; set; }
+        public decimal? MaximumHours { get; set; }
 
         public IEnumerable<WorkingHoursDetail> WorkingHoursDetails { get; set; }
 
