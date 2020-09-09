@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "Integra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{460CB963-DFBE-4522-9A48-9797349CD65D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.IntegrationTests", "DFC.App.JobProfileOverview.IntegrationTests\DFC.App.JobProfileOverview.IntegrationTests.csproj", "{3A87D176-FFC8-446A-AE92-FF945AED2F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.FunctionalTests", "DFC.App.JobProfileOverview.FunctionalTests\DFC.App.JobProfileOverview.FunctionalTests.csproj", "{3A87D176-FFC8-446A-AE92-FF945AED2F0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{055C7226-D38C-42B1-9E6E-199713CCB4DE}"
 EndProject
@@ -57,13 +57,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests", "DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests\DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.csproj", "{BF9351BD-0F21-4D87-BFC9-E290469C8894}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.API.IntegrationTests", "DFC.App.JobProfileOverview.Tests.IntegrationTests.API\DFC.App.JobProfileOverview.Tests.API.IntegrationTests.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFrameworks", "TestFrameworks", "{297099C4-BACF-420F-88DB-9D2AAF54CEE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests", "DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests\DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests.csproj", "{93222AC1-912C-4FAD-BB29-9C710D29A928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.TestFramework.UnitTests", "DFC.App.JobProfileOverview.TestFramework.UnitTests\DFC.App.JobProfileOverview.TestFramework.UnitTests.csproj", "{93222AC1-912C-4FAD-BB29-9C710D29A928}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionalTests", "FunctionalTests", "{8564373C-5F7D-48C1-956D-1B48AD6DC6A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.Tests.API.FunctionalTests", "DFC.App.JobProfileOverview.Tests.API.FunctionalTests\DFC.App.JobProfileOverview.Tests.API.FunctionalTests.csproj", "{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,14 +111,14 @@ Global
 		{BF9351BD-0F21-4D87-BFC9-E290469C8894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF9351BD-0F21-4D87-BFC9-E290469C8894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF9351BD-0F21-4D87-BFC9-E290469C8894}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93222AC1-912C-4FAD-BB29-9C710D29A928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93222AC1-912C-4FAD-BB29-9C710D29A928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93222AC1-912C-4FAD-BB29-9C710D29A928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93222AC1-912C-4FAD-BB29-9C710D29A928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,10 +140,10 @@ Global
 		{EF10C7C7-E946-4C7C-872F-430E689145C4} = {BE31805D-F784-488D-A4D4-14E53599CC80}
 		{FD6FD68E-8FFE-48B9-B0BC-8C05D3F55519} = {055C7226-D38C-42B1-9E6E-199713CCB4DE}
 		{BF9351BD-0F21-4D87-BFC9-E290469C8894} = {FD6FD68E-8FFE-48B9-B0BC-8C05D3F55519}
-		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0} = {8564373C-5F7D-48C1-956D-1B48AD6DC6A4}
 		{297099C4-BACF-420F-88DB-9D2AAF54CEE7} = {055C7226-D38C-42B1-9E6E-199713CCB4DE}
 		{93222AC1-912C-4FAD-BB29-9C710D29A928} = {297099C4-BACF-420F-88DB-9D2AAF54CEE7}
 		{8564373C-5F7D-48C1-956D-1B48AD6DC6A4} = {03CF7A2B-7429-432D-B0F1-6D7EDCDEA3AF}
+		{CA66C74B-F3B5-4D78-BE43-83D20AD2E7D0} = {8564373C-5F7D-48C1-956D-1B48AD6DC6A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E0FA185-1719-491B-808A-FDEFDC867005}
