@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "Integra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{460CB963-DFBE-4522-9A48-9797349CD65D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileOverview.FunctionalTests", "DFC.App.JobProfileOverview.FunctionalTests\DFC.App.JobProfileOverview.FunctionalTests.csproj", "{3A87D176-FFC8-446A-AE92-FF945AED2F0B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{055C7226-D38C-42B1-9E6E-199713CCB4DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4B63F64D-1095-4326-A453-E42E67F5102E}"
