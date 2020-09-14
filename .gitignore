@@ -344,3 +344,5 @@ healthchecksdb
 /DFC.App.JobProfileOverview/appsettings.json
 
 /DFC.App.JobProfileOverview.Views.UnitTests/appsettings.json
+/DFC.App.JobProfileOverview.FunctionalTests/appsettings-sit.json
+/DFC.App.JobProfileOverview.FunctionalTests/appsettings-dev.json
