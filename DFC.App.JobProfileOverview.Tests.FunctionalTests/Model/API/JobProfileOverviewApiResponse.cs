@@ -2,7 +2,7 @@
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.API
 {
-    public class JobProfileOverviewResponseBody
+    public class JobProfileOverviewApiResponse
     {
         public string Title { get; set; }
 
