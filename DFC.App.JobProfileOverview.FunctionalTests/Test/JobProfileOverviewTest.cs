@@ -5,7 +5,7 @@ using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.API.RestFactory;
 using DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support.AzureServiceBus.ServiceBusFactory;
 using NUnit.Framework;
-using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
@@ -44,6 +44,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             await Task.Delay(10000).ConfigureAwait(false);
             var apiResponse = await this.jobProfileOverviewApi.GetById(this.JobProfile.JobProfileId).ConfigureAwait(false);
 
+            Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(socCodeContentType.SOCCode.Substring(0, 4), apiResponse.Data.SOC);
             Assert.AreEqual(socCodeContentType.ONetOccupationalCode, apiResponse.Data.ONetOccupationalCode);
         }
@@ -67,6 +68,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             await Task.Delay(10000).ConfigureAwait(false);
             var apiResponse = await this.jobProfileOverviewApi.GetById(this.JobProfile.JobProfileId).ConfigureAwait(false);
 
+            Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(workingHoursDetailsClassification.Title, apiResponse.Data.WorkingHoursDetails);
         }
 
@@ -89,6 +91,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             await Task.Delay(10000).ConfigureAwait(false);
             var apiResponse = await this.jobProfileOverviewApi.GetById(this.JobProfile.JobProfileId).ConfigureAwait(false);
 
+            Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(workingPatternClassification.Title, apiResponse.Data.WorkingPattern);
         }
 
@@ -111,6 +114,7 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             await Task.Delay(10000).ConfigureAwait(false);
             var apiResponse = await this.jobProfileOverviewApi.GetById(this.JobProfile.JobProfileId).ConfigureAwait(false);
 
+            Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(workingPatternDetailClassification.Title, apiResponse.Data.WorkingPatternDetails);
         }
     }
