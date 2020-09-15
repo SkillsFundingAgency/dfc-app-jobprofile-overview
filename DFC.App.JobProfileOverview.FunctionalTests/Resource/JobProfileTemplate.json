@@ -15,7 +15,7 @@
     }
   ],
   "OtherRequirements": "Other requirements",
-  "CareerPathAndProgression": "<p>You can improve your career options with a qualification  like the Level 3 (NVQ) Diploma in Roofing Occupations. You can do  specialist skills training  in areas like <a href=\"http://www.the-nhtg.org.uk/\">heritage conservation</a>, thatching or installing solar panels.\n</p>\n<p>\nWith experience, you could become a roofing surveyor, estimating costs, dealing with contracts and working with architects. You could also become a site manager or move into technical sales. Other options include training, setting up your own business or working as a roofing consultant.\n</p>",
+  "CareerPathAndProgression": "Career path and progression",
   "CourseKeywords": "build",
   "MinimumHours": 42.0,
   "MaximumHours": 44.0,
@@ -61,7 +61,7 @@
       "Description": ""
     }
   ],
-  "IsImported": true,
+  "IsImported": false,
   "HowToBecomeData": {
     "RouteEntries": [
       {
@@ -70,7 +70,7 @@
           {
             "Id": "efb6778a-088d-4476-a427-8b139d8b6aea",
             "Title": "TestUnpublishUnivRequirement-1",
-            "Info": "&nbsp;TestUnpublishUnivRequirement-1"
+            "Info": "TestUnpublishUnivRequirement-1"
           }
         ],
         "MoreInformationLinks": [
@@ -102,7 +102,7 @@
             "Text": "equivalent entry requirements"
           }
         ],
-        "RouteSubjects": "<p>You can take a college course like a Level 2 Diploma in Roofing Occupations or Level 2 Diploma in Roof Slating and Tiling.</p>\n<p>These courses will teach you some of the skills needed to start in this job.</p>",
+        "RouteSubjects": "You can take a college course like a Level 2 Diploma in Roofing Occupations or Level 2 Diploma in Roof Slating and Tiling.",
         "FurtherRouteInformation": "College further route info",
         "RouteRequirement": "You'll usually need:"
       },
@@ -112,7 +112,7 @@
           {
             "Id": "21a227aa-edbc-40f7-a3ef-ad75472aa2ba",
             "Title": "intermediate apprenticeship entry reqs",
-            "Info": "some GCSEs, usually including English and maths, for an intermediate apprenticeship<br />\n<p>You'll need to have some practical experience and be able to show you have a real enthusiasm for sports commentating. </p>\n<p>To get some work experience you could:</p>\n<ul>\n    <li>volunteer to commentate on charity events like fun runs</li>\n    <li>commentate for amateur matches at schools, college or for local teams</li>\n    <li>record commentary for websites or internet radio stations</li>\n    <li>volunteer for community, hospital or student radio, or TV</li>\n</ul>\n<p>You can get a list of radio stations from:</p>\n<ul>\n    <li><a href=\"http://www.commedia.org.uk/\">Community Media Association</a></li>\n    <li><a href=\"http://www.hbauk.com/\">Hospital Broadcasting Association</a></li>\n    <li><a href=\"http://www.radiocentre.org/\">RadioCentre</a></li>\n</ul>\n<p>Large broadcasters like&nbsp;<a href=\"https://www.bbc.co.uk/careers/work-experience/\">BBC Careers</a>, <a href=\"http://www.itvjobs.com/workinghere/entry-careers/\">ITV</a>&nbsp;and <a href=\"https://careers.channel4.com/4talent\">Channel 4</a> offer work experience placements, insight and talent days. </p>\n<p>The <a href=\"https://www.sportsjournalists.co.uk/training/work-experience/\">Sports Journalists&rsquo; Association</a> has more ideas about where to look for work experience.</p>"
+            "Info": "some GCSEs, usually including English and maths, for an intermediate apprenticeship"
           }
         ],
         "MoreInformationLinks": [
@@ -123,23 +123,23 @@
             "Text": "equivalent entry requirements"
           }
         ],
-        "RouteSubjects": "<p>You can get into this job through an intermediate apprenticeship as a roofer.</p>\n<p>This can take up to 2 years to complete. You'll do on-the-job training and spend time with a college or training provider. </p>",
+        "RouteSubjects": "You can get into this job through an intermediate apprenticeship as a roofer.",
         "FurtherRouteInformation": "Apprenticeship further route info",
         "RouteRequirement": "You'll usually need:"
       }
     ],
     "FurtherInformation": {
-      "CareerTips": "<p>You can do <a href=\"https://www.the-nhtg.org.uk/training-quals/training-course-provider-search/\">specialist training courses</a> if you're interested in heritage and conservation skills in roof slating and tiling. </p>",
-      "ProfessionalAndIndustryBodies": "<p>You can join the <a href=\"https://www.instituteofroofing.org/why-become-a-member-of-the-institute-of-roofing//\">Institute of Roofing</a> for training opportunities and to make industry contacts.</p>",
-      "FurtherInformation": "<p>You'll find more details about careers in roofing from <a href=\"https://www.goconstruct.org/learn-about-construction/find-the-role-for-you/career-explorer/roofing-operative/\">Go Construct</a>.</p>"
+      "CareerTips": "Career tips",
+      "ProfessionalAndIndustryBodies": "Professional and industry bodies",
+      "FurtherInformation": "Further information"
     },
     "FurtherRoutes": {
-      "Work": "<p>You could start as a roofing labourer and do further training while you work to get a roofing qualification.</p>",
+      "Work": "You could start as a roofing labourer and do further training while you work to get a roofing qualification.",
       "Volunteering": "Volunteering",
       "DirectApplication": "Direct Application",
       "OtherRoutes": "Other routes"
     },
-    "IntroText": "<p>You can get into this job through:</p>\n<ul>\n    <li>a college course</li>\n    <li>an apprenticeship</li>\n    <li>working towards this role</li>\n</ul>",
+    "IntroText": "This is introductory text",
     "Registrations": [
       {
         "Id": "a6f2a179-2122-4f2d-9dfc-08c87a1facb4",
@@ -149,7 +149,7 @@
     ]
   },
   "WhatYouWillDoData": {
-    "DailyTasks": "<p>Your day-to-day tasks may include:</p>\n<ul>\n    <li>removing or repairing broken tiles or slates (stripping)</li>\n    <li>checking roof timbers</li>\n    <li>fitting felt sheets to roofs</li>\n    <li>measuring and cutting materials</li>\n    <li>covering roofs with slates, tiles or cladding</li>\n    <li>cutting and fitting lead 'flashings' around chimney stacks and walls</li>\n    <li>sealing roof joints with mortar</li>\n</ul>",
+    "DailyTasks": "Daily tasks HTML",
     "Locations": [
       {
         "Id": "83e69574-735a-4981-b8cf-756afb57ba59",
@@ -172,7 +172,7 @@
       {
         "Id": "a779d756-b612-40f3-9969-18445944d5e0",
         "Title": "Height",
-        "Description": "at height\nTestUnpublishUnivRequirement-1\n<p>You'll need to have some practical experience and be able to show you have a real enthusiasm for sports commentating. </p>\n<p>To get some work experience you could:</p>\n<ul>\n    <li>volunteer to commentate on charity events like fun runs</li>\n    <li>commentate for amateur matches at schools, college or for local teams</li>\n    <li>record commentary for websites or internet radio stations</li>\n    <li>volunteer for community, hospital or student radio, or TV</li>\n</ul>\n<p>You can get a list of radio stations from:</p>\n<ul>\n    <li><a href=\"http://www.commedia.org.uk/\">Community Media Association</a></li>\n    <li><a href=\"http://www.hbauk.com/\">Hospital Broadcasting Association</a></li>\n    <li><a href=\"http://www.radiocentre.org/\">RadioCentre</a></li>\n</ul>\n<p>Large broadcasters like&nbsp;<a href=\"https://www.bbc.co.uk/careers/work-experience/\">BBC Careers</a>, <a href=\"http://www.itvjobs.com/workinghere/entry-careers/\">ITV</a>&nbsp;and <a href=\"https://careers.channel4.com/4talent\">Channel 4</a> offer work experience placements, insight and talent days. </p>\n<p>The <a href=\"https://www.sportsjournalists.co.uk/training/work-experience/\">Sports Journalists&rsquo; Association</a> has more ideas about where to look for work experience.</p>",
+        "Description": "Environment description",
         "Url": "/Height",
         "IsNegative": false
       }

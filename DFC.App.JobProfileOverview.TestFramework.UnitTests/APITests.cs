@@ -13,9 +13,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
 {
     public class APITests
     {
-        private const string ApimSubscriptionKey = "ApimSubscriptionKey";
-        private const string Version = "Version";
-
         private AppSettings appSettings;
         private IRestClientFactory restClientFactory;
         private IRestRequestFactory restRequestFactory;
@@ -27,8 +24,6 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         public void Setup()
         {
             this.appSettings = new AppSettings();
-            this.appSettings.APIConfig.ApimSubscriptionKey = ApimSubscriptionKey;
-            this.appSettings.APIConfig.Version = Version;
             this.restClientFactory = A.Fake<IRestClientFactory>();
             this.restRequestFactory = A.Fake<IRestRequestFactory>();
             this.restClient = A.Fake<IRestClient>();
@@ -49,17 +44,15 @@ namespace DFC.App.JobProfileOverview.IntegrationTestFramework.UnitTests
         [Test]
         public async Task SuccessfulGetRequest()
         {
-            var apiResponse = new RestResponse<JobProfileOverviewResponseBody>();
+            var apiResponse = new RestResponse<JobProfileOverviewApiResponse>();
             apiResponse.StatusCode = HttpStatusCode.OK;
-            A.CallTo(() => this.restClient.Execute<JobProfileOverviewResponseBody>(A<IRestRequest>.Ignored)).Returns(apiResponse);
+            A.CallTo(() => this.restClient.Execute<JobProfileOverviewApiResponse>(A<IRestRequest>.Ignored)).Returns(apiResponse);
             var response = await this.jobProfileOverviewAPI.GetById("id").ConfigureAwait(false);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test]
         [TestCase("Accept", "application/json")]
-        [TestCase("Ocp-Apim-Subscription-Key", ApimSubscriptionKey)]
-        [TestCase("version", Version)]
         public async Task AllRequestHeadersAreSet(string headerKey, string headerValue)
         {
             var response = await this.jobProfileOverviewAPI.GetById("id").ConfigureAwait(false);
