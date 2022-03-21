@@ -1,9 +1,10 @@
-﻿using DFC.App.JobProfileOverview.Data.Models.PatchModels;
+﻿using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Models;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
 using DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.FakeHttpHandlers;
 using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
+using Moq;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -12,14 +13,15 @@ using Xunit;
 
 namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
 {
-    [Trait("Messaging Function", "HttpClientService Patch Tests")]
-    public class HttpClientServicePatchTests
+    [Trait("Messaging Function", "HttpClientService Post Tests")]
+    public class HttpClientServicePostTests
     {
+        private Mock<IHttpClientFactory> mockFactory;
         private readonly ILogService logService;
         private readonly ICorrelationIdProvider correlationIdProvider;
         private readonly SegmentClientOptions segmentClientOptions;
 
-        public HttpClientServicePatchTests()
+        public HttpClientServicePostTests()
         {
             logService = A.Fake<ILogService>();
             correlationIdProvider = A.Fake<ICorrelationIdProvider>();
@@ -30,8 +32,15 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
             };
         }
 
+        public Mock<IHttpClientFactory> CreateClientFactory(HttpClient httpClient)
+        {
+            mockFactory = new Mock<IHttpClientFactory>();
+            mockFactory.Setup(_ => _.CreateClient()).Returns(httpClient);
+            return mockFactory;
+        }
+
         [Fact]
-        public async Task PatchAsyncReturnsOkStatusCodeForExistingId()
+        public async Task PostFullJobProfileAsyncReturnsOkStatusCodeForExistingId()
         {
             // arrange
             const HttpStatusCode expectedResult = HttpStatusCode.OK;
@@ -39,12 +48,12 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
             var fakeHttpRequestSender = A.Fake<IFakeHttpRequestSender>();
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = segmentClientOptions.BaseAddress };
-            var httpClientService = new HttpClientService(segmentClientOptions, httpClient, logService, correlationIdProvider);
+            var httpClientService = new HttpClientService(segmentClientOptions, CreateClientFactory(httpClient).Object, logService, correlationIdProvider);
 
             A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).Returns(httpResponse);
 
             // act
-            var result = await httpClientService.PatchAsync(A.Fake<PatchHiddenAlternativeTitleModel>(), "endpoint").ConfigureAwait(false);
+            var result = await httpClientService.PostAsync(A.Fake<JobProfileOverviewSegmentModel>()).ConfigureAwait(false);
 
             // assert
             A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).MustHaveHappenedOnceExactly();
@@ -56,45 +65,20 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
         }
 
         [Fact]
-        public async Task PatchAsyncReturnsNotFoundStatusCodeForExistingId()
-        {
-            // arrange
-            const HttpStatusCode expectedResult = HttpStatusCode.NotFound;
-            var httpResponse = new HttpResponseMessage { StatusCode = expectedResult };
-            var fakeHttpRequestSender = A.Fake<IFakeHttpRequestSender>();
-            var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
-            var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = segmentClientOptions.BaseAddress };
-            var httpClientService = new HttpClientService(segmentClientOptions, httpClient, logService, correlationIdProvider);
-
-            A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).Returns(httpResponse);
-
-            // act
-            var result = await httpClientService.PatchAsync(A.Fake<PatchHiddenAlternativeTitleModel>(), "endpoint").ConfigureAwait(false);
-
-            // assert
-            A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).MustHaveHappenedOnceExactly();
-            Assert.Equal(expectedResult, result);
-
-            httpResponse.Dispose();
-            httpClient.Dispose();
-            fakeHttpMessageHandler.Dispose();
-        }
-
-        [Fact]
-        public async Task PatchAsyncReturnsExceptionForBadStatus()
+        public async Task PostFullJobProfileAsyncReturnsExceptionForBadStatus()
         {
             // arrange
             const HttpStatusCode expectedResult = HttpStatusCode.Forbidden;
-            var httpResponse = new HttpResponseMessage { StatusCode = expectedResult, Content = new StringContent("bad Patch") };
+            var httpResponse = new HttpResponseMessage { StatusCode = expectedResult, Content = new StringContent("bad Post") };
             var fakeHttpRequestSender = A.Fake<IFakeHttpRequestSender>();
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = segmentClientOptions.BaseAddress };
-            var httpClientService = new HttpClientService(segmentClientOptions, httpClient, logService, correlationIdProvider);
+            var httpClientService = new HttpClientService(segmentClientOptions, CreateClientFactory(httpClient).Object, logService, correlationIdProvider);
 
             A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).Returns(httpResponse);
 
             // act
-            var exceptionResult = await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.PatchAsync(A.Fake<PatchHiddenAlternativeTitleModel>(), "endpoint").ConfigureAwait(false)).ConfigureAwait(false);
+            var exceptionResult = await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.PostAsync(A.Fake<JobProfileOverviewSegmentModel>()).ConfigureAwait(false)).ConfigureAwait(false);
 
             // assert
             A.CallTo(() => fakeHttpRequestSender.Send(A<HttpRequestMessage>.Ignored)).MustHaveHappenedOnceExactly();
