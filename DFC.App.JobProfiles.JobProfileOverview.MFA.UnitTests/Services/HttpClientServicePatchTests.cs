@@ -14,14 +14,14 @@ using Xunit;
 namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
 {
     [Trait("Messaging Function", "HttpClientService Post Tests")]
-    public class HttpClientServicePostTests
+    public class HttpClientServicePatchTests
     {
         private Mock<IHttpClientFactory> mockFactory;
         private readonly ILogService logService;
         private readonly ICorrelationIdProvider correlationIdProvider;
         private readonly SegmentClientOptions segmentClientOptions;
 
-        public HttpClientServicePostTests()
+        public HttpClientServicePatchTests()
         {
             logService = A.Fake<ILogService>();
             correlationIdProvider = A.Fake<ICorrelationIdProvider>();
@@ -35,7 +35,7 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
         public Mock<IHttpClientFactory> CreateClientFactory(HttpClient httpClient)
         {
             mockFactory = new Mock<IHttpClientFactory>();
-            mockFactory.Setup(_ => _.CreateClient()).Returns(httpClient);
+            mockFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
             return mockFactory;
         }
 
