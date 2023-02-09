@@ -46,7 +46,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Functions
             sitefinityMessage.UserProperties.TryGetValue("Id", out var messageContentId);
 
             // logger should allow setting up correlation id and should be picked up from message
-            logService.LogInformation($"{nameof(SitefinityMessageHandler)}: Received message action '{actionType}' for type '{contentType}' with Id: '{messageContentId}'");
+            //logService.LogInformation($"{nameof(SitefinityMessageHandler)}: Received message action '{actionType}' for type '{contentType}' with Id: '{messageContentId}'");
 
             var message = Encoding.UTF8.GetString(sitefinityMessage?.Body);
 
