@@ -22,7 +22,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.AutoMapperTests
             var mapper = factory.Server.Host.Services.GetRequiredService<IMapper>();
 
             // Act
-            mapper.ConfigurationProvider.AssertConfigurationIsValid<JobProfileOverviewSegmentProfile>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             // Assert
             Assert.True(true);
@@ -36,7 +36,7 @@ namespace DFC.App.JobProfileOverview.IntegrationTests.AutoMapperTests
             var mapper = factory.Server.Host.Services.GetRequiredService<IMapper>();
 
             // Act
-            mapper.ConfigurationProvider.AssertConfigurationIsValid<ApiModelProfile>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             // Assert
             Assert.True(true);
