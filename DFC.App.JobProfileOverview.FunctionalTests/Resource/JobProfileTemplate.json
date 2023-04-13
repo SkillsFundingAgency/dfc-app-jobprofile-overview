@@ -184,6 +184,8 @@
     "SOCCode": "5313A",
     "Description": "Roofer",
     "ONetOccupationalCode": "47-2181.00",
+    "Soc2020": "2020",
+    "Soc2020Extension": "EXT",
     "UrlName": "5313a",
     "ApprenticeshipFramework": [
       {

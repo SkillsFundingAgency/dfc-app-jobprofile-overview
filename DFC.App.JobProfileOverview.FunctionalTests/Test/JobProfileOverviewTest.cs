@@ -34,6 +34,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
                 Title = socCode,
                 Description = "This is an updated SOC code",
                 ONetOccupationalCode = "12.1234-00",
+                Soc2020 = "2020",
+                Soc2020Extension = "EXT",
                 ApprenticeshipFramework = this.JobProfile.SocCodeData.ApprenticeshipFramework,
                 ApprenticeshipStandards = this.JobProfile.SocCodeData.ApprenticeshipStandards,
             };
