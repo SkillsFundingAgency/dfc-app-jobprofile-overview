@@ -54,6 +54,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Support
                 UrlName = socCode.ToUpperInvariant(),
                 Description = "This an automated SOC code data record",
                 ONetOccupationalCode = this.CommonAction.RandomString(5),
+                Soc2020 = "2020",
+                Soc2020Extension = "EXT",
                 ApprenticeshipFramework = new List<ApprenticeshipFramework>()
             {
                 new ApprenticeshipFramework()

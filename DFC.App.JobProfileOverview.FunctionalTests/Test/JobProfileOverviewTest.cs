@@ -34,6 +34,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
                 Title = socCode,
                 Description = "This is an updated SOC code",
                 ONetOccupationalCode = "12.1234-00",
+                Soc2020 = "2020",
+                Soc2020Extension = "EXT",
                 ApprenticeshipFramework = this.JobProfile.SocCodeData.ApprenticeshipFramework,
                 ApprenticeshipStandards = this.JobProfile.SocCodeData.ApprenticeshipStandards,
             };
@@ -47,6 +49,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(socCodeContentType.SOCCode.Substring(0, 4), apiResponse.Data.SOC);
             Assert.AreEqual(socCodeContentType.ONetOccupationalCode, apiResponse.Data.ONetOccupationalCode);
+            Assert.AreEqual(socCodeContentType.Soc2020, apiResponse.Data.Soc2020);
+            Assert.AreEqual(socCodeContentType.Soc2020Extension, apiResponse.Data.Soc2020Extension);
         }
 
         [Test]

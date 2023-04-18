@@ -33,6 +33,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.AutoMapperProfile
 
             CreateMap<Data.ServiceBusModels.WorkingPatternDetail, Data.Models.WorkingPatternDetail>();
 
+            CreateMap<Data.ServiceBusModels.SocCodeData, Data.Models.SocData>();
+
             CreateMap<SocCodeData, SocData>();
 
             CreateMap<PatchWorkingPatternServiceBusModel, PatchWorkingPatternModel>();
@@ -46,6 +48,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.AutoMapperProfile
             CreateMap<PatchWorkingPatternDetailServiceBusModel, PatchWorkingPatternDetailModel>();
 
             CreateMap<PatchSocDataServiceBusModel, PatchSocDataModel>();
+
+         
         }
     }
 }

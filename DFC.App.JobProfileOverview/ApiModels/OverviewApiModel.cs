@@ -12,6 +12,10 @@ namespace DFC.App.JobProfileOverview.ApiModels
 
         public string Soc { get; set; }
 
+        public string Soc2020 { get; set; }
+
+        public string Soc2020Extension { get; set; }
+
         public string ONetOccupationalCode { get; set; }
 
         public string AlternativeTitle { get; set; }

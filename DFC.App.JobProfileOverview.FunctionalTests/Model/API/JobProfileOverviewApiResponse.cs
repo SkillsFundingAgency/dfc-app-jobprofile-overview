@@ -11,6 +11,9 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Model.API
         public Uri URL { get; set; }
 
         public string SOC { get; set; }
+        public string Soc2020 { get; set; }
+
+        public string Soc2020Extension { get; set; }
 
         public string ONetOccupationalCode { get; set; }
 
