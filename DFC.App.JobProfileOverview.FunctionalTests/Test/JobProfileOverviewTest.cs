@@ -49,6 +49,8 @@ namespace DFC.App.JobProfileOverview.Tests.IntegrationTests.API.Test
             Assert.AreEqual(HttpStatusCode.OK, apiResponse.StatusCode);
             Assert.AreEqual(socCodeContentType.SOCCode.Substring(0, 4), apiResponse.Data.SOC);
             Assert.AreEqual(socCodeContentType.ONetOccupationalCode, apiResponse.Data.ONetOccupationalCode);
+            Assert.AreEqual(socCodeContentType.Soc2020, apiResponse.Data.Soc2020);
+            Assert.AreEqual(socCodeContentType.Soc2020Extension, apiResponse.Data.Soc2020Extension);
         }
 
         [Test]
