@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": { 
-        "appInsightsName": {
-            "type": "string"
-        },
         "appInsightsInstrumentationKey": {
             "type": "string"
         },
@@ -98,7 +95,7 @@
         "resourcePrefix": "[tolower(concat('dfc-', parameters('Environment'), '-app-jobprofover'))]",
         "urlJobprofileOverview": "[toLower(concat('https://', variables('webAppName'), '.', parameters('appServiceDomain')))]",
         "webAppName": "[concat(variables('ResourcePrefix'), '-as')]",
-        "webAppInsightsName": "[parameters('appInsightsName')]",
+        //"webAppInsightsName": "[parameters('appInsightsName')]",
         "webAppInsightsInstrumentationKey": "[parameters('appInsightsInstrumentationKey')]",
         "functionAppName": "[concat(variables('ResourcePrefix'), '-fa')]",
         //"functionAppInsightsName": "[parameters('appInsightsName')]",
@@ -106,26 +103,26 @@
         //"ActionGroupName": "[concat('dfc-', replace(tolower(parameters('Environment')), '-draft', ''), '-app-sharedresources-actgrp')]"
     },
     "resources": [
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[variables('webAppInsightsName')]",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('buildingBlocksDfcBaseUrl'), 'application-insights.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "appInsightsName": {
-                        "value": "[variables('webAppInsightsName')]"
-                    },
-                    "attachedService": {
-                        "value": ""
-                    }
-                }
-            }
-        },
+        // {
+        //     "apiVersion": "2017-05-10",
+        //     "name": "[variables('webAppInsightsName')]",
+        //     "type": "Microsoft.Resources/deployments",
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "templateLink": {
+        //             "uri": "[concat(variables('buildingBlocksDfcBaseUrl'), 'application-insights.json')]",
+        //             "contentVersion": "1.0.0.0"
+        //         },
+        //         "parameters": {
+        //             "appInsightsName": {
+        //                 "value": "[variables('webAppInsightsName')]"
+        //             },
+        //             "attachedService": {
+        //                 "value": ""
+        //             }
+        //         }
+        //     }
+        // },
         {
             "apiVersion": "2017-05-10",
             "name": "[variables('appServicePlanName')]",
@@ -234,10 +231,10 @@
                         ]
                     }
                 }
-            },
-            "dependsOn": [
-                "[variables('webAppInsightsName')]"
-            ]
+            }
+            // "dependsOn": [
+            //     "[variables('webAppInsightsName')]"
+            // ]
         },
         // {
         //     "apiVersion": "2017-05-10",
@@ -346,10 +343,10 @@
                         ]
                     }
                 }
-            },
-            "dependsOn": [
-                "[variables('webAppInsightsName')]"
-            ]
+            }
+            // "dependsOn": [
+            //     "[variables('webAppInsightsName')]"
+            // ]
         },
         {
             "apiVersion": "2017-05-10",
