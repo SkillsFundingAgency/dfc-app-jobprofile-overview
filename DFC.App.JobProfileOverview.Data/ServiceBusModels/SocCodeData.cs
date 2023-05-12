@@ -7,6 +7,9 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
         public Guid Id { get; set; }
 
         public string SOCCode { get; set; }
+        public string Soc2020 { get; set; }
+
+        public string Soc2020Extension { get; set; }
 
         public string Description { get; set; }
 

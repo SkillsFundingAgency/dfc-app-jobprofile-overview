@@ -15,6 +15,8 @@ namespace DFC.App.JobProfileOverview.AutoMapperProfiles
             CreateMap<JobProfileOverviewSegmentDataModel, OverviewApiModel>()
                 .ForMember(d => d.LastUpdatedDate, s => s.MapFrom(a => a.LastReviewed))
                 .ForMember(d => d.Soc, opt => opt.ConvertUsing(new SocCodeFormatter(), a => a.Soc.SocCode))
+                .ForMember(d => d.Soc2020, opt => opt.ConvertUsing(new SocCodeFormatter(), a => a.Soc.Soc2020))
+                .ForMember(d => d.Soc2020Extension, opt => opt.ConvertUsing(new SocCodeFormatter(), a => a.Soc.Soc2020Extension))
                 .ForMember(d => d.ONetOccupationalCode, s => s.MapFrom(a => a.Soc.ONetOccupationalCode))
                 .ForMember(d => d.Url, s => s.Ignore())
                 .ForMember(d => d.SalaryStarter, opt => opt.ConvertUsing(new SalaryToStringFormatter()))

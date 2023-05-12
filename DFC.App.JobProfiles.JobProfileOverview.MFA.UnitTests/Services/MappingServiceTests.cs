@@ -31,6 +31,8 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests
         private const decimal SalaryStarter = 5000.0M;
         private const string SocDescription = "Soc Description";
         private const string SocOnetCode = "Soc Onet code";
+        private const string Soc2020 = "2020";
+        private const string Soc2020Extension = "EXT";
         private const string WorkingPatternTitle1 = "Working Pattern title 1";
         private const string WorkingPatternDescription1 = "Working Pattern description 1";
         private const string HiddenAlternativeTitle1 = "Hidden Alternative title 1";
@@ -105,6 +107,8 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests
                     Id = SocCode,
                     SOCCode = SocCodeId,
                     ONetOccupationalCode = SocOnetCode,
+                    Soc2020 = Soc2020,
+                    Soc2020Extension = Soc2020Extension,
                     UrlName = TestJobName,
                 },
                 WorkingPattern = new List<WorkingPattern>
@@ -185,6 +189,8 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests
                         Description = SocDescription,
                         SocCode = SocCodeId,
                         ONetOccupationalCode = SocOnetCode,
+                        Soc2020 = Soc2020,
+                        Soc2020Extension = Soc2020Extension,
                         UrlName = TestJobName,
                     },
                     WorkingPattern = new List<App.JobProfileOverview.Data.Models.WorkingPattern>
