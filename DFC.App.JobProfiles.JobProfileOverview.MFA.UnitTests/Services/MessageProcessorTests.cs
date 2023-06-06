@@ -4,6 +4,7 @@ using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels.PatchModels;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using System;
 using System.Net;
@@ -26,7 +27,7 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests.Services
             httpClientService = A.Fake<IHttpClientService>();
             mappingService = A.Fake<IMappingService>();
 
-            messageProcessor = new MessageProcessor(mapper, httpClientService, mappingService);
+            messageProcessor = new MessageProcessor(mapper, httpClientService, mappingService, A.Fake<ILogService>());
         }
 
         [Fact]

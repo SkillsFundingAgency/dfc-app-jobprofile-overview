@@ -3,6 +3,8 @@ using DFC.App.JobProfileOverview.Data.Models;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels;
 using DFC.App.JobProfileOverview.MessageFunctionApp.AutoMapperProfile;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Services;
+using DFC.Logger.AppInsights.Contracts;
+using FakeItEasy;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System;
@@ -69,7 +71,7 @@ namespace DFC.App.JobProfiles.JobProfileOverview.MFA.UnitTests
 
             var mapper = new Mapper(config);
 
-            mappingService = new MappingService(mapper);
+            mappingService = new MappingService(mapper, A.Fake<ILogService>());
         }
 
         [Fact]

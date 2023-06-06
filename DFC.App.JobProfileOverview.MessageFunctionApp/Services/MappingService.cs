@@ -11,7 +11,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         private readonly IMapper mapper;
         private readonly ILogService logService;
 
-        public MappingService(IMapper mapper,ILogService logService)
+        public MappingService(IMapper mapper, ILogService logService)
         {
             this.mapper = mapper;
             this.logService = logService;
