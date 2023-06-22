@@ -2,6 +2,7 @@
 using DFC.App.JobProfileOverview.Data.Enums;
 using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.Data.ServiceBusModels.PatchModels;
+using DFC.Logger.AppInsights.Contracts;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -14,16 +15,19 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         private readonly IMapper mapper;
         private readonly IHttpClientService httpClientService;
         private readonly IMappingService mappingService;
+        private readonly ILogService logService;
 
-        public MessageProcessor(IMapper mapper, IHttpClientService httpClientService, IMappingService mappingService)
+        public MessageProcessor(IMapper mapper, IHttpClientService httpClientService, IMappingService mappingService, ILogService logService)
         {
             this.mapper = mapper;
             this.httpClientService = httpClientService;
             this.mappingService = mappingService;
+            this.logService = logService;
         }
 
         public async Task<HttpStatusCode> ProcessAsync(string message, long sequenceNumber, MessageContentType messageContentType, MessageAction messageAction)
         {
+            logService.LogInformation($"MessageProcessor message {message} sequenceNumber {sequenceNumber}");
             switch (messageContentType)
             {
                 case MessageContentType.WorkingPattern:
@@ -90,6 +94,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
                     return await ProcessJobProfileMessageAsync(message, messageAction, sequenceNumber).ConfigureAwait(false);
 
                 default:
+                    logService.LogInformation($"MessageProcessor Unexpected sitefinity content type {nameof(messageContentType)}");
                     throw new ArgumentOutOfRangeException(nameof(messageContentType), $"Unexpected sitefinity content type '{messageContentType}'");
             }
         }
@@ -97,6 +102,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         private async Task<HttpStatusCode> ProcessJobProfileMessageAsync(string message, MessageAction messageAction, long sequenceNumber)
         {
             var jobProfile = mappingService.MapToSegmentModel(message, sequenceNumber);
+
+            logService.LogInformation($"ProcessJobProfileMessageAsync message {message} sequenceNumber {sequenceNumber} ");
 
             switch (messageAction)
             {

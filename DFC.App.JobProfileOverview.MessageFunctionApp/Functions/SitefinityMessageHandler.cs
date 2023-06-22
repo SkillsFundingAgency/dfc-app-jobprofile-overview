@@ -34,8 +34,10 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Functions
         public async Task Run(
             [ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] Message sitefinityMessage)
         {
+            logService.LogInformation($"SitefinityMessageHandler Run {nameof(sitefinityMessage)} ");
             if (sitefinityMessage == null)
             {
+                logService.LogInformation($"SitefinityMessageHandler Run {nameof(sitefinityMessage)} ArgumentNullException");
                 throw new ArgumentNullException(nameof(sitefinityMessage));
             }
 
@@ -52,16 +54,20 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Functions
 
             if (string.IsNullOrWhiteSpace(message))
             {
+                logService.LogInformation($"SitefinityMessageHandler Run {nameof(sitefinityMessage)} Message cannot be null or empty ");
                 throw new ArgumentException("Message cannot be null or empty.", nameof(sitefinityMessage));
             }
 
             if (!Enum.IsDefined(typeof(MessageAction), actionType?.ToString()))
             {
+                logService.LogInformation($"SitefinityMessageHandler Run Invalid message action {actionType} ");
                 throw new ArgumentOutOfRangeException(nameof(actionType), $"Invalid message action '{actionType}' received, should be one of '{string.Join(",", Enum.GetNames(typeof(MessageAction)))}'");
             }
 
             if (!Enum.IsDefined(typeof(MessageContentType), contentType?.ToString()))
             {
+                logService.LogInformation($"SitefinityMessageHandler Run Invalid message content type {contentType} ");
+
                 throw new ArgumentOutOfRangeException(nameof(contentType), $"Invalid message content type '{contentType}' received, should be one of '{string.Join(",", Enum.GetNames(typeof(MessageContentType)))}'");
             }
 
