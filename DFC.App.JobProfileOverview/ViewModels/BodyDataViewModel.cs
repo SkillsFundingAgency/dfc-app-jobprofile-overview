@@ -44,5 +44,7 @@ namespace DFC.App.JobProfileOverview.ViewModels
         public string WorkingPatternTitle => WorkingPattern?.FirstOrDefault()?.Title;
 
         public string WorkingPatternDetailTitle => WorkingPatternDetails?.FirstOrDefault()?.Title;
+
+        public SocialProofVideo SocialProofVideo { get; set; }
     }
 }

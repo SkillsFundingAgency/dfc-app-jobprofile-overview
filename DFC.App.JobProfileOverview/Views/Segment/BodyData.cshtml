@@ -64,3 +64,8 @@
         </div>
     </div>
 </header>
+
+@if (Model.SocialProofVideo != null)
+{
+    <partial name="SocialProofVideo" model=@Model.SocialProofVideo />
+}

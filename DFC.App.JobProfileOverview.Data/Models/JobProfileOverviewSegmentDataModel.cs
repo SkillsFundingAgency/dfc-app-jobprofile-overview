@@ -34,5 +34,13 @@ namespace DFC.App.JobProfileOverview.Data.Models
         public IList<WorkingPattern> WorkingPattern { get; set; }
 
         public IList<WorkingPatternDetail> WorkingPatternDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets the social proof video when one is enabled for the job profile.
+        /// </summary>
+        /// <value>
+        /// A <see cref="SocialProofVideo"/> when present; otherwise, a value of <c>null</c>.
+        /// </value>
+        public SocialProofVideo SocialProofVideo { get; set; }
     }
 }
