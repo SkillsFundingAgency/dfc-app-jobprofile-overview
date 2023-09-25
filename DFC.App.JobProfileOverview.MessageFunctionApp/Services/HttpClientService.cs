@@ -3,6 +3,7 @@ using DFC.App.JobProfileOverview.Data.Models.PatchModels;
 using DFC.App.JobProfileOverview.MessageFunctionApp.Models;
 using DFC.Logger.AppInsights.Constants;
 using DFC.Logger.AppInsights.Contracts;
+using Microsoft.Azure.Amqp;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -31,6 +32,8 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         {
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
 
+            logService.LogInformation($"HttpClientService PostAsync url {url}");
+
             using (var content = new ObjectContent(typeof(JobProfileOverviewSegmentModel), overviewSegmentModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
                 ConfigureHttpClient();
@@ -49,6 +52,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
         public async Task<HttpStatusCode> PutAsync(JobProfileOverviewSegmentModel overviewSegmentModel)
         {
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
+            logService.LogInformation($"HttpClientService PutAsync url {url}");
 
             using (var content = new ObjectContent(typeof(JobProfileOverviewSegmentModel), overviewSegmentModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
@@ -70,6 +74,9 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
             where T : BasePatchModel
         {
             var url = new Uri($"{segmentClientOptions.BaseAddress}segment/{patchModel?.JobProfileId}/{patchTypeEndpoint}");
+
+            logService.LogInformation($"HttpClientService PatchAsync url {url} patchTypeEndpoint {patchTypeEndpoint}");
+
             using (var content = new ObjectContent<T>(patchModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
                 ConfigureHttpClient();
@@ -91,6 +98,7 @@ namespace DFC.App.JobProfileOverview.MessageFunctionApp.Services
             ConfigureHttpClient();
 
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment/{id}");
+            logService.LogInformation($"HttpClientService DeleteAsync url {url}");
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)

@@ -25,12 +25,12 @@
                     @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                     {
                         <p class="dfc-code-jpsstarter">@Model.SalaryStarter.ToString("C0") <span>Starter</span></p>
-                        <i class="sr-hidden">to</i>
+                        <i class="sr-hidden dfc-code-jpshidden">to</i>
                         <p class="dfc-code-jpsexperienced">@Model.SalaryExperienced.ToString("C0") <span>Experienced</span></p>
                     }
                     else
                     {
-                        <h5 class="dfc-code-jpsalaryblank">Variable</h5>
+                        <p class="dfc-code-jpsalaryblank">Variable</p>
                     }
                 </div>
             </div>
