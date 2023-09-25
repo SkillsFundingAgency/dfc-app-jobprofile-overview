@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.App.JobProfileOverview.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -39,5 +40,13 @@ namespace DFC.App.JobProfileOverview.Data.ServiceBusModels
         public IEnumerable<WorkingPattern> WorkingPattern { get; set; }
 
         public IEnumerable<WorkingPatternDetail> WorkingPatternDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets the social proof video when one is enabled for the job profile.
+        /// </summary>
+        /// <value>
+        /// A <see cref="SocialProofVideo"/> when present; otherwise, a value of <c>null</c>.
+        /// </value>
+        public SocialProofVideo SocialProofVideo { get; set; }
     }
 }
