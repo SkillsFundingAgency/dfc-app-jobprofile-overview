@@ -67,5 +67,13 @@
 
 @if (Model.SocialProofVideo != null)
 {
-    <partial name="SocialProofVideo" model=@Model.SocialProofVideo />
+    <div class="govuk-main-wrapper">
+        <div class="govuk-width-container">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <partial name="SocialProofVideo" model=@Model.SocialProofVideo />
+                </div>
+            </div>
+        </div>
+    </div>
 }
